@@ -47,7 +47,9 @@
 <style>
   .nav__logo img { height: 30px; width: auto; display: block; }
   .close__word { line-height: 1; }
-  @media (min-width: 640px) { .close__word { font-size: min(25.5vw, 372px); } }
+  @media (min-width: 640px) { .close__word { font-size: min(25.5vw, 30svh, 372px); } }
+  /* pantallas bajas (portatiles, zoom del navegador): cada seccion crece con su contenido y nunca se monta sobre la siguiente */
+  main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 100svh); }
 
   /* ---------- la app Fargot tal como es (misma interfaz que Fargot.exe, con datos de ejemplo) */
   .fa { --fa-ink: #f4f7ff; --fa-muted: rgb(226 233 255 / .78); --fa-cyan: #00d2ff;
@@ -139,8 +141,8 @@
     <div class="wrap"><div class="hero-text">
       <div class="hero__c">
         <a class="pill" href="transfer.html"><span>Fargot Transfer ya está disponible</span><span class="muted">Ver cómo funciona</span></a>
-        <h1 id="hero-h">Plugins para diseñadores de motion</h1>
-        <p class="hero__lead">Fargot Suite reúne plugins de bajo costo para Illustrator y After Effects. Un solo pago te da todos los plugins en 2 equipos, y la app Fargot los instala.</p>
+        <h1 id="hero-h">Plugins para creativos</h1>
+        <p class="hero__lead">Fargot Suite reúne plugins de bajo costo para diseñadores y animadores que usan Illustrator y After Effects. Un solo pago te da todos los plugins en 2 equipos, y la app Fargot los instala.</p>
         <div class="btn-row"><a class="btn btn--primary" href="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Setup.exe">Descargar Fargot</a><a class="btn btn--secondary" href="#plugins">Ver los plugins</a></div>
       </div>
       <div class="hero__window" data-fx="gradient-mesh" data-fx-seed="7" role="img" aria-label="La app Fargot: el aviso de una versión nueva, tu cuenta y Fargot Transfer instalado">
