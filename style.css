@@ -142,3 +142,30 @@ h2 { font-size: clamp(32px, 4.6vw, 50px); letter-spacing: -.025em; line-height: 
   .section { padding-top: 80px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .pill { transition: none; } }
+
+/* ---------- suite: plugins */
+.plugins { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 16px; margin-top: 48px; }
+.plugin {
+  display: flex; flex-direction: column; gap: 10px; padding: 26px 24px; border-radius: var(--r);
+  background: var(--glass); border: 1px solid var(--line); color: var(--text); transition: transform .2s ease, border-color .2s;
+}
+.plugin h3 { margin: 6px 0 0; font-size: 21px; font-weight: 600; letter-spacing: -.01em; }
+.plugin p { margin: 0; color: var(--muted); font-size: 15.5px; flex: 1; }
+.plugin.featured { border-color: rgba(0, 210, 255, .38); box-shadow: 0 30px 90px rgba(30, 91, 255, .22); }
+a.plugin:hover { transform: translateY(-3px); border-color: rgba(0, 210, 255, .6); }
+.plugin.soon { border-style: dashed; }
+.plugin-top { display: flex; align-items: center; justify-content: space-between; }
+.plugin-ico {
+  width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; font-size: 22px; font-weight: 600;
+  background: linear-gradient(135deg, var(--blue2), #0a2fe0); box-shadow: 0 8px 24px rgba(30, 91, 255, .4);
+}
+.plugin-ico.dim { background: rgba(255, 255, 255, .07); box-shadow: none; color: var(--muted); }
+.tag { font-size: 12.5px; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.tag.on { color: #34e3a0; border-color: rgba(52, 227, 160, .4); background: rgba(52, 227, 160, .08); }
+.more { color: var(--cyan); font-weight: 600; font-size: 15px; margin-top: 6px; }
+.eyebrow a { color: inherit; }
+.eyebrow.left, h2.left { text-align: left; }
+.checks { list-style: none; padding: 0; margin: 24px 0 0; }
+.checks li { padding: 12px 0 12px 30px; border-top: 1px solid var(--line); color: var(--muted); position: relative; }
+.checks li::before { content: ""; position: absolute; left: 4px; top: 21px; width: 12px; height: 7px; border-left: 2px solid var(--cyan); border-bottom: 2px solid var(--cyan); transform: rotate(-45deg); }
+@media (max-width: 860px) { .plugins { grid-template-columns: 1fr; } }

@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fargot Transfer</title>
-<meta name="description" content="Pasa tus diseños de Illustrator a After Effects como capas nativas y editables: formas, degradados con sus colores exactos, textos editables y efectos.">
-<meta property="og:title" content="Fargot Transfer — de Illustrator a After Effects">
-<meta property="og:description" content="Capas nativas y editables en un clic. Una licencia, dos equipos.">
+<title>Fargot Suite</title>
+<meta name="description" content="Fargot Suite: plugins de bajo costo para Illustrator y After Effects. Una cuenta y una app para instalarlos, usarlos y mantenerlos al día.">
+<meta property="og:title" content="Fargot Suite — plugins para diseñar y animar">
+<meta property="og:description" content="Una cuenta, una app, todos tus plugins. Pago único y actualizaciones incluidas.">
 <meta property="og:image" content="img/icono.png">
 <link rel="icon" href="img/icono.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,120 +14,104 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!--
-  CONFIGURACION (edita solo esto):
-  - data-buy: enlace de pago de tu tienda (Lemon Squeezy / Gumroad / Hotmart). Vacio = "Muy pronto".
-  - data-price: precio que se muestra, por ejemplo "US$19".
--->
+<!-- CONFIGURACION: enlace de descarga de la app y correo de contacto -->
 <div id="cfg" hidden
-     data-buy=""
-     data-price=""
      data-download="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Setup.exe"
-     data-releases="https://github.com/farrogoeninternet-ui/fargot/releases"
      data-email="farrogoeninternet@gmail.com"></div>
 
 <div class="aurora" aria-hidden="true"><span class="o1"></span><span class="o2"></span><span class="o3"></span></div>
 
 <header class="nav">
-  <a class="brand" href="#top" aria-label="Fargot, inicio"><img src="img/fargot-logo.png" alt="Fargot" height="30"></a>
+  <a class="brand" href="#top" aria-label="Fargot Suite, inicio"><img src="img/fargot-logo.png" alt="Fargot" height="30"></a>
   <nav>
-    <a href="#funciones">Funciones</a>
-    <a href="#como">Cómo funciona</a>
-    <a href="#precio">Precio</a>
-    <a href="#preguntas">Preguntas</a>
+    <a href="#plugins">Plugins</a>
+    <a href="#app">La app</a>
+    <a href="#comprar">Cómo comprar</a>
+    <a href="#contacto">Contacto</a>
   </nav>
-  <a class="pill small primary js-buy" href="#precio">Comprar</a>
+  <a class="pill small primary js-download" href="#app">Descargar</a>
 </header>
 
 <main id="top">
   <section class="hero">
-    <p class="eyebrow">Plugin para Illustrator y After Effects</p>
-    <h1>De Illustrator a After&nbsp;Effects,<br><span class="grad">sin perder nada.</span></h1>
-    <p class="lead">Selecciona tu diseño, pulsa <b>Enviar</b> y aparece en After Effects como capas nativas: formas editables, degradados con sus colores exactos, textos que puedes reescribir y efectos recreados.</p>
+    <p class="eyebrow">Fargot Suite</p>
+    <h1>Plugins para diseñar<br><span class="grad">y animar más rápido.</span></h1>
+    <p class="lead">Una suite de plugins de bajo costo para Illustrator y After Effects. Una sola cuenta y una sola app para instalarlos, usarlos en tus equipos y tenerlos siempre al día.</p>
     <div class="cta">
-      <a class="pill primary js-buy" href="#precio">Comprar licencia</a>
-      <a class="pill ghost js-download" href="#descargar">Descargar para Windows</a>
+      <a class="pill primary" href="#plugins">Ver plugins</a>
+      <a class="pill ghost js-download" href="#app">Descargar la app</a>
     </div>
-    <p class="fine">Windows 10/11 · Illustrator y After Effects 2019 o posterior</p>
-
-    <figure class="showcase">
-      <div class="window">
-        <div class="bar"><i></i><i></i><i></i><span>After Effects</span></div>
-        <img src="img/resultado-after-effects.png" alt="Formas, degradados, recorte, desenfoque y texto recibidos en After Effects como capas nativas" width="1920" height="1080">
-      </div>
-      <img class="panel" src="img/panel-after-effects.png" alt="Panel de Fargot Transfer en After Effects" width="342" height="337" loading="lazy">
-    </figure>
+    <p class="fine">Windows 10/11 · Pago único por plugin · Actualizaciones incluidas</p>
   </section>
 
-  <section id="funciones" class="section">
-    <h2>Todo llega editable</h2>
-    <p class="sub">Nada de imágenes planas ni archivos .ai importados. Cada objeto es una capa de After Effects lista para animar.</p>
-    <div class="grid">
-      <article class="card"><h3>Formas nativas</h3><p>Trazados, trazados compuestos, grupos y símbolos se convierten en shape layers. Anima cada punto.</p></article>
-      <article class="card"><h3>Degradados exactos</h3><p>Lineales y radiales como Gradient Fill nativo, con sus colores, puntos medios y transparencias. Se editan desde la propia forma.</p></article>
-      <article class="card"><h3>Texto editable</h3><p>Los textos llegan como capas de texto: misma fuente, tamaño, color e interlineado. Cambia lo que dice sin volver a Illustrator.</p></article>
-      <article class="card"><h3>Efectos recreados</h3><p>Sombras paralelas, resplandores y desenfoque gaussiano se rehacen con sus valores como efectos de After Effects.</p></article>
-      <article class="card"><h3>Una capa por objeto</h3><p>Cada capa del tamaño de su objeto y en el mismo orden que en Illustrator. Las máscaras de recorte se respetan.</p></article>
-      <article class="card"><h3>Modo automático</h3><p>Activa "Recibir automáticamente" y lo que envías aparece solo en tu composición.</p></article>
-    </div>
-  </section>
-
-  <section id="como" class="section">
-    <h2>Tres pasos</h2>
-    <ol class="steps">
-      <li><span>1</span><h3>Selecciona</h3><p>En Illustrator, elige los objetos que quieres llevar.</p></li>
-      <li><span>2</span><h3>Envía</h3><p>Pulsa <b>Enviar a After Effects</b> en el panel de Fargot Transfer.</p></li>
-      <li><span>3</span><h3>Anima</h3><p>En After Effects pulsa <b>Recibir</b>, o deja que llegue solo.</p></li>
-    </ol>
-  </section>
-
-  <section id="precio" class="section">
-    <h2>Un pago, sin mensualidades</h2>
-    <div class="price">
-      <div class="price-head">
+  <section id="plugins" class="section">
+    <h2>Los plugins</h2>
+    <p class="sub">Cada plugin resuelve una tarea concreta de tu flujo de trabajo. La suite crece con nuevas herramientas.</p>
+    <div class="plugins">
+      <a class="plugin featured" href="transfer.html">
+        <div class="plugin-top">
+          <span class="plugin-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M4 12h12M11 7l5 5-5 5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="tag on">Disponible</span>
+        </div>
         <h3>Fargot Transfer</h3>
-        <p class="amount js-price">Precio de lanzamiento</p>
+        <p>Pasa tus diseños de Illustrator a After Effects como capas nativas y editables: formas, degradados exactos, textos y efectos.</p>
+        <span class="more">Conocer Fargot Transfer →</span>
+      </a>
+      <div class="plugin soon">
+        <div class="plugin-top"><span class="plugin-ico dim" aria-hidden="true">+</span><span class="tag">En desarrollo</span></div>
+        <h3>Próximo plugin</h3>
+        <p>Estamos preparando la siguiente herramienta de la suite. Llegará a la app Fargot como una actualización más.</p>
       </div>
-      <ul>
-        <li>Licencia para <b>2 equipos a la vez</b> (escritorio y portátil)</li>
-        <li>Actualizaciones automáticas incluidas</li>
-        <li>App Fargot para gestionar tu cuenta y tus equipos</li>
-        <li>Funciona hasta 7 días sin conexión</li>
-      </ul>
-      <a class="pill primary wide js-buy" href="#precio">Comprar</a>
-      <p class="fine">Recibes tu clave de acceso por correo al instante.</p>
+      <div class="plugin soon">
+        <div class="plugin-top"><span class="plugin-ico dim" aria-hidden="true">?</span><span class="tag">Tu idea</span></div>
+        <h3>¿Qué necesitas?</h3>
+        <p>Cuéntanos qué tarea repites todos los días en Illustrator o After Effects. Las mejores ideas se convierten en plugins.</p>
+        <a class="more js-email" href="#">Escríbenos →</a>
+      </div>
     </div>
   </section>
 
-  <section id="descargar" class="section">
-    <h2>Descarga e instala</h2>
+  <section id="app" class="section">
     <div class="dl">
       <div>
-        <p>Descarga el instalador, ábrelo y entra en la app <b>Fargot</b> con tu correo y tu clave. El plugin se instala solo en Illustrator y After Effects.</p>
-        <p class="fine">Si Windows muestra "Windows protegió su PC", pulsa <b>Más información</b> y luego <b>Ejecutar de todas formas</b>.</p>
+        <p class="eyebrow left">La app Fargot</p>
+        <h2 class="left">Una cuenta para toda la suite</h2>
+        <ul class="checks">
+          <li><b>Inicia sesión una vez</b> y verás todos los plugins que compraste.</li>
+          <li><b>Instala con un clic</b> en Illustrator y After Effects, sin copiar archivos a mano.</li>
+          <li><b>Úsalos en 2 equipos a la vez</b>, por ejemplo tu escritorio y tu portátil.</li>
+          <li><b>Actualizaciones automáticas</b>: la app te avisa y se pone al día sola.</li>
+        </ul>
         <div class="cta left">
-          <a class="pill primary js-download" href="#">Descargar Fargot</a>
-          <a class="pill ghost" href="manual-fargot-transfer.pdf">Manual de usuario (PDF)</a>
+          <a class="pill primary js-download" href="#">Descargar Fargot para Windows</a>
         </div>
-        <p class="fine"><a class="js-releases" href="#">Novedades de cada versión</a></p>
+        <p class="fine">Si Windows muestra "Windows protegió su PC", pulsa <b>Más información</b> y luego <b>Ejecutar de todas formas</b>.</p>
       </div>
       <img src="img/app-inicio-sesion.png" alt="App Fargot: inicio de sesión" loading="lazy">
     </div>
   </section>
 
-  <section id="preguntas" class="section faq">
+  <section id="comprar" class="section">
+    <h2>Cómo comprar</h2>
+    <ol class="steps">
+      <li><span>1</span><h3>Elige un plugin</h3><p>Pago único, a bajo costo. Sin mensualidades.</p></li>
+      <li><span>2</span><h3>Recibe tu clave</h3><p>Te llega por correo al instante, junto con tu correo de acceso.</p></li>
+      <li><span>3</span><h3>Entra en la app</h3><p>Descarga Fargot, inicia sesión y el plugin se instala solo.</p></li>
+    </ol>
+  </section>
+
+  <section id="contacto" class="section faq">
     <h2>Preguntas</h2>
-    <details><summary>¿En cuántos equipos puedo usarlo?</summary><p>En dos a la vez. Si quieres usarlo en un tercero, cierra sesión en uno desde la app Fargot.</p></details>
-    <details><summary>¿Necesito internet?</summary><p>Para activar la licencia sí. Después funciona hasta 7 días sin conexión.</p></details>
-    <details><summary>¿Las actualizaciones cuestan?</summary><p>No. La app te avisa cuando hay una versión nueva y se actualiza con un clic.</p></details>
+    <details><summary>¿Tengo que pagar cada mes?</summary><p>No. Pagas una vez por cada plugin y las actualizaciones vienen incluidas.</p></details>
+    <details><summary>¿En cuántos equipos puedo usarlos?</summary><p>En dos a la vez con la misma cuenta. Para usar otro equipo, cierra sesión en uno desde la app Fargot.</p></details>
     <details><summary>¿Funciona en Mac?</summary><p>Por ahora solo en Windows 10 y 11.</p></details>
-    <details><summary>¿Qué pasa con los degradados de forma libre?</summary><p>Puedes traerlos como imagen idéntica o recrearlos con efectos editables de After Effects.</p></details>
+    <details><summary>¿Cómo recibo ayuda?</summary><p>Escríbenos a <a class="js-email" href="#">nuestro correo</a> y te respondemos lo antes posible.</p></details>
   </section>
 </main>
 
 <footer class="foot">
   <img src="img/fargot-logo.png" alt="Fargot" height="22">
-  <p>Soporte: <a class="js-email" href="#">escríbenos</a> · <a href="eula.txt">Contrato de licencia</a></p>
+  <p>Fargot Suite · <a href="transfer.html">Fargot Transfer</a> · <a class="js-email" href="#">Contacto</a> · <a href="eula.txt">Contrato de licencia</a></p>
   <p class="fine">Adobe, Illustrator y After Effects son marcas comerciales de Adobe Inc. Fargot no está afiliado a Adobe.</p>
 </footer>
 
@@ -135,14 +119,8 @@
 (function () {
   var c = document.getElementById("cfg").dataset;
   function each(sel, fn) { Array.prototype.forEach.call(document.querySelectorAll(sel), fn); }
-  each(".js-buy", function (a) {
-    if (c.buy) { a.href = c.buy; a.rel = "noopener"; }
-    else if (a.closest(".price")) { a.textContent = "Muy pronto"; a.classList.add("off"); a.removeAttribute("href"); }
-  });
-  if (c.price) each(".js-price", function (p) { p.textContent = c.price; });
-  each(".js-download", function (a) { if (a.closest(".dl")) a.href = c.download; });
-  each(".js-releases", function (a) { a.href = c.releases; });
-  each(".js-email", function (a) { a.href = "mailto:" + c.email; a.textContent = c.email; });
+  each(".js-download", function (a) { a.href = c.download; });
+  each(".js-email", function (a) { a.href = "mailto:" + c.email; if (a.textContent === "nuestro correo") a.textContent = c.email; });
 })();
 </script>
 </body>
