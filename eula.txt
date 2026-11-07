@@ -1,0 +1,65 @@
+CONTRATO DE LICENCIA DE USUARIO FINAL (EULA) - FARGOT
+Versión 1.0 - 2026
+
+Copyright (c) 2026 Fargot. Todos los derechos reservados.
+
+Este contrato regula el uso del software Fargot, incluidos la aplicación de
+escritorio Fargot, el plugin Fargot Transfer para Adobe Illustrator y Adobe
+After Effects, y cualquier otro plugin de la suite Fargot ("el Software").
+Al instalar o usar el Software aceptas estos términos. Si no los aceptas, no
+instales ni uses el Software.
+
+1. LICENCIA
+   Fargot te concede una licencia personal, limitada, no exclusiva e
+   intransferible para instalar y usar el Software, siempre que tengas una
+   licencia válida adquirida a Fargot o a un distribuidor autorizado. Cada
+   licencia permite el número de activaciones indicado al comprarla.
+
+2. RESTRICCIONES
+   No puedes:
+   a) copiar, distribuir, vender, alquilar, prestar o sublicenciar el Software;
+   b) modificar, descompilar, desensamblar o aplicar ingeniería inversa al
+      Software, salvo en la medida en que la ley aplicable lo permita
+      expresamente;
+   c) eludir, desactivar o alterar el sistema de licencias o de activación;
+   d) compartir tu clave de licencia o tu cuenta con terceros.
+
+3. PROPIEDAD
+   El Software es propiedad de Fargot y está protegido por las leyes de
+   derechos de autor. Esta licencia no te transfiere ningún derecho de
+   propiedad. Adobe, Illustrator y After Effects son marcas de Adobe Inc.;
+   Fargot no está afiliado a Adobe.
+
+4. TU CONTENIDO
+   Los diseños, archivos y proyectos que crees o transfieras con el Software
+   son tuyos. Fargot no reclama ningún derecho sobre ellos.
+
+5. ACTIVACIÓN Y DATOS
+   Para activar y validar tu licencia, el Software envía tu clave de licencia
+   y un nombre de equipo al servicio de licencias de Fargot. No se envía el
+   contenido de tus diseños.
+
+6. ACTUALIZACIONES
+   Fargot puede ofrecer actualizaciones. Las actualizaciones se rigen por
+   este contrato, salvo que se indique lo contrario.
+
+7. GARANTÍA
+   El Software se entrega "tal cual", sin garantías de ningún tipo, expresas
+   o implícitas, incluidas las de comerciabilidad o idoneidad para un fin
+   determinado, en la medida máxima permitida por la ley.
+
+8. LIMITACIÓN DE RESPONSABILIDAD
+   En la medida máxima permitida por la ley, Fargot no será responsable de
+   daños indirectos, incidentales o consecuentes, ni de la pérdida de datos o
+   beneficios derivados del uso o de la imposibilidad de usar el Software. La
+   responsabilidad total de Fargot no superará el importe pagado por la
+   licencia.
+
+9. TERMINACIÓN
+   Esta licencia termina automáticamente si incumples cualquiera de sus
+   términos. Al terminar, debes desinstalar el Software.
+
+10. LEY APLICABLE
+   Este contrato se rige por las leyes del país de residencia de Fargot.
+
+Contacto: [tu correo de soporte]
