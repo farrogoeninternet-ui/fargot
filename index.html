@@ -86,6 +86,9 @@
   /* el hero: la app dentro de la ventana iluminada */
   .hero__window { display: grid; justify-items: center; background: radial-gradient(120% 80% at 70% 110%, #1e5bff 0, transparent 60%), radial-gradient(90% 70% at 10% 100%, #00a8d6 0, transparent 55%), linear-gradient(#0b1a46, #102866); }
   .hero__window .fa { margin-top: 32px; }
+  /* la ventana siempre deja ver la app (logo, aviso y cuenta), aunque la pantalla sea baja */
+  .hero--centred .hero__window { min-height: clamp(400px, 56svh, 560px); }
+  @media (max-width: 639px) { .hero--centred .hero__window { min-height: 420px; } }
   .hero__window .ui-pause:focus-visible { outline: 2px solid #070b18; outline-offset: 2px; box-shadow: 0 0 0 6px #eef2ff; }
   @media (max-width: 639px) { .hero__window .fa { width: 310px; padding: 14px 16px; margin-top: 16px; } .hero__window .fa__brand img { height: 48px; } .hero__window .fa__upd + .fa__glass { display: none; } }
 
