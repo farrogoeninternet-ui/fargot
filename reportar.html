@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es" data-type="software" data-radius="soft" data-buttons="tonal" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reportar un problema · Fargot Suite</title>
+<meta name="description" content="Cuéntanos si algo falla en Fargot Suite o qué te gustaría que mejoremos. Leemos cada mensaje.">
+<link rel="icon" href="img/icono.png" type="image/png">
+<meta name="theme-color" content="#070b18">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="legal.css">
+<style>
+  .fb { display: grid; gap: 18px; margin-top: 28px; }
+  .fb__types { display: flex; flex-wrap: wrap; gap: 10px; border: 0; padding: 0; margin: 0; }
+  .fb__types legend { font-weight: 600; margin-bottom: 10px; }
+  .fb__types label { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 1px solid rgb(255 255 255 / .16); cursor: pointer; transition: background .2s, border-color .2s; }
+  .fb__types input { accent-color: #1e5bff; }
+  .fb__types label:has(input:checked) { background: rgb(30 91 255 / .18); border-color: #1e5bff; }
+  .fb__row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 640px) { .fb__row { grid-template-columns: 1fr; } }
+  .fb label.f { display: grid; gap: 6px; font-weight: 600; }
+  .fb label.f span { font-weight: 400; color: var(--muted); font-size: 14px; }
+  .fb input[type=text], .fb input[type=email], .fb select, .fb textarea {
+    font: inherit; font-size: 16px; color: #eef2ff; background: #0e152e; border: 1px solid rgb(255 255 255 / .16);
+    border-radius: 12px; padding: 12px 14px; width: 100%; box-sizing: border-box; }
+  .fb textarea { min-height: 170px; resize: vertical; }
+  .fb input:focus, .fb select:focus, .fb textarea:focus { outline: 2px solid #1e5bff; outline-offset: 1px; }
+  .fb__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .fb__count { font-size: 13px; color: var(--muted); text-align: right; margin-top: -10px; }
+  .fb__msg { padding: 14px 16px; border-radius: 12px; display: none; }
+  .fb__msg.ok { display: block; background: rgb(34 197 94 / .14); border: 1px solid rgb(34 197 94 / .5); }
+  .fb__msg.err { display: block; background: rgb(239 68 68 / .14); border: 1px solid rgb(239 68 68 / .5); }
+  .fb button[disabled] { opacity: .6; cursor: progress; }
+  .fb__note { font-size: 14px; color: var(--muted); }
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Ir al contenido</a>
+    <a class="nav__logo" href="index.html" aria-label="Fargot Suite, inicio"><img src="img/fargot-logo.png" alt="Fargot" width="68" height="30"></a>
+    <div class="nav__actions"><a class="btn btn--secondary" href="index.html">Volver a Fargot Suite</a></div>
+  </div>
+</header>
+<main id="top" class="legal wrap">
+  <h1>Reportar un problema o enviar una idea</h1>
+  <p>¿Algo no llegó bien a After Effects, la app no abre o se te ocurrió una mejora? Cuéntanos. Leemos cada mensaje y nos ayuda a mejorar Fargot Suite.</p>
+
+  <form class="fb" id="fb" novalidate>
+    <fieldset class="fb__types">
+      <legend>¿Qué quieres enviar?</legend>
+      <label><input type="radio" name="tipo" value="error" checked> Un error</label>
+      <label><input type="radio" name="tipo" value="idea"> Una idea o mejora</label>
+      <label><input type="radio" name="tipo" value="pregunta"> Una pregunta</label>
+    </fieldset>
+
+    <div class="fb__row">
+      <label class="f">Plugin o parte
+        <select name="plugin">
+          <option value="transfer">Fargot Transfer</option>
+          <option value="app">La app Fargot</option>
+          <option value="licencia">Licencia o compra</option>
+          <option value="web">Esta web</option>
+          <option value="otro">Otro</option>
+        </select>
+      </label>
+      <label class="f">Versión <span>Opcional. Ej.: Illustrator 2025, After Effects 2024, Fargot 1.0.2</span>
+        <input type="text" name="version" maxlength="40" autocomplete="off">
+      </label>
+    </div>
+
+    <label class="f">Cuéntanos qué pasó <span>Qué hiciste, qué esperabas y qué ocurrió. Si es un error, cuantos más detalles, mejor.</span>
+      <textarea name="mensaje" id="mensaje" maxlength="4000" required></textarea>
+    </label>
+    <div class="fb__count" id="count">0 / 4000</div>
+
+    <label class="f">Tu correo <span>Opcional. Solo para responderte sobre este mensaje.</span>
+      <input type="email" name="email" maxlength="120" autocomplete="email">
+    </label>
+
+    <div class="fb__hp" aria-hidden="true"><label>No llenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label></div>
+
+    <p class="fb__note">Al enviar aceptas que guardemos este mensaje (y tu correo, si lo dejas) para atenderlo, como explica la <a href="privacidad.html">política de privacidad</a>. No adjuntes contraseñas ni claves de licencia.</p>
+    <div><button class="btn btn--primary" type="submit" id="send">Enviar mensaje</button></div>
+    <div class="fb__msg" id="msg" role="status" aria-live="polite"></div>
+  </form>
+</main>
+<footer class="legal-foot wrap">
+  <span>&copy; 2026 Fargot</span>
+  <a href="terminos.html">Términos de venta y reembolsos</a>
+  <a href="privacidad.html">Privacidad</a>
+  <a href="eula.txt">Contrato de licencia</a>
+  <a href="index.html">Fargot Suite</a>
+</footer>
+<script>
+(function () {
+  var URL_SERVIDOR = "https://script.google.com/macros/s/AKfycbxDjobL88OR5GlP9ssys5A313eoIncufguc0PsKDR0jL2NyhYHplsYHLyVMo-B3Nv5g/exec";
+  var f = document.getElementById("fb"), msg = document.getElementById("msg"), btn = document.getElementById("send");
+  var ta = document.getElementById("mensaje"), count = document.getElementById("count");
+  ta.addEventListener("input", function () { count.textContent = ta.value.length + " / 4000"; });
+  function show(ok, text) { msg.className = "fb__msg " + (ok ? "ok" : "err"); msg.textContent = text; }
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var d = new FormData(f);
+    var data = {
+      action: "feedback", origen: "web",
+      tipo: d.get("tipo"), plugin: d.get("plugin"), version: d.get("version"),
+      mensaje: String(d.get("mensaje") || "").trim(), email: String(d.get("email") || "").trim(),
+      web: d.get("web"), sistema: navigator.userAgent.substring(0, 160)
+    };
+    if (data.mensaje.length < 10) { show(false, "Cuéntanos un poco más (mínimo 10 caracteres)."); ta.focus(); return; }
+    if (data.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) { show(false, "El correo no parece válido."); return; }
+    btn.disabled = true; btn.textContent = "Enviando…"; msg.className = "fb__msg";
+    fetch(URL_SERVIDOR, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json(); })
+      .then(function (r) {
+        if (r && r.ok) { f.reset(); count.textContent = "0 / 4000"; show(true, "¡Gracias! Recibimos tu mensaje." + (data.email ? " Si hace falta, te responderemos a tu correo." : "")); }
+        else show(false, (r && r.message) || "No se pudo enviar. Inténtalo de nuevo.");
+      })
+      .catch(function () { show(false, "No se pudo enviar. Revisa tu conexión o escríbenos a farrogoeninternet@gmail.com."); })
+      .then(function () { btn.disabled = false; btn.textContent = "Enviar mensaje"; });
+  });
+})();
+</script>
+</body>
+</html>

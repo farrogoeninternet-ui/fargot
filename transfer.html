@@ -42,7 +42,9 @@ main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 10
 .step.is-on { color: var(--ink); border-color: rgb(30 91 255 / .7); background: rgb(30 91 255 / .12); }
 .step.is-on b { background: #1e5bff; }
 .viewport { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; border: 1px solid rgb(255 255 255 / .1); background: #04060d; }
-.stage { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; transform-origin: 0 0; font: 400 13px/1.35 var(--font-text); color: #dfe4f2; }
+.stage { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; transform-origin: 0 0; font: 400 13px/1.35 var(--font-text); color: #dfe4f2; transition: transform .7s cubic-bezier(.65,0,.35,1); }
+@media (max-width: 760px) { .viewport { aspect-ratio: 1 / 1; } }
+@media (prefers-reduced-motion: reduce) { .stage { transition: none; } }
 .stage::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 70% at 25% 30%, rgb(30 91 255 / .16), transparent 70%), radial-gradient(50% 60% at 80% 75%, rgb(0 210 255 / .10), transparent 70%); }
 .win { position: absolute; top: 56px; width: 604px; height: 608px; border-radius: 14px; background: #1d1f24; box-shadow: 0 0 0 1px rgb(255 255 255 / .08), 0 40px 80px -30px rgb(0 0 0 / .8); overflow: hidden; }
 .win--ai { left: 28px; } .win--ae { left: 648px; background: #1a1b20; }
@@ -226,7 +228,7 @@ main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 10
     </div>
     <div class="closing__links">
       <div class="footer__legal">
-        <span>&copy; 2026 Fargot &nbsp; <a href="index.html">Fargot Suite</a> &nbsp; <a href="terminos.html">Términos y reembolsos</a> &nbsp; <a href="privacidad.html">Privacidad</a> &nbsp; <a href="eula.txt">Contrato de licencia</a> &nbsp; <a href="mailto:farrogoeninternet@gmail.com">Soporte</a></span>
+        <span>&copy; 2026 Fargot &nbsp; <a href="index.html">Fargot Suite</a> &nbsp; <a href="terminos.html">Términos y reembolsos</a> &nbsp; <a href="privacidad.html">Privacidad</a> &nbsp; <a href="eula.txt">Contrato de licencia</a> &nbsp; <a href="mailto:farrogoeninternet@gmail.com">Soporte</a> &nbsp; <a href="reportar.html">Reportar un problema</a></span>
         <span>Adobe, Illustrator y After Effects son marcas de Adobe Inc.</span>
       </div>
     </div>
@@ -238,7 +240,17 @@ main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 10
 <script>
 (function () {
   var stage = document.getElementById("stage"), vp = document.getElementById("viewport");
-  function fit() { stage.style.transform = "scale(" + (vp.clientWidth / 1280) + ")"; }
+  // En pantallas anchas se ve el escritorio entero; en el celular la "camara" se acerca
+  // a la ventana que esta trabajando (Illustrator o After Effects), a buen tamano.
+  var focus = "ai";
+  function narrow() { return vp.clientWidth < 700; }
+  function scale() { return narrow() ? vp.clientWidth / 640 : vp.clientWidth / 1280; }
+  function fit() {
+    var s = scale();
+    if (narrow()) { var x = focus === "ae" ? 640 : 8; stage.style.transform = "scale(" + s + ") translate(" + (-x) + "px, -40px)"; }
+    else stage.style.transform = "scale(" + s + ")";
+  }
+  function look(w) { focus = w; fit(); }
   fit(); addEventListener("resize", fit);
 
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -258,7 +270,7 @@ main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 10
   function stepOn(n) { steps.forEach(function (s) { s.classList.toggle("is-on", s.dataset.step === String(n)); }); }
   // posicion de un elemento en coordenadas del escenario (1280x720)
   function stagePos(el, frame) {
-    var s = vp.clientWidth / 1280, sr = stage.getBoundingClientRect(), r = el.getBoundingClientRect();
+    var s = scale(), sr = stage.getBoundingClientRect(), r = el.getBoundingClientRect();
     if (frame) { var fr = frame.getBoundingClientRect(), k = .665; return { x: (fr.left - sr.left) / s + r.left * k, y: (fr.top - sr.top) / s + r.top * k, w: r.width * k, h: r.height * k }; }
     return { x: (r.left - sr.left) / s, y: (r.top - sr.top) / s, w: r.width / s, h: r.height / s };
   }
@@ -319,7 +331,13 @@ main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 10
     var p = stagePos(row); await moveTo(p.x + 80, p.y + 16, 600); await click(); row.classList.add("is-sel");
     var cp = stagePos(t); await moveTo(cp.x + cp.w - 4, cp.y + cp.h / 2, 600); await click(); await sleep(120); await click();
     var word = "FARGOT"; var target = "FARGOT SUITE";
-    for (var i = word.length; i <= target.length; i++) { t.textContent = target.slice(0, i); row.querySelector(".nm").textContent = target.slice(0, i); await sleep(110); }
+    var maxW = 250, base = 52;
+    for (var i = word.length; i <= target.length; i++) {
+      t.textContent = target.slice(0, i); row.querySelector(".nm").textContent = target.slice(0, i);
+      t.setAttribute("font-size", base);
+      try { var w = t.getComputedTextLength(); if (w > maxW) t.setAttribute("font-size", Math.floor(base * maxW / w)); } catch (e) {}
+      await sleep(110);
+    }
     await sleep(500); row.classList.remove("is-sel");
     var pr = layers.querySelector('.prop[data-k="bar"]'); var br = layers.querySelector('.layer[data-k="bar"]');
     if (br) { var bp = stagePos(br); await moveTo(bp.x + 26, bp.y + 16, 600); await click(); br.classList.add("is-sel"); }
@@ -332,7 +350,7 @@ main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 10
         reset();
         await sleep(900); await waitPlay();
         // 1) seleccion en Illustrator
-        stepOn(1);
+        stepOn(1); look("ai"); await sleep(narrow() ? 700 : 0);
         var ab = stagePos(document.getElementById("artboard"));
         await moveTo(ab.x - 12, ab.y + 6, 800);
         var mq = document.getElementById("marquee"); mq.style.opacity = 1; mq.style.left = "6px"; mq.style.top = "14px";
@@ -346,7 +364,7 @@ main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 10
         await clickPanel(pAI, "btnSend");
         await sleep(1500); await waitPlay();
         // 3) recibir en After Effects
-        stepOn(3);
+        stepOn(3); look("ae"); await sleep(narrow() ? 800 : 0);
         addLayers();
         await clickPanel(pAE, "btnReceive");
         await sleep(300);
@@ -364,7 +382,7 @@ main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 10
       var c = a.cloneNode(true); c.style.left = parseFloat(a.style.left) * sc + "px"; c.style.top = parseFloat(a.style.top) * (280 / 470) + "px"; c.style.transform = "scale(" + sc + ")"; comp.appendChild(c);
     });
     layers.querySelectorAll(".layer").forEach(function (r) { r.classList.add("in"); });
-    stepOn(3); cursor.style.display = "none";
+    stepOn(3); cursor.style.display = "none"; look("ae");
   }
   var btn = document.getElementById("demoPause"), ico = document.getElementById("pauseIco");
   btn.addEventListener("click", function () {
