@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fargot Transfer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- fondo vivo: luces de color difuminadas detras del vidrio -->
+  <div class="aurora" aria-hidden="true">
+    <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+  </div>
+
+  <header class="top">
+    <span class="pill" id="statusPill"><span class="dot"></span><span id="statusText">Listo</span></span>
+    <div class="brand">
+      <span class="halo" aria-hidden="true"></span>
+      <img class="logo" src="assets/fargot-logo.png" alt="Fargot">
+      <span class="product">Transfer</span>
+    </div>
+    <p class="subtitle" id="subtitle">Illustrator → After Effects</p>
+  </header>
+
+  <!-- ============================== BLOQUEO (sin sesion) ============================== -->
+  <section id="lock" class="glass hero lock" hidden>
+    <div class="ring" aria-hidden="true"></div>
+    <svg class="lock-ico" viewBox="0 0 24 24" width="40" height="40" aria-hidden="true">
+      <rect x="4.5" y="10.5" width="15" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </svg>
+    <div class="hero-time">Inicia sesión</div>
+    <p class="hint lock-msg" id="lockMsg">Inicia sesión en la app Fargot para usar Fargot Transfer.</p>
+    <button class="primary" id="btnHub">
+      <span class="sheen" aria-hidden="true"></span>
+      Abrir Fargot
+    </button>
+  </section>
+
+  <!-- ============================== ILLUSTRATOR ============================== -->
+  <main id="viewAI" hidden>
+    <section class="glass hero">
+      <div class="ring" aria-hidden="true"></div>
+      <div class="hero-num" id="selCount">0</div>
+      <div class="hero-label" id="selLabel">objetos seleccionados</div>
+      <div class="chips" id="selKinds"></div>
+    </section>
+
+    <button class="primary" id="btnSend">
+      <span class="sheen" aria-hidden="true"></span>
+      <svg viewBox="0 0 20 20" width="16" height="16"><path d="M3 10h11M10 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Enviar a After Effects
+    </button>
+    <p class="hint">Trazados, grupos, textos, símbolos, degradados y máscaras viajan como vectores editables.</p>
+
+    <section class="group">
+      <div class="glass list">
+        <label class="row switch-row">
+          <span>Copiar efectos<small>Sombras, resplandores y desenfoques se recrean en After Effects</small></span>
+          <input type="checkbox" class="switch" id="optCopyFxAI" checked>
+        </label>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Último envío</h2>
+      <div class="glass list">
+        <div class="row"><span>Estado</span><span class="muted" id="aiLast">Aún no has enviado nada</span></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================== AFTER EFFECTS ============================ -->
+  <main id="viewAE" hidden>
+    <section class="glass hero">
+      <div class="ring" aria-hidden="true"></div>
+      <div class="hero-label">Desde Illustrator</div>
+      <div class="hero-time" id="aeLast">Sin envíos</div>
+      <span class="badge" id="aeNew" hidden>Nuevo</span>
+      <div class="hero-sub" id="aeComp"></div>
+    </section>
+
+    <button class="primary" id="btnReceive">
+      <span class="sheen" aria-hidden="true"></span>
+      <svg viewBox="0 0 20 20" width="16" height="16"><path d="M10 3v11M5 9l5 5 5-5M4 17h12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Recibir en After Effects
+    </button>
+
+    <section class="group">
+      <div class="glass list">
+        <label class="row switch-row">
+          <span>Recibir automáticamente<small>Importa cada envío nuevo al instante</small></span>
+          <input type="checkbox" class="switch" id="optAuto">
+        </label>
+        <label class="row switch-row">
+          <span>Centrar en la composición</span>
+          <input type="checkbox" class="switch" id="optCenter" checked>
+        </label>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>Textos</h2>
+      <div class="segmented" id="optText" role="radiogroup">
+        <button data-v="editable" class="on">Texto editable</button>
+        <button data-v="contornos">Contornos</button>
+      </div>
+      <p class="hint" id="txtHint"></p>
+    </section>
+
+    <section class="group">
+      <h2>Degradados de forma libre</h2>
+      <div class="segmented" id="optFreeform" role="radiogroup">
+        <button data-v="imagen" class="on">Imagen exacta</button>
+        <button data-v="recrear">Recrear en AE</button>
+        <button data-v="omitir">Omitir</button>
+      </div>
+      <p class="hint" id="ffHint"></p>
+    </section>
+
+    <section class="group">
+      <h2>Efectos</h2>
+      <div class="glass list">
+        <label class="row switch-row">
+          <span>Copiar efectos de Illustrator<small>Recrea sombras, resplandores y desenfoques con sus valores</small></span>
+          <input type="checkbox" class="switch" id="optCopyFx" checked>
+        </label>
+        <label class="row switch-row">
+          <span>Sombra paralela extra</span>
+          <input type="checkbox" class="switch" id="optShadow">
+        </label>
+        <div class="sub" id="shadowBox" hidden>
+          <div class="slider"><span>Opacidad</span><input type="range" id="shOpacity" min="0" max="100" value="50"><output>50 %</output></div>
+          <div class="slider"><span>Ángulo</span><input type="range" id="shAngle" min="0" max="360" value="135"><output>135°</output></div>
+          <div class="slider"><span>Distancia</span><input type="range" id="shDistance" min="0" max="200" value="12"><output>12 px</output></div>
+          <div class="slider"><span>Suavidad</span><input type="range" id="shSoftness" min="0" max="200" value="24"><output>24 px</output></div>
+          <div class="row color-row"><span>Color</span><input type="color" id="shColor" value="#000000"></div>
+        </div>
+        <label class="row switch-row">
+          <span>Desenfoque gaussiano extra</span>
+          <input type="checkbox" class="switch" id="optBlur">
+        </label>
+        <div class="sub" id="blurBox" hidden>
+          <div class="slider"><span>Cantidad</span><input type="range" id="blAmount" min="0" max="100" value="8"><output>8</output></div>
+        </div>
+      </div>
+      <p class="hint">Todo se crea con efectos y estilos de capa nativos de After Effects: puedes editarlos y animarlos. Los valores copiados quedan en el comentario de la capa.</p>
+    </section>
+  </main>
+
+  <!-- ============================== TOAST ============================== -->
+  <div class="toast glass" id="toast" role="status" aria-live="polite">
+    <div class="toast-title" id="toastTitle"></div>
+    <ul class="toast-list" id="toastList"></ul>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+/* Fargot Transfer - vidrio futurista. (c) 2026 Fargot. Todos los derechos reservados.
+   Tipografia: Acumin (Adobe Fonts) instalada en el sistema; no se incluye. */
+
+:root {
+  --font: "Acumin Variable Concept", "Acumin Pro", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --blue: #1E5BFF;
+  --blue-2: #0A2FE0;
+  --cyan: #00D2FF;
+  --green: #34E3A0;
+  --orange: #FFB547;
+  --red: #FF5470;
+  --text: #F4F7FF;
+  --muted: rgba(226, 233, 255, 0.58);
+  --glass: rgba(255, 255, 255, 0.07);
+  --glass-strong: rgba(255, 255, 255, 0.12);
+  --edge: rgba(255, 255, 255, 0.16);
+  --edge-soft: rgba(255, 255, 255, 0.07);
+  --track: rgba(255, 255, 255, 0.14);
+  --r: 20px;
+  --ease: cubic-bezier(.22, .9, .25, 1);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: #05070F;
+  color: var(--text);
+  font: 400 13px/1.4 var(--font);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+body { padding: 14px 14px 96px; overflow-x: hidden; }
+
+/* ---------------------------------------------------------------- fondo vivo */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: radial-gradient(120% 80% at 50% 0%, #0B1330 0%, #05070F 60%);
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: .75;
+  animation: drift 18s ease-in-out infinite alternate;
+}
+.o1 { width: 260px; height: 260px; left: -120px; top: 300px; background: #1E5BFF; opacity: .6; }
+.o2 { width: 220px; height: 220px; right: -100px; top: 420px; background: #00C2FF; animation-delay: -6s; opacity: .45; }
+.o3 { width: 240px; height: 240px; left: 10%; bottom: -120px; background: #6A3BFF; animation-delay: -12s; opacity: .45; }
+@keyframes drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(30px, 40px) scale(1.12); }
+  100% { transform: translate(-20px, 70px) scale(0.95); }
+}
+
+/* ---------------------------------------------------------------- vidrio */
+.glass {
+  position: relative;
+  background: linear-gradient(160deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04) 45%, rgba(255,255,255,0.06));
+  border: 1px solid var(--edge-soft);
+  border-radius: var(--r);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.22),
+    inset 0 -1px 0 rgba(255,255,255,0.04),
+    0 10px 30px rgba(0, 0, 0, 0.35);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+}
+
+/* ---------------------------------------------------------------- cabecera */
+/* El logo es el protagonista: grande, centrado y con halo claro */
+.top {
+  position: relative;
+  text-align: center;
+  padding: 18px 0 6px;
+}
+.top .pill { position: absolute; top: 0; right: 0; }
+.brand { position: relative; display: inline-flex; flex-direction: column; align-items: center; }
+.halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 260px;
+  height: 110px;
+  margin: -62px 0 0 -130px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(120, 190, 255, .32), rgba(120, 190, 255, 0));
+  pointer-events: none;
+}
+.logo {
+  position: relative;
+  height: 64px;
+  width: auto;
+  display: block;
+  filter: brightness(1.3) saturate(1.1) drop-shadow(0 0 14px rgba(140, 210, 255, .85));
+}
+.product {
+  position: relative;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: .42em;
+  text-indent: .42em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.85);
+}
+.subtitle { margin: 6px 6px 16px; font-size: 11px; color: var(--muted); letter-spacing: .02em; }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--edge-soft);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); transition: background .3s; }
+.pill.busy .dot { background: var(--orange); box-shadow: 0 0 10px var(--orange); animation: pulse 1s infinite; }
+.pill.error .dot { background: var(--red); box-shadow: 0 0 10px var(--red); }
+@keyframes pulse { 50% { opacity: .3; } }
+
+/* ---------------------------------------------------------------- tarjeta principal */
+.hero {
+  padding: 22px 16px 18px;
+  text-align: center;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.ring {
+  position: absolute;
+  left: 50%;
+  top: -60px;
+  width: 220px;
+  height: 220px;
+  margin-left: -110px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(0,210,255,0), rgba(0,210,255,.35), rgba(30,91,255,.5), rgba(106,59,255,.3), rgba(0,210,255,0));
+  filter: blur(26px);
+  opacity: .7;
+  animation: spin 14s linear infinite;
+  pointer-events: none;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.hero > *:not(.ring) { position: relative; }
+.hero-num {
+  font-size: 58px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, #FFFFFF 30%, #9CC4FF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: transform .3s var(--ease);
+}
+.hero-num.bump { transform: scale(1.1); }
+.hero-label { margin-top: 6px; color: var(--muted); font-size: 12px; letter-spacing: .02em; }
+.hero-time { margin-top: 4px; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; }
+.hero-sub { margin-top: 6px; font-size: 11px; color: var(--muted); }
+
+.badge {
+  position: absolute !important;
+  top: 12px;
+  right: 12px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  box-shadow: 0 0 14px rgba(0, 210, 255, .6);
+}
+
+.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; }
+.chip {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--edge-soft);
+  font-size: 11px;
+  color: rgba(255,255,255,.75);
+}
+
+/* ---------------------------------------------------------------- boton principal */
+.primary {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 16px;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2F7BFF 0%, #1E5BFF 45%, #0A2FE0 100%);
+  color: #fff;
+  font: 600 13.5px var(--font);
+  letter-spacing: .01em;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 10px 26px rgba(30, 91, 255, .5);
+  transition: transform .15s var(--ease), filter .2s, opacity .2s;
+}
+.primary:hover { filter: brightness(1.1); }
+.primary:active { transform: scale(0.975); }
+.primary:disabled { opacity: .4; cursor: default; box-shadow: none; }
+.primary svg { position: relative; }
+.sheen {
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent);
+  transform: skewX(-20deg);
+  animation: sheen 4.5s ease-in-out infinite;
+}
+@keyframes sheen { 0%, 70% { left: -60%; } 100% { left: 130%; } }
+.primary.busy svg { animation: nudge .8s infinite var(--ease); }
+@keyframes nudge { 50% { transform: translateX(3px); } }
+
+.hint { margin: 9px 6px 0; font-size: 11px; color: var(--muted); }
+
+/* ---------------------------------------------------------------- grupos y filas */
+.group { margin-top: 20px; }
+h2 {
+  margin: 0 0 8px 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: rgba(226,233,255,.5);
+}
+h2.mt { margin-top: 16px; }
+
+.list { overflow: hidden; }
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 14px;
+  min-height: 44px;
+}
+.list > .row + .row,
+.list > .sub + .row,
+.list > .row + .sub { border-top: 1px solid var(--edge-soft); }
+.row small { display: block; font-size: 10.5px; color: var(--muted); margin-top: 1px; }
+.muted { color: var(--muted); text-align: right; }
+.switch-row { cursor: pointer; }
+
+/* ---------------------------------------------------------------- interruptor */
+.switch {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: none;
+  position: relative;
+  width: 42px;
+  height: 25px;
+  margin: 0;
+  border-radius: 999px;
+  background: var(--track);
+  border: 1px solid var(--edge-soft);
+  cursor: pointer;
+  transition: background .3s var(--ease), box-shadow .3s;
+}
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.35);
+  transition: transform .3s var(--ease);
+}
+.switch:checked {
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  box-shadow: 0 0 14px rgba(0, 170, 255, .45);
+}
+.switch:checked::after { transform: translateX(17px); }
+
+/* ---------------------------------------------------------------- control segmentado */
+.segmented {
+  display: flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--edge-soft);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.3);
+}
+.segmented button {
+  flex: 1;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: 500 11.5px var(--font);
+  cursor: pointer;
+  transition: background .25s var(--ease), color .25s, box-shadow .25s;
+}
+.segmented button.on {
+  color: #fff;
+  background: linear-gradient(160deg, rgba(255,255,255,.22), rgba(255,255,255,.08));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 4px 12px rgba(0,0,0,.3);
+}
+
+/* ---------------------------------------------------------------- sub-opciones */
+.sub { padding: 6px 14px 12px; background: rgba(0,0,0,.12); }
+.slider {
+  display: grid;
+  grid-template-columns: 70px 1fr 48px;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 12px;
+}
+.slider output { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--cyan), var(--blue)) 0 / var(--fill, 50%) 100% no-repeat, var(--track);
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(30, 91, 255, .35), 0 2px 6px rgba(0,0,0,.4);
+  cursor: pointer;
+}
+
+.color-row { padding: 6px 0 0; min-height: 0; }
+input[type="color"] {
+  -webkit-appearance: none;
+  width: 38px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  background: none;
+  cursor: pointer;
+}
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 999px; }
+
+/* ---------------------------------------------------------------- aviso flotante */
+.toast {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: rgba(20, 26, 48, 0.72);
+  transform: translateY(150%);
+  opacity: 0;
+  transition: transform .45s var(--ease), opacity .3s;
+}
+.toast.show { transform: none; opacity: 1; }
+.toast-title { font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.toast-title::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+  flex: none;
+}
+.toast.error .toast-title::before { background: var(--red); box-shadow: 0 0 10px var(--red); }
+.toast.warn .toast-title::before { background: var(--orange); box-shadow: 0 0 10px var(--orange); }
+.toast-list { margin: 6px 0 0; padding-left: 18px; font-size: 11px; color: var(--muted); }
+.toast-list:empty { display: none; }
+
+/* ---------------------------------------------------------------- bloqueo */
+.lock { padding: 28px 18px 20px; }
+.lock-ico { color: #BFD7FF; filter: drop-shadow(0 0 12px rgba(120, 190, 255, .7)); margin-bottom: 6px; }
+.lock-msg { text-align: center; margin: 8px 4px 18px; }
+
+[hidden] { display: none !important; }

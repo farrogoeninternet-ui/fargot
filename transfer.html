@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="es" data-type="software" data-radius="soft" data-ground="sky" data-buttons="tonal" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fargot Transfer: de Illustrator a After Effects en capas editables</title>
+<meta name="description" content="Fargot Transfer, plugin de Fargot Suite: envía tu diseño de Illustrator a After Effects como capas nativas, con degradados exactos, textos editables y efectos.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Fargot Transfer: de Illustrator a After Effects">
+<meta property="og:description" content="Mira cómo funciona: seleccionas, envías y en After Effects llegan capas editables.">
+<meta property="og:image" content="share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/icono.png" type="image/png">
+<meta name="theme-color" content="#070b18">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<link rel="stylesheet" href="assets/icons/icon.css">
+<style>
+:root {
+  --p-bg: #070b18; --p-surface: #0e152e; --p-ink: #eef2ff; --p-muted: #9aa6c7;
+  --p-accent: #1e5bff; --p-accent-ink: #ffffff; --p-action: #1e5bff; --p-action-ink: #ffffff;
+  --p-inv-bg: #eef2ff; --p-inv-surface: #dbdfed; --p-inv-ink: #070b18; --p-inv-muted: #535866;
+  --p-inv-accent: #1e5bff; --p-inv-accent-ink: #ffffff; --p-inv-action: #1e5bff; --p-inv-action-ink: #ffffff;
+  --font-display: "Geist", system-ui, sans-serif; --font-text: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --display-weight: 500; --display-tracking: -0.035em; --display-tracking-xl: -0.045em;
+}
+.nav__logo img { height: 30px; width: auto; display: block; }
+.crumb { color: var(--muted); font-size: 15px; margin: 0 0 var(--s-4); }
+.crumb a { color: inherit; }
+
+/* ---------- el motion graphic: un escenario fijo de 1280x720 escalado al ancho */
+.demo-wrap { position: relative; margin-top: var(--s-7); }
+.steps-row { display: flex; gap: var(--s-3); flex-wrap: wrap; margin-bottom: var(--s-5); }
+.step { display: inline-flex; align-items: center; gap: 10px; height: 40px; padding: 0 16px 0 8px; border-radius: 99px; border: 1px solid rgb(255 255 255 / .12); color: var(--muted); font-size: 15px; transition: color .3s, border-color .3s, background .3s; }
+.step b { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: rgb(255 255 255 / .08); color: var(--ink); font-weight: 500; font-size: 13px; transition: background .3s; }
+.step.is-on { color: var(--ink); border-color: rgb(30 91 255 / .7); background: rgb(30 91 255 / .12); }
+.step.is-on b { background: #1e5bff; }
+.viewport { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; border: 1px solid rgb(255 255 255 / .1); background: #04060d; }
+.stage { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; transform-origin: 0 0; font: 400 13px/1.35 var(--font-text); color: #dfe4f2; }
+.stage::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 70% at 25% 30%, rgb(30 91 255 / .16), transparent 70%), radial-gradient(50% 60% at 80% 75%, rgb(0 210 255 / .10), transparent 70%); }
+.win { position: absolute; top: 56px; width: 604px; height: 608px; border-radius: 14px; background: #1d1f24; box-shadow: 0 0 0 1px rgb(255 255 255 / .08), 0 40px 80px -30px rgb(0 0 0 / .8); overflow: hidden; }
+.win--ai { left: 28px; } .win--ae { left: 648px; background: #1a1b20; }
+.win__bar { height: 36px; display: flex; align-items: center; gap: 10px; padding: 0 14px; background: #2a2c33; color: #b9bfcd; font-size: 13px; }
+.win__bar img { width: 18px; height: 18px; }
+.win__bar .dots { display: flex; gap: 6px; } .win__bar .dots i { width: 10px; height: 10px; border-radius: 50%; background: #474a53; }
+.win__body { position: absolute; top: 36px; left: 0; right: 0; bottom: 0; }
+/* Illustrator: mesa de trabajo + panel real */
+.canvas { position: absolute; left: 0; top: 0; width: 378px; bottom: 0; background: #535353; }
+.artboard { position: absolute; left: 34px; top: 48px; width: 310px; height: 470px; background: #fff; box-shadow: 0 2px 10px rgb(0 0 0 / .35); }
+.art { position: absolute; }
+.sel-box { position: absolute; border: 1px dashed #2f7bff; opacity: 0; }
+.marquee { position: absolute; border: 1px solid #2f7bff; background: rgb(47 123 255 / .1); opacity: 0; }
+.panel-slot { position: absolute; top: 0; right: 0; width: 226px; bottom: 0; overflow: hidden; background: #08090f; border-left: 1px solid #000; }
+.panel-slot iframe { width: 340px; height: 900px; border: 0; transform: scale(.665); transform-origin: 0 0; display: block; }
+/* After Effects: visor + panel real + linea de tiempo */
+.viewer { position: absolute; left: 0; top: 0; width: 378px; height: 318px; background: #141519; }
+.comp { position: absolute; left: 89px; top: 22px; width: 200px; height: 280px; background: #f4f5f7; outline: 1px solid #3a3c45; overflow: hidden; }
+.comp .art { transform-origin: 0 0; }
+.timeline { position: absolute; left: 0; top: 318px; width: 378px; bottom: 0; background: #202128; border-top: 1px solid #000; }
+.tl-head { height: 30px; display: flex; align-items: center; gap: 12px; padding: 0 12px; color: #8f96a8; font-size: 12px; border-bottom: 1px solid #111; }
+.tl-head b { color: #dfe4f2; font-weight: 500; }
+.layer { height: 32px; display: flex; align-items: center; gap: 10px; padding: 0 12px; border-bottom: 1px solid #17181d; opacity: 0; transform: translateY(-6px); }
+.layer.in { opacity: 1; transform: none; transition: opacity .35s, transform .35s; }
+.layer.is-sel { background: #2d3a5c; }
+.layer .n { width: 16px; color: #7f8699; font-size: 12px; text-align: right; }
+.layer .lab { width: 10px; height: 10px; border-radius: 2px; }
+.layer .ico { width: 16px; text-align: center; color: #c9ced9; font-weight: 600; }
+.layer .nm { flex: 1; color: #e7eaf2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.layer .bar { width: 96px; height: 14px; border-radius: 3px; background: #4a6fb5; opacity: .75; }
+.layer .bar.t { background: #b5544a; }
+.prop { height: 26px; display: flex; align-items: center; gap: 8px; padding: 0 12px 0 52px; color: #aab2c6; font-size: 12px; border-bottom: 1px solid #17181d; overflow: hidden; max-height: 0; transition: max-height .35s; }
+.prop.open { max-height: 26px; }
+.prop i { width: 28px; height: 10px; border-radius: 2px; background: linear-gradient(90deg, #0b6cff, #ffe600, #ff00b4); }
+/* cursor y copias en vuelo */
+.cursor { position: absolute; left: 640px; top: 700px; width: 22px; height: 22px; z-index: 30; filter: drop-shadow(0 2px 3px rgb(0 0 0 / .6)); transition: transform .12s; }
+.cursor.press { transform: scale(.82); }
+.flyer { position: absolute; z-index: 20; pointer-events: none; transform-origin: 0 0; }
+.caret { display: inline-block; width: 2px; height: 1em; background: #fff; vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.demo-pause { position: absolute; right: 14px; bottom: 14px; z-index: 40; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgb(255 255 255 / .2); background: rgb(7 11 24 / .8); color: #eef2ff; display: grid; place-items: center; cursor: pointer; }
+.demo-pause:focus-visible { outline: 2px solid #eef2ff; outline-offset: 2px; }
+
+/* ---------- lo que llega */
+.what { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); margin-top: var(--s-7); }
+.what article { padding: var(--s-6); border-radius: var(--r-lg); background: var(--g-alt, #0e152e); border: 1px solid rgb(255 255 255 / .08); }
+.what h3 { margin: 0 0 var(--s-2); font-size: 20px; font-weight: 500; }
+.what p { margin: 0; color: var(--muted); }
+.what .ic-row { display: flex; gap: 8px; margin-bottom: var(--s-5); }
+.swatch { width: 40px; height: 40px; border-radius: 10px; }
+@media (max-width: 1023px) { .what { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 639px) { .what { grid-template-columns: 1fr; } .steps-row .step { font-size: 14px; } }
+.req { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6); margin-top: var(--s-7); }
+.req dl { margin: 0; } .req dt { color: var(--muted); font-size: 14px; margin-top: var(--s-4); } .req dd { margin: 4px 0 0; font-size: 17px; }
+@media (max-width: 639px) { .req { grid-template-columns: 1fr; } }
+</style>
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+</head>
+<body>
+<header class="nav nav--centre">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Ir al contenido</a>
+    <a class="nav__logo" href="index.html" aria-label="Fargot Suite, inicio"><img src="img/fargot-logo.png" alt="Fargot" width="68" height="30"></a>
+    <nav class="nav__links" aria-label="Principal">
+      <div class="nav__item"><a class="nav__link" href="index.html">Suite</a></div>
+      <div class="nav__item"><a class="nav__link" href="#como">Cómo funciona</a></div>
+      <div class="nav__item"><a class="nav__link" href="#llega">Qué llega</a></div>
+      <div class="nav__item"><a class="nav__link" href="#requisitos">Requisitos</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary" href="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Setup.exe">Descargar Fargot</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menú">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="section" id="como" style="--h:1; min-height:100svh; height:auto" aria-labelledby="como-h" data-enter>
+    <div class="wrap">
+      <p class="crumb"><a href="index.html">Fargot Suite</a> · Plugin</p>
+      <div class="grid">
+        <h1 id="como-h" class="span-7" style="font-size:clamp(38px,5vw,64px);margin:0">Fargot Transfer, de Illustrator a After Effects</h1>
+        <p class="span-5 start-8 muted" style="margin:0">Seleccionas tu diseño, pulsas <b>Enviar</b> y en After Effects llega una capa nativa por objeto: formas, degradados con sus colores, textos editables y efectos.</p>
+      </div>
+
+      <div class="demo-wrap">
+        <div class="steps-row" aria-hidden="true">
+          <span class="step" data-step="1"><b>1</b>Selecciona en Illustrator</span>
+          <span class="step" data-step="2"><b>2</b>Envía con el panel</span>
+          <span class="step" data-step="3"><b>3</b>Recibe y edita en After Effects</span>
+        </div>
+        <div class="viewport" id="viewport" role="img" aria-label="Animación: en Illustrator se seleccionan cinco objetos, el panel Fargot Transfer los envía, y en After Effects llegan como capas editables; el texto se cambia en After Effects.">
+          <div class="stage" id="stage">
+            <!-- ILLUSTRATOR -->
+            <div class="win win--ai">
+              <div class="win__bar"><span class="dots"><i></i><i></i><i></i></span><img src="assets/icons/illustrator.svg" alt=""><span>Cartel.ai al 100 %</span></div>
+              <div class="win__body">
+                <div class="canvas">
+                  <div class="artboard" id="artboard">
+                    <svg class="art" data-k="bar" style="left:24px;top:30px" width="262" height="70" viewBox="0 0 262 70"><defs><linearGradient id="g1"><stop offset="0" stop-color="#0b6cff"/><stop offset=".5" stop-color="#ffe600"/><stop offset="1" stop-color="#ff00b4"/></linearGradient></defs><rect width="262" height="70" rx="6" fill="url(#g1)"/></svg>
+                    <svg class="art" data-k="ball" style="left:24px;top:128px" width="120" height="120" viewBox="0 0 120 120"><defs><radialGradient id="g2" cx=".45" cy=".4" r=".6"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#1e3cdc"/></radialGradient></defs><circle cx="60" cy="60" r="60" fill="url(#g2)"/></svg>
+                    <svg class="art" data-k="star" style="left:166px;top:128px" width="120" height="120" viewBox="0 0 120 120"><defs><linearGradient id="g3" x1="0" x2="1"><stop offset="0" stop-color="#00d2ff"/><stop offset="1" stop-color="#1e5bff"/></linearGradient></defs><path d="M60 4l15 38 41 2-32 26 11 40-35-22-35 22 11-40L4 44l41-2z" fill="url(#g3)"/></svg>
+                    <svg class="art" data-k="line" style="left:24px;top:282px" width="262" height="40" viewBox="0 0 262 40"><path d="M6 34 256 6" stroke="#00b4e6" stroke-width="7" stroke-linecap="round"/></svg>
+                    <svg class="art" data-k="text" style="left:24px;top:350px" width="262" height="70" viewBox="0 0 262 70"><text x="0" y="52" font-family="Geist, Arial, sans-serif" font-weight="600" font-size="52" letter-spacing="-1.5" fill="#0d1230">FARGOT</text></svg>
+                    <div class="sel-box" id="selBox" style="left:18px;top:24px;width:274px;height:402px"></div>
+                    <div class="marquee" id="marquee"></div>
+                  </div>
+                </div>
+                <div class="panel-slot"><iframe id="pAI" title="Panel Fargot Transfer en Illustrator" src="panel/index.html?host=ILST" loading="lazy" tabindex="-1"></iframe></div>
+              </div>
+            </div>
+            <!-- AFTER EFFECTS -->
+            <div class="win win--ae">
+              <div class="win__bar"><span class="dots"><i></i><i></i><i></i></span><img src="assets/icons/after-effects.svg" alt=""><span>Composición: Cartel</span></div>
+              <div class="win__body">
+                <div class="viewer"><div class="comp" id="comp"></div></div>
+                <div class="timeline">
+                  <div class="tl-head"><b>Cartel</b><span>0:00:00:00</span><span style="margin-left:auto">Nombre de capa</span></div>
+                  <div id="layers"></div>
+                </div>
+                <div class="panel-slot"><iframe id="pAE" title="Panel Fargot Transfer en After Effects" src="panel/index.html?host=AEFT" loading="lazy" tabindex="-1"></iframe></div>
+              </div>
+            </div>
+            <svg class="cursor" id="cursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2l17 9-7.5 1.8L9 20z" fill="#fff" stroke="#000" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          </div>
+          <button class="demo-pause" id="demoPause" type="button" aria-label="Pausar la animación"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path id="pauseIco" d="M4 2v10M10 2v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="llega" style="--h:1" aria-labelledby="llega-h">
+    <div class="wrap">
+      <h2 id="llega-h">Qué llega a After Effects</h2>
+      <p class="muted measure">Nada de imágenes planas ni archivos .ai importados: cada objeto es una capa nativa del tamaño del objeto, en el mismo orden que en Illustrator.</p>
+      <div class="what">
+        <article><div class="ic-row"><span class="swatch" style="background:linear-gradient(90deg,#0b6cff,#ffe600,#ff00b4)"></span></div><h3>Degradados exactos</h3><p>Lineales y radiales como Gradient Fill nativo, con sus colores, puntos medios y transparencias.</p></article>
+        <article><div class="ic-row"><span class="swatch" style="background:#eef2ff;color:#070b18;display:grid;place-items:center;font:600 20px var(--font-display)">T</span></div><h3>Textos editables</h3><p>Capas de texto con su fuente, tamaño, color, interlineado y alineación. Cambia lo que dice en After Effects.</p></article>
+        <article><div class="ic-row"><span class="swatch" style="background:#0e152e;box-shadow:6px 6px 0 #1e5bff"></span></div><h3>Efectos recreados</h3><p>Sombras paralelas, resplandores y desenfoque gaussiano se rehacen con sus valores.</p></article>
+        <article><div class="ic-row"><img class="ic ic-40" src="assets/icons/after-effects.svg" alt="After Effects" width="40" height="39"></div><h3>Una capa por objeto</h3><p>Trazados, trazados compuestos, grupos y símbolos llegan como capas de forma que animas punto por punto.</p></article>
+        <article><div class="ic-row"><span class="swatch" style="background:radial-gradient(circle at 40% 40%,#fff,#1e3cdc)"></span></div><h3>Recortes y forma libre</h3><p>Las máscaras de recorte se respetan; los degradados de forma libre llegan como imagen exacta o recreados.</p></article>
+        <article><div class="ic-row"><img class="ic ic-40" src="assets/icons/illustrator.svg" alt="Illustrator" width="40" height="39"></div><h3>Modo automático</h3><p>Activa "Recibir automáticamente" y lo que envías aparece solo en tu composición.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="requisitos" style="--h:1" aria-labelledby="req-h">
+    <div class="wrap">
+      <h2 id="req-h">Requisitos y licencia</h2>
+      <div class="req">
+        <dl>
+          <dt>Programas</dt><dd>Illustrator y After Effects 2019 o posterior</dd>
+          <dt>Sistema</dt><dd>Windows 10 u 11</dd>
+          <dt>Instalación</dt><dd>Desde la app Fargot, con un clic</dd>
+        </dl>
+        <dl>
+          <dt>Licencia</dt><dd>Incluida en Fargot Suite: un pago, todos los plugins</dd>
+          <dt>Equipos</dt><dd>2 a la vez con la misma licencia</dd>
+          <dt>Sin conexión</dt><dd>Funciona hasta 7 días</dd>
+        </dl>
+      </div>
+      <div class="btn-row" style="margin-top:var(--s-7)">
+        <a class="btn btn--secondary" href="manual-fargot-transfer.pdf">Leer el manual</a>
+        <a class="btn btn--secondary" href="index.html#plugins">Ver toda la suite</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer closing" id="contact" aria-labelledby="close-h" style="--h:1">
+  <div class="wrap">
+    <div class="closing__cta close--type">
+      <div class="section-head">
+        <h2 id="close-h">Descarga la app Fargot</h2>
+        <p>La app es gratis e instala Fargot Transfer en Illustrator y After Effects.</p>
+      </div>
+      <a class="btn btn--primary btn--xl btn--wide" href="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Setup.exe">Descargar Fargot<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+    </div>
+    <div class="closing__links">
+      <div class="footer__legal">
+        <span>&copy; 2026 Fargot &nbsp; <a href="index.html">Fargot Suite</a> &nbsp; <a href="eula.txt">Contrato de licencia</a> &nbsp; <a href="mailto:farrogoeninternet@gmail.com">Soporte</a></span>
+        <span>Adobe, Illustrator y After Effects son marcas de Adobe Inc.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script>
+(function () {
+  var stage = document.getElementById("stage"), vp = document.getElementById("viewport");
+  function fit() { stage.style.transform = "scale(" + (vp.clientWidth / 1280) + ")"; }
+  fit(); addEventListener("resize", fit);
+
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var paused = false, running = false, token = 0;
+  var cursor = document.getElementById("cursor"), comp = document.getElementById("comp"), layers = document.getElementById("layers");
+  var pAI = document.getElementById("pAI"), pAE = document.getElementById("pAE");
+  var steps = document.querySelectorAll(".step");
+  var LAYERS = [
+    { k: "text", n: "FARGOT", ico: "T", lab: "#b5544a", t: 1 },
+    { k: "line", n: "Línea", ico: "★", lab: "#4a8fb5" },
+    { k: "star", n: "Estrella", ico: "★", lab: "#4a6fb5", prop: 1 },
+    { k: "ball", n: "Esfera", ico: "★", lab: "#7a8fb5", prop: 1 },
+    { k: "bar", n: "Barra degradada", ico: "★", lab: "#3f6fd8", prop: 1 }
+  ];
+  var sleep = function (ms) { var my = token; return new Promise(function (res, rej) { setTimeout(function () { my === token ? res() : rej("stop"); }, ms); }); };
+  async function waitPlay() { while (paused) await sleep(200); }
+  function stepOn(n) { steps.forEach(function (s) { s.classList.toggle("is-on", s.dataset.step === String(n)); }); }
+  // posicion de un elemento en coordenadas del escenario (1280x720)
+  function stagePos(el, frame) {
+    var s = vp.clientWidth / 1280, sr = stage.getBoundingClientRect(), r = el.getBoundingClientRect();
+    if (frame) { var fr = frame.getBoundingClientRect(), k = .665; return { x: (fr.left - sr.left) / s + r.left * k, y: (fr.top - sr.top) / s + r.top * k, w: r.width * k, h: r.height * k }; }
+    return { x: (r.left - sr.left) / s, y: (r.top - sr.top) / s, w: r.width / s, h: r.height / s };
+  }
+  async function moveTo(x, y, ms) {
+    cursor.animate([{ left: cursor.style.left || "640px", top: cursor.style.top || "700px" }, { left: x + "px", top: y + "px" }], { duration: ms, easing: "cubic-bezier(.65,0,.35,1)", fill: "forwards" });
+    cursor.style.left = x + "px"; cursor.style.top = y + "px";
+    await sleep(ms);
+  }
+  async function click() { cursor.classList.add("press"); await sleep(140); cursor.classList.remove("press"); }
+  function panelBtn(frame, id) { try { return frame.contentDocument.getElementById(id); } catch (e) { return null; } }
+  async function clickPanel(frame, id) {
+    var b = panelBtn(frame, id); if (!b) return;
+    var p = stagePos(b, frame.parentNode);
+    await moveTo(p.x + p.w * .5, p.y + p.h * .55, 700);
+    await click();
+    try { frame.contentWindow.postMessage({ fargotDemo: "click", id: id }, location.origin); } catch (e) {}
+  }
+  function reset() {
+    comp.innerHTML = ""; layers.innerHTML = "";
+    document.getElementById("selBox").style.opacity = 0;
+    try { localStorage.setItem("demo.sent", "0"); } catch (e) {}
+    stepOn(0);
+  }
+  function addLayers() {
+    LAYERS.forEach(function (L, i) {
+      var row = document.createElement("div");
+      row.className = "layer"; row.dataset.k = L.k;
+      row.innerHTML = '<span class="n">' + (i + 1) + '</span><span class="lab" style="background:' + L.lab + '"></span><span class="ico">' + L.ico + '</span><span class="nm">' + L.n + '</span><span class="bar' + (L.t ? " t" : "") + '"></span>';
+      layers.appendChild(row);
+      if (L.prop) { var pr = document.createElement("div"); pr.className = "prop"; pr.dataset.k = L.k; pr.innerHTML = '<i></i>Relleno de degradado · Editar degradado'; layers.appendChild(pr); }
+    });
+  }
+  async function flyAll() {
+    var arts = document.querySelectorAll("#artboard .art"), sc = 200 / 310;
+    var order = ["bar", "ball", "star", "line", "text"];
+    for (var i = 0; i < order.length; i++) {
+      var a = document.querySelector('#artboard .art[data-k="' + order[i] + '"]');
+      var from = stagePos(a), compPos = stagePos(comp);
+      var left = parseFloat(a.style.left), top = parseFloat(a.style.top);
+      var fly = a.cloneNode(true); fly.classList.add("flyer"); fly.style.left = from.x + "px"; fly.style.top = from.y + "px";
+      stage.appendChild(fly);
+      var tx = compPos.x + (left + 0) * sc * (280 / 470 / sc > 1 ? 1 : 1), ty = compPos.y + top * (280 / 470);
+      fly.animate([{ transform: "translate(0,0) scale(1)" }, { transform: "translate(" + (tx - from.x) + "px," + (ty - from.y) + "px) scale(" + sc + ")" }], { duration: 650, easing: "cubic-bezier(.65,0,.35,1)", fill: "forwards" });
+      (function (fly, a, left, top) {
+        setTimeout(function () {
+          var c = a.cloneNode(true); c.style.left = (left * sc) + "px"; c.style.top = (top * (280 / 470)) + "px"; c.style.transform = "scale(" + sc + ")"; comp.appendChild(c); fly.remove();
+          var row = layers.querySelector('.layer[data-k="' + a.dataset.k + '"]'); if (row) row.classList.add("in");
+        }, 660);
+      })(fly, a, left, top);
+      await sleep(180);
+    }
+    await sleep(700);
+  }
+  async function editText() {
+    var row = layers.querySelector('.layer[data-k="text"]');
+    var t = comp.querySelector('.art[data-k="text"] text');
+    if (!row || !t) return;
+    var p = stagePos(row); await moveTo(p.x + 80, p.y + 16, 600); await click(); row.classList.add("is-sel");
+    var cp = stagePos(t); await moveTo(cp.x + cp.w - 4, cp.y + cp.h / 2, 600); await click(); await sleep(120); await click();
+    var word = "FARGOT"; var target = "FARGOT SUITE";
+    for (var i = word.length; i <= target.length; i++) { t.textContent = target.slice(0, i); row.querySelector(".nm").textContent = target.slice(0, i); await sleep(110); }
+    await sleep(500); row.classList.remove("is-sel");
+    var pr = layers.querySelector('.prop[data-k="bar"]'); var br = layers.querySelector('.layer[data-k="bar"]');
+    if (br) { var bp = stagePos(br); await moveTo(bp.x + 26, bp.y + 16, 600); await click(); br.classList.add("is-sel"); }
+    if (pr) pr.classList.add("open");
+  }
+  async function run() {
+    var my = ++token; running = true;
+    try {
+      while (true) {
+        reset();
+        await sleep(900); await waitPlay();
+        // 1) seleccion en Illustrator
+        stepOn(1);
+        var ab = stagePos(document.getElementById("artboard"));
+        await moveTo(ab.x - 12, ab.y + 6, 800);
+        var mq = document.getElementById("marquee"); mq.style.opacity = 1; mq.style.left = "6px"; mq.style.top = "14px";
+        mq.animate([{ width: "0px", height: "0px" }, { width: "298px", height: "424px" }], { duration: 900, easing: "ease-in-out", fill: "forwards" });
+        cursor.animate([{ left: (ab.x - 12) + "px", top: (ab.y + 6) + "px" }, { left: (ab.x + 292) + "px", top: (ab.y + 434) + "px" }], { duration: 900, easing: "ease-in-out", fill: "forwards" });
+        cursor.style.left = (ab.x + 292) + "px"; cursor.style.top = (ab.y + 434) + "px";
+        await sleep(950); mq.style.opacity = 0; document.getElementById("selBox").style.opacity = 1;
+        await sleep(500); await waitPlay();
+        // 2) enviar desde el panel real de Illustrator
+        stepOn(2);
+        await clickPanel(pAI, "btnSend");
+        await sleep(1500); await waitPlay();
+        // 3) recibir en After Effects
+        stepOn(3);
+        addLayers();
+        await clickPanel(pAE, "btnReceive");
+        await sleep(300);
+        await flyAll(); await waitPlay();
+        await editText();
+        await sleep(2600); await waitPlay();
+      }
+    } catch (e) { running = false; }
+  }
+  function still() {
+    // reposo (movimiento reducido): el resultado final, sin animar
+    reset(); addLayers();
+    var sc = 200 / 310;
+    document.querySelectorAll("#artboard .art").forEach(function (a) {
+      var c = a.cloneNode(true); c.style.left = parseFloat(a.style.left) * sc + "px"; c.style.top = parseFloat(a.style.top) * (280 / 470) + "px"; c.style.transform = "scale(" + sc + ")"; comp.appendChild(c);
+    });
+    layers.querySelectorAll(".layer").forEach(function (r) { r.classList.add("in"); });
+    stepOn(3); cursor.style.display = "none";
+  }
+  var btn = document.getElementById("demoPause"), ico = document.getElementById("pauseIco");
+  btn.addEventListener("click", function () {
+    paused = !paused;
+    btn.setAttribute("aria-label", paused ? "Reanudar la animación" : "Pausar la animación");
+    ico.setAttribute("d", paused ? "M4 2l8 5-8 5z" : "M4 2v10M10 2v10");
+    if (!paused && !running) run();
+  });
+  function start() { if (reduced) { still(); btn.hidden = true; return; } run(); }
+  // arranca cuando los dos paneles reales cargaron y la animacion esta a la vista
+  var loaded = 0;
+  [pAI, pAE].forEach(function (f) { f.addEventListener("load", function () { if (++loaded === 2) begin(); }); });
+  var seen = false;
+  new IntersectionObserver(function (es) { if (es[0].isIntersecting) { seen = true; begin(); } }, { threshold: .3 }).observe(vp);
+  function begin() { if (loaded === 2 && seen && !running) start(); }
+})();
+</script>
+</body>
+</html>

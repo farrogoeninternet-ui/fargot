@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fargot Suite: plugins para Illustrator y After Effects</title>
-<meta name="description" content="Fargot Suite reúne plugins de bajo costo para diseñadores de motion. Fargot Transfer lleva tu diseño de Illustrator a After Effects como capas editables.">
+<meta name="description" content="Fargot Suite reúne plugins de bajo costo para diseñadores de motion: un solo pago, todos los plugins, 2 equipos por licencia y una app que los instala y actualiza.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Fargot Suite: plugins para Illustrator y After Effects">
 <meta property="og:description" content="Un solo pago, todos los plugins de la suite, 2 equipos por licencia.">
@@ -23,7 +23,6 @@
 <link rel="stylesheet" href="assets/motion/motion.css">
 <link rel="stylesheet" href="assets/backgrounds/backgrounds.css">
 <link rel="stylesheet" href="assets/layout/layout.css">
-<link rel="stylesheet" href="assets/layout/demo.css">
 <link rel="stylesheet" href="assets/icons/icon.css">
 <style>
 :root {
@@ -39,13 +38,6 @@
   --display-tracking-xl: -0.045em;
 }
 </style>
-<link rel="stylesheet" href="assets/ui/base.css">
-<link rel="stylesheet" href="assets/ui/window/fragment.css">
-<link rel="stylesheet" href="assets/ui/files/fragment.css">
-<link rel="stylesheet" href="assets/ui/toggles/fragment.css">
-<link rel="stylesheet" href="assets/ui/notify/fragment.css">
-<link rel="stylesheet" href="assets/ui/checklist/fragment.css">
-<link rel="stylesheet" href="assets/diagrams/diagram.css">
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script src="assets/backgrounds/backgrounds.js"></script>
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
@@ -53,77 +45,84 @@
 <link rel="modulepreload" href="assets/moments/lib.js">
 <link rel="modulepreload" href="assets/moments/liquid-type/moment.js">
 <style>
-  /* el logo de Fargot (PNG del cliente) en la barra y el pie */
   .nav__logo img { height: 30px; width: auto; display: block; }
-  /* la ventana del hero: Illustrator a la izquierda, el envio en curso a la derecha */
-  .hero__window { background: radial-gradient(120% 80% at 70% 110%, #1e5bff 0, transparent 60%), radial-gradient(90% 70% at 10% 100%, #00a8d6 0, transparent 55%), linear-gradient(#0b1a46, #102866); }
-  .d-win--dark .d-win__body { grid-template-columns: 270px 1fr; min-height: 420px; }
-  .d-win--dark .d-win__bar b { color: #eceef0; font-weight: 500; } .d-win--dark .d-win__bar .sp { flex: 1; }
-  .d-win__bar img { width: 16px; height: 16px; }
-  .hero__window .d-chat { padding: 14px 18px; gap: 8px; }
-  .hero__window .d-msg--me small { display: none; }
-  .hero__window .d-msg--bot { max-width: 86%; }
-  .hero__window .d-msg--bot small { display: inline; margin: 0 0 0 8px; white-space: nowrap; }
-  .inbox { border-right: 1px solid rgb(255 255 255 / .07); padding: 10px; display: grid; align-content: start; gap: 2px; }
-  .inbox .q { height: 34px; margin-bottom: 6px; border-radius: 9px; background: rgb(255 255 255 / .06); display: flex; align-items: center; gap: 8px; padding: 0 10px; color: #9aa3b8; font-size: 13px; }
-  .inbox .q img { width: 16px; height: 16px; }
-  .inbox .t { position: relative; display: block; padding: 9px 8px 9px 48px; border-radius: 9px; font-size: 13px; line-height: 1.45; }
-  .inbox .t::before { content: ""; position: absolute; left: 8px; top: 10px; width: 30px; height: 30px; border-radius: 8px; background: var(--sw); }
-  .inbox .t.is-on { background: rgb(255 255 255 / .07); }
-  .inbox .t b { display: block; font-weight: 500; color: #eceef0; }
-  .inbox .t span { display: block; color: #9aa3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .convo { display: grid; min-width: 0; align-content: start; }
-  .d-msg--bot { background: #1a2440; color: #e9ecf4; }
-    @media (max-width: 639px) {
-    .hero__window .d-win__bar .sp ~ span { display: none; }
-    .d-win--dark .d-win__body { grid-template-columns: 1fr; } .inbox { display: none; }
-    .hero__window .d-chat { font-size: 13px; padding: 12px 14px; }
-    .hero__window .d-msg--bot small, .hero__window .d-tool { display: none; }
-  }
-  /* app-frame: los envios de Illustrator junto a las capas creadas en After Effects */
-  .app.ui { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); margin-top: var(--s-7); background: var(--u-bg); border: 1px solid var(--u-border); border-radius: var(--u-r); box-shadow: var(--u-shadow); }
-  .app > .app__pane { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
-  .app > .app__pane + .app__pane { border-left: 1px solid var(--u-line); }
-  .app > .app__pane > .ui-panel { width: 100%; border: 0; border-radius: 0; box-shadow: none; }
-  .app > .app__pane::after { content: ""; position: absolute; inset: auto 0 0 0; height: 64px; background: linear-gradient(transparent, var(--u-bg)); pointer-events: none; }
-  .app .app__pane--open .ui-files { padding: 20px; }
-  @media (min-width: 1024px) and (max-width: 1279px) { .app.ui { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
-  @media (max-width: 1023px) {
-    .app.ui { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
-    .app > .app__pane--list { max-height: 252px; }
-    .app > .app__pane--list::after { display: none; }
-    .app .ui-win__side { display: none; }
-    .app .ui-win__body { grid-template-columns: minmax(0, 1fr); }
-    .app > .app__pane + .app__pane { border-left: 0; border-top: 1px solid var(--u-line); }
-  }
-  @media (max-width: 639px) {
-    .app.ui { grid-template-rows: minmax(0, 1fr); }
-    .app > .app__pane--list { display: none; }
-    .app > .app__pane + .app__pane { border-top: 0; }
-  }
   .close__word { line-height: 1; }
   @media (min-width: 640px) { .close__word { font-size: min(25.5vw, 372px); } }
+
+  /* ---------- la app Fargot tal como es (misma interfaz que Fargot.exe, con datos de ejemplo) */
+  .fa { --fa-ink: #f4f7ff; --fa-muted: rgb(226 233 255 / .78); --fa-cyan: #00d2ff;
+    position: relative; width: 420px; max-width: 100%; border-radius: 30px; overflow: hidden; color: var(--fa-ink);
+    font: 400 13px/1.35 "Acumin Variable Concept", "Acumin Pro", var(--font-text);
+    background: radial-gradient(110% 80% at 50% 0%, #0b1330, #05070f);
+    box-shadow: 0 0 0 1px rgb(255 255 255 / .16), 0 30px 70px -20px rgb(0 0 0 / .8); padding: 18px 22px 22px; text-align: left; }
+  .fa::before, .fa::after { content: ""; position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; }
+  .fa::before { width: 260px; height: 260px; left: -120px; top: 360px; background: #1e5bff; opacity: .55; }
+  .fa::after { width: 220px; height: 220px; right: -110px; top: 470px; background: #00d2ff; opacity: .35; }
+  .fa > * { position: relative; z-index: 1; }
+  .fa__win { display: flex; justify-content: flex-end; gap: 6px; }
+  .fa__win i { width: 26px; height: 26px; border-radius: 50%; background: rgb(255 255 255 / .09); display: grid; place-items: center; font-style: normal; font-size: 13px; color: var(--fa-ink); }
+  .fa__brand { display: grid; justify-items: center; margin-top: -4px; }
+  .fa__brand img { height: 64px; width: auto; filter: drop-shadow(0 0 18px rgb(140 210 255 / .8)); }
+  .fa__brand span { margin-top: 4px; font-size: 11px; letter-spacing: .42em; font-weight: 300; color: rgb(255 255 255 / .8); }
+  .fa__glass { margin-top: 14px; border-radius: 22px; background: linear-gradient(165deg, rgb(255 255 255 / .13), rgb(255 255 255 / .05)); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .16); }
+  .fa__h { margin: 18px 4px 0; font-size: 10.5px; letter-spacing: .14em; font-weight: 600; color: rgb(226 233 255 / .6); }
+  .fa__row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; }
+  .fa__row + .fa__row { border-top: 1px solid rgb(255 255 255 / .07); }
+  .fa__av { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 16px; background: linear-gradient(45deg, #1e5bff, #0a2fe0); flex: none; }
+  .fa__grow { flex: 1; min-width: 0; }
+  .fa__t { font-size: 13.5px; font-weight: 500; } .fa__s { color: var(--fa-muted); font-size: 11.5px; }
+  .fa__btn { height: 34px; padding: 0 16px; border-radius: 17px; display: inline-grid; place-items: center; font-size: 12px; font-weight: 600; white-space: nowrap; background: rgb(255 255 255 / .1); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .14); }
+  .fa__btn--primary { background: linear-gradient(135deg, #2f7bff, #1e5bff 45%, #0a2fe0); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .24), 0 5px 18px rgb(30 91 255 / .5); min-width: 104px; }
+  .fa__ico { width: 42px; height: 42px; border-radius: 13px; flex: none; display: grid; place-items: center; background: linear-gradient(45deg, #2f7bff, #0a2fe0); }
+  .fa__soon { padding: 11px 14px; border-top: 1px solid rgb(255 255 255 / .07); color: var(--fa-muted); font-size: 12px; }
+  .fa__dot { width: 8px; height: 8px; border-radius: 50%; background: #34e3a0; box-shadow: 0 0 8px #34e3a0; }
+  .fa__cur { color: var(--fa-cyan); font-size: 11.5px; }
+  .fa__upd { box-shadow: inset 0 0 0 1px rgb(0 210 255 / .5); }
+  .fa__bar { height: 3px; border-radius: 2px; background: rgb(255 255 255 / .1); margin-top: 6px; overflow: hidden; }
+  .fa__bar i { display: block; height: 100%; width: 0; background: var(--fa-cyan); }
+
+  /* el hero: la app dentro de la ventana iluminada */
+  .hero__window { display: grid; justify-items: center; background: radial-gradient(120% 80% at 70% 110%, #1e5bff 0, transparent 60%), radial-gradient(90% 70% at 10% 100%, #00a8d6 0, transparent 55%), linear-gradient(#0b1a46, #102866); }
+  .hero__window .fa { margin-top: 32px; }
   .hero__window .ui-pause:focus-visible { outline: 2px solid #070b18; outline-offset: 2px; box-shadow: 0 0 0 6px #eef2ff; }
+  @media (max-width: 639px) { .hero__window .fa { width: 310px; padding: 14px 16px; margin-top: 16px; } .hero__window .fa__brand img { height: 48px; } .hero__window .fa__upd + .fa__glass { display: none; } }
+
+  /* la seccion de la app: la app entera junto a lo que hace */
+  .app-split .fa { justify-self: end; margin-left: auto; }
+  .app-split .rows { margin-top: var(--s-7); }
+  @media (max-width: 1023px) { .app-split .fa { margin: var(--s-6) 0 0; } }
+  @media (max-width: 639px) { .app-split .fa { width: 100%; padding: 12px 16px 16px; } .app-split .fa > :not(.fa__glass:nth-of-type(4)):not(.fa__h:nth-of-type(1)) { display: none; } }
+
+  /* plugins de la suite */
+  #plugins .panel { --p-h: 220px; display: grid; place-items: center; }
+  .pl-flow { display: flex; align-items: center; gap: 14px; }
+  .pl-flow svg { color: #9aa6c7; }
+  .pl-grid { display: grid; grid-template-columns: repeat(3, 44px); gap: 10px; }
+  .pl-grid i { width: 44px; height: 44px; border-radius: 13px; display: block; background: rgb(255 255 255 / .07); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .1); }
+  .pl-grid i.on { background: linear-gradient(45deg, #2f7bff, #0a2fe0); }
+  .pl-grid i.next { box-shadow: inset 0 0 0 1px rgb(0 210 255 / .7); background: rgb(0 210 255 / .08); }
+  .pl-msg { width: min(280px, 86%); border-radius: 16px; padding: 14px 16px; background: #0e152e; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .12); font-size: 16px; }
+  .pl-msg small { display: block; color: #9aa6c7; font-size: 13px; margin-bottom: 6px; }
+  .tag { align-self: flex-start; display: inline-flex; height: 26px; align-items: center; padding: 0 10px; border-radius: 13px; font-size: 13px; border: 1px solid rgb(255 255 255 / .14); color: var(--muted); }
+  .tag.on { color: #34e3a0; border-color: rgb(52 227 160 / .45); }
   .faq-apps { display: flex; gap: var(--s-4); margin-top: var(--s-6); }
-  #funciones .panel { --p-h: 336px; }
-  @media (max-width: 639px) { #funciones .panel { --p-h: 150px; } }
 </style>
 </head>
 <body>
-<!-- type: software (plugins para Illustrator y After Effects; la app Fargot)
+<!-- type: software (Fargot Suite: plugins para Illustrator y After Effects y la app Fargot)
      deal: hero centred, nav nav-centre, close close-word, footer footer-columns, rhythm space, buttons tonal,
-     mark: logo propio del cliente (PNG), ground sky, palette: colores de la marca (azul #1E5BFF sobre azul noche),
-     type geist, effect gradient-mesh (ventana del hero), card ground painterly-landscape (grupo de funciones)
-     moments: liquid-type (seccion #suite, una frase de seis palabras) -->
+     mark: logo propio (PNG), ground sky, palette: colores de la marca, type geist,
+     effect gradient-mesh (ventana del hero, con la app Fargot dentro)
+     moments: liquid-type (seccion #licencia) -->
 
 <header class="nav nav--centre">
   <div class="wrap nav__bar">
     <a class="skip-link" href="#top">Ir al contenido</a>
-    <a class="nav__logo" href="#top" aria-label="Fargot, inicio"><img src="img/fargot-logo.png" alt="Fargot" width="68" height="30"></a>
+    <a class="nav__logo" href="#top" aria-label="Fargot Suite, inicio"><img src="img/fargot-logo.png" alt="Fargot" width="68" height="30"></a>
     <nav class="nav__links" aria-label="Principal">
-      <div class="nav__item"><a class="nav__link" href="#transfer">Transfer</a></div>
-      <div class="nav__item"><a class="nav__link" href="#suite">Suite</a></div>
-      <div class="nav__item"><a class="nav__link" href="#funciones">Funciones</a></div>
+      <div class="nav__item"><a class="nav__link" href="#plugins">Plugins</a></div>
+      <div class="nav__item"><a class="nav__link" href="#licencia">Licencia</a></div>
+      <div class="nav__item"><a class="nav__link" href="#app">App</a></div>
       <div class="nav__item"><a class="nav__link" href="#faq">Preguntas</a></div>
     </nav>
     <div class="nav__actions">
@@ -139,192 +138,100 @@
   <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
     <div class="wrap"><div class="hero-text">
       <div class="hero__c">
-        <a class="pill" href="#transfer"><span>Fargot Transfer ya está disponible</span><span class="muted">Ver el plugin</span></a>
+        <a class="pill" href="transfer.html"><span>Fargot Transfer ya está disponible</span><span class="muted">Ver cómo funciona</span></a>
         <h1 id="hero-h">Plugins para diseñadores de motion</h1>
-        <p class="hero__lead">Plugins de bajo costo para Illustrator y After Effects. Un solo pago te da todos los plugins de la suite en 2 equipos, y se instalan desde la app Fargot.</p>
-        <div class="btn-row"><a class="btn btn--primary" href="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Setup.exe">Descargar Fargot</a><a class="btn btn--secondary" href="#transfer">Ver Fargot Transfer</a></div>
+        <p class="hero__lead">Fargot Suite reúne plugins de bajo costo para Illustrator y After Effects. Un solo pago te da todos los plugins en 2 equipos, y la app Fargot los instala.</p>
+        <div class="btn-row"><a class="btn btn--primary" href="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Setup.exe">Descargar Fargot</a><a class="btn btn--secondary" href="#plugins">Ver los plugins</a></div>
       </div>
-      <div class="hero__window" data-fx="gradient-mesh" data-fx-seed="7" role="img" aria-label="Fargot Transfer enviando seis objetos de Illustrator a After Effects como capas editables">
-        <div class="ly-piece d-win d-win--dark" aria-hidden="true">
-          <div class="d-win__bar"><span class="d-win__dots"><i></i><i></i><i></i></span><span><b>Cartel Nature.ai</b> · 6 objetos seleccionados</span><span class="sp"></span><span>Illustrator a After Effects</span></div>
-          <div class="d-win__body">
-            <div class="inbox">
-              <div class="q"><img src="assets/icons/illustrator.svg" alt="">Selección</div>
-              <div class="t is-on" style="--sw:linear-gradient(135deg,#ff3d6e,#0b2a6e)"><b>Hoja grande</b><span>Degradado de 3 colores</span></div>
-              <div class="t" style="--sw:#f2f2f2"><b>NATURE BACKGROUND</b><span>Texto, OpenSans 21 pt</span></div>
-              <div class="t" style="--sw:linear-gradient(135deg,#00d2b4,#0a3d5c)"><b>Mano</b><span>Grupo de 12 trazados con recorte</span></div>
-            </div>
-            <div class="convo">
-              <div class="d-chat" data-ly-steps="900">
-                <div class="d-msg d-msg--me">Enviar 6 objetos a After Effects<small>10:42</small></div>
-                <div class="d-tool" data-step>Leyendo degradados, textos y efectos</div>
-                <div class="d-msg d-msg--bot" data-step>En la composición Nature: 6 capas nativas, 2 degradados con sus colores exactos, 1 capa de texto editable y la sombra paralela.<small>Enviado en 4 s</small></div>
-              </div>
-            </div>
-          </div>
+      <div class="hero__window" data-fx="gradient-mesh" data-fx-seed="7" role="img" aria-label="La app Fargot: el aviso de una versión nueva, tu cuenta y Fargot Transfer instalado">
+        <div class="fa" aria-hidden="true" data-fa-loop>
+          <div class="fa__win"><i>–</i><i>×</i></div>
+          <div class="fa__brand"><img src="img/fargot-logo.png" alt=""><span>P L U G I N S</span></div>
+          <div class="fa__glass fa__upd"><div class="fa__row"><div class="fa__grow"><div class="fa__t">Nueva versión 1.0.1</div><div class="fa__s">Degradados más rápidos y textos editables.</div><div class="fa__bar"><i data-fa-bar></i></div></div><span class="fa__btn fa__btn--primary" data-fa-btn>Actualizar</span></div></div>
+          <div class="fa__glass"><div class="fa__row"><span class="fa__av">F</span><div class="fa__grow"><div class="fa__t">Tu cuenta Fargot</div><div class="fa__s">Licencia activa · todos los plugins</div></div><span class="fa__btn">Cerrar sesión</span></div></div>
+          <p class="fa__h">TUS PLUGINS</p>
+          <div class="fa__glass"><div class="fa__row"><span class="fa__ico"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M4 12h12M11 7l5 5-5 5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="fa__grow"><div class="fa__t" style="font-size:14.5px;font-weight:600">Fargot Transfer</div><div class="fa__s">Instalado · v1.0.0</div></div><span class="fa__btn fa__btn--primary">Reinstalar</span></div><div class="fa__soon">Más plugins de la suite Fargot, próximamente.</div></div>
         </div>
       </div>
     </div></div>
   </section>
 
-  <section class="section" id="transfer" aria-labelledby="transfer-h">
+  <section class="section" id="plugins" style="--hm: 2" aria-labelledby="plugins-h">
     <div class="wrap">
-      <div class="grid">
-        <h2 id="transfer-h" class="span-5">Fargot Transfer, de Illustrator a After Effects</h2>
-        <p class="span-6 start-7 muted">Seleccionas en Illustrator y pulsas Enviar. En After Effects aparece una capa por objeto, del tamaño del objeto y en el mismo orden. <a class="link" href="manual-fargot-transfer.pdf">Leer el manual</a></p>
+      <div class="section-head">
+        <h2 id="plugins-h">Los plugins de la suite. <span class="muted">Todos entran en la misma licencia.</span></h2>
       </div>
-      <div class="ui app fill" role="img" aria-label="Lista de envíos desde Illustrator junto a las capas que Fargot Transfer crea en After Effects" data-ui-pause-host>
-        <div class="app__pane app__pane--list">
-          <div class="ui ui-panel ui-win" data-ui="window" data-open="En cola" data-work="Enviando" data-done="Recibido">
-            <div class="ui-win__bar">
-              <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="ui-win__crumb">Fargot Transfer <i>/</i> <b>Envíos</b></span>
-              <span class="ui-spacer"></span>
-              <span class="ui-win__search" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg><span class="ui-win__ph">Buscar</span><span class="ui-kbd">/</span></span>
-            </div>
-            <div class="ui-win__body">
-              <nav class="ui-win__side" aria-hidden="true">
-                <span class="ui-win__nav is-on"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2.5 9h3l1 1.5h3l1-1.5h3"/><path d="M2.5 9 4 3.5h8L13.5 9v3.5h-11z"/></svg>Envíos<em>9</em></span>
-                <span class="ui-win__nav"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5"/><path d="M8 5v3l2 1.5"/></svg>Hoy<em>4</em></span>
-                <span class="ui-win__nav"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg>Recibidos</span>
-                <span class="ui-win__label">Contenido</span>
-                <span class="ui-win__nav"><span class="ui-win__hash">#</span>Degradados</span>
-                <span class="ui-win__nav"><span class="ui-win__hash">#</span>Textos</span>
-              </nav>
-              <div class="ui-win__main">
-                <div class="ui-win__cols" aria-hidden="true"><span>Documento</span><span>Contenido</span><span>Estado</span><span>Hace</span></div>
-                <ul class="ui-win__rows">
-                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">CN</span><span class="ui-win__who">Cartel Nature</span><span class="ui-win__sub">6 capas · 2 degradados</span><span class="ui-win__st" data-st>En cola</span><span class="ui-win__age">1 min</span></li>
-                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">LV</span><span class="ui-win__who">Logo Vuela</span><span class="ui-win__sub">3 capas · 1 texto</span><span class="ui-win__st" data-st>En cola</span><span class="ui-win__age">4 min</span></li>
-                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">IG</span><span class="ui-win__who">Intro Gaming</span><span class="ui-win__sub">14 capas · 2 recortes</span><span class="ui-win__st" data-st>En cola</span><span class="ui-win__age">9 min</span></li>
-                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">BC</span><span class="ui-win__who">Banner Cafetería</span><span class="ui-win__sub">5 capas · 1 sombra</span><span class="ui-win__st is-done" data-st>Recibido</span><span class="ui-win__age">16 min</span></li>
-                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="5">ME</span><span class="ui-win__who">Mapa Evento</span><span class="ui-win__sub">22 capas · 4 textos</span><span class="ui-win__st is-done" data-st>Recibido</span><span class="ui-win__age">23 min</span></li>
-                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">PS</span><span class="ui-win__who">Post Semana</span><span class="ui-win__sub">8 capas · 3 degradados</span><span class="ui-win__st is-done" data-st>Recibido</span><span class="ui-win__age">31 min</span></li>
-                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">TA</span><span class="ui-win__who">Tarjeta Aniversario</span><span class="ui-win__sub">4 capas · 1 desenfoque</span><span class="ui-win__st is-done" data-st>Recibido</span><span class="ui-win__age">40 min</span></li>
-                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">IC</span><span class="ui-win__who">Iconos App</span><span class="ui-win__sub">18 capas · 6 degradados</span><span class="ui-win__st is-done" data-st>Recibido</span><span class="ui-win__age">52 min</span></li>
-                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">FL</span><span class="ui-win__who">Flyer Lanzamiento</span><span class="ui-win__sub">11 capas · 2 textos</span><span class="ui-win__st is-done" data-st>Recibido</span><span class="ui-win__age">1 h</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="app__pane app__pane--open" data-ui-loop>
-          <div class="ui ui-files" data-ui="files" data-reading="Creando capa {n} de {total}">
-            <div class="ui-files__status"><span class="ui-dot"></span><span data-files-status>8 capas creadas en Nature</span></div>
-            <ul class="ui-files__grid">
-              <li class="ui-file is-done"><span class="ui-file__icon"><img src="assets/icons/after-effects.svg" alt=""></span><span class="ui-file__name">Hoja grande</span><span class="ui-file__kind">Degradado nativo</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
-              <li class="ui-file is-done"><span class="ui-file__icon"><img src="assets/icons/after-effects.svg" alt=""></span><span class="ui-file__name">NATURE BACKGROUND</span><span class="ui-file__kind">Texto editable</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
-              <li class="ui-file is-done"><span class="ui-file__icon"><img src="assets/icons/after-effects.svg" alt=""></span><span class="ui-file__name">Mano</span><span class="ui-file__kind">Recorte con máscara</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
-              <li class="ui-file is-done"><span class="ui-file__icon"><img src="assets/icons/after-effects.svg" alt=""></span><span class="ui-file__name">Fondo</span><span class="ui-file__kind">Sombra paralela</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
-              <li class="ui-file is-done"><span class="ui-file__icon"><img src="assets/icons/after-effects.svg" alt=""></span><span class="ui-file__name">Hojas pequeñas</span><span class="ui-file__kind">Capa de forma</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
-              <li class="ui-file is-done"><span class="ui-file__icon"><img src="assets/icons/after-effects.svg" alt=""></span><span class="ui-file__name">Línea</span><span class="ui-file__kind">Trazo editable</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
-              <li class="ui-file is-done"><span class="ui-file__icon"><img src="assets/icons/after-effects.svg" alt=""></span><span class="ui-file__name">Flor</span><span class="ui-file__kind">Degradado radial</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
-              <li class="ui-file is-done"><span class="ui-file__icon"><img src="assets/icons/after-effects.svg" alt=""></span><span class="ui-file__name">Marca</span><span class="ui-file__kind">Capa de forma</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
-            </ul>
-          </div>
-        </div>
+      <div class="grid">
+        <a class="card card--row span-4" href="transfer.html">
+          <span class="tag on">Disponible</span>
+          <h3>Fargot Transfer</h3>
+          <p>Pasa tu diseño de Illustrator a After Effects como capas editables, con degradados, textos y efectos.</p>
+          <div class="panel"><div class="pl-flow"><img class="ic ic-40" src="assets/icons/illustrator.svg" alt="Illustrator" width="40" height="39"><svg width="40" height="16" viewBox="0 0 40 16" aria-hidden="true"><path d="M2 8h32M28 3l6 5-6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><img class="ic ic-40" src="assets/icons/after-effects.svg" alt="After Effects" width="40" height="39"></div></div>
+        </a>
+        <article class="card card--row span-4">
+          <span class="tag">En desarrollo</span>
+          <h3>Próximo plugin</h3>
+          <p>Ya preparamos la siguiente herramienta de la suite. Llegará a la app Fargot como una actualización más.</p>
+          <div class="panel"><div class="pl-grid" role="img" aria-label="Fargot Transfer y el siguiente plugin de la suite"><i class="on"></i><i class="next"></i><i></i><i></i><i></i><i></i></div></div>
+        </article>
+        <a class="card card--row span-4" href="mailto:farrogoeninternet@gmail.com?subject=Idea%20para%20un%20plugin%20de%20Fargot">
+          <span class="tag">Tu idea</span>
+          <h3>¿Qué plugin necesitas?</h3>
+          <p>Cuéntanos qué tarea repites todos los días en Illustrator o After Effects. Las mejores ideas se vuelven plugins.</p>
+          <div class="panel"><div class="pl-msg" role="img" aria-label="Un mensaje al equipo Fargot con tu idea"><small>Para el equipo Fargot</small>Quiero un plugin que…</div></div>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="section statement" id="suite" data-moment="liquid-type" aria-labelledby="suite-h">
+  <section class="section statement" id="licencia" data-moment="liquid-type" aria-labelledby="licencia-h">
     <div class="wrap">
       <div class="section-head" style="max-width:none">
-        <h2 id="suite-h" class="mo-lt__type">Una cuenta para toda la suite</h2>
-        <p>Un solo pago desbloquea todos los plugins de Fargot. Inicias sesión una vez en la app y los usas en tu escritorio y tu portátil; las actualizaciones llegan solas.</p>
+        <h2 id="licencia-h" class="mo-lt__type">Un pago, todos los plugins</h2>
+        <p>Compras la licencia de Fargot Suite una vez y tienes cada plugin de la suite con sus actualizaciones, en tu escritorio y tu portátil a la vez.</p>
       </div>
     </div>
   </section>
 
-  <section class="section g2" id="funciones" aria-labelledby="funciones-h">
+  <section class="section" id="app" aria-labelledby="app-h">
     <div class="wrap">
-      <div class="group">
-        <div class="section-head">
-          <h2 id="funciones-h">Todo llega editable. <span class="muted">Cada objeto es una capa nativa de After Effects.</span></h2>
+      <div class="grid grid--top app-split">
+        <div class="span-6">
+          <h2 id="app-h">La app Fargot para toda la suite</h2>
+          <ul class="rows">
+            <li><span class="rows__name">Inicia sesión una vez</span><p>Con el correo y la clave de tu compra.</p></li>
+            <li><span class="rows__name">Instala con un clic</span><p>Pone los plugins en Illustrator y After Effects por ti.</p></li>
+            <li><span class="rows__name">Usa 2 equipos a la vez</span><p>Ves tus equipos y cierras sesión en uno desde aquí.</p></li>
+            <li><span class="rows__name">Se actualiza sola</span><p>Te avisa de cada versión nueva y la instala.</p></li>
+          </ul>
         </div>
-        <div class="grid">
-          <article class="card card--row span-6">
-            <h3>Elige qué llega a After Effects</h3>
-            <p>Efectos, textos y centrado se activan con un interruptor en el panel, y se recuerdan para el próximo envío.</p>
-            <div class="panel panel--flush" data-fx="painterly-landscape" data-fx-seed="21" data-fx-params='{"drift":0}'>
-              <div class="stage stage--fade-b"><div class="at-right to-edge" style="--ax:32px;--ay:56px" data-ui-loop>
-                <div class="ui ui-panel ui-toggles" data-ui="toggles">
-                  <div class="ui-head">
-                    <svg class="ui-icon ui-toggles__ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8 13 4v3.6c0 3-2.1 5.4-5 6.6-2.9-1.2-5-3.6-5-6.6V4z"/><path d="m5.8 8 1.6 1.6 3-3.2"/></svg>
-                    <div class="ui-title">Al recibir en After Effects</div>
-                    <span class="ui-spacer"></span>
-                    <div class="ui-meta" data-tg-count>4 de 5 activas</div>
-                  </div>
-                  <ul class="ui-toggles__list">
-                    <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Copiar efectos de Illustrator</span><span class="ui-tg__sub">Sombras, resplandores, desenfoque</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="Copiar efectos de Illustrator"><i></i></button></li>
-                    <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Texto editable</span><span class="ui-tg__sub">Capas de texto con su fuente</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="Texto editable"><i></i></button></li>
-                    <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Recibir automáticamente</span><span class="ui-tg__sub">Cada envío aparece solo</span></span><button class="ui-switch" type="button" role="switch" aria-checked="false" aria-label="Recibir automáticamente"><i></i></button></li>
-                    <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Centrar en la composición</span><span class="ui-tg__sub">La mesa de trabajo al centro</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="Centrar en la composición"><i></i></button></li>
-                    <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Forma libre como imagen</span><span class="ui-tg__sub">Idéntica, recortada por su trazado</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="Forma libre como imagen"><i></i></button></li>
-                  </ul>
-                </div>
-              </div></div>
-            </div>
-          </article>
-          <article class="card card--row span-6">
-            <h3>Copia los degradados con sus colores</h3>
-            <p>Lineales y radiales llegan como Gradient Fill nativo, con sus puntos medios y transparencias.</p>
-            <div class="panel panel--flush" data-fx="painterly-landscape" data-fx-seed="34" data-fx-params='{"drift":0}'>
-              <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:400px;--ax:max(24px, 50% - 200px);--ay:calc(100% - 180px);--ay-sm:calc(100% - 180px)">
-                <div class="ui ui-notify" data-ui="notify">
-                  <ul class="ui-notify__list" data-notify-list>
-                    <li class="ui-note"><span class="ui-note__ico"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></span><span class="ui-note__text"><span class="ui-note__title">Degradado nativo creado<time>ahora</time></span><span class="ui-note__body">Hoja grande, 3 paradas de color</span></span></li>
-                    <li class="ui-note"><span class="ui-note__ico"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></span><span class="ui-note__text"><span class="ui-note__title">Degradado radial creado<time>2 s</time></span><span class="ui-note__body">Flor, opacidad del 0 al 100 %</span></span></li>
-                    <li class="ui-note"><span class="ui-note__ico"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg></span><span class="ui-note__text"><span class="ui-note__title">6 capas en Nature<time>4 s</time></span><span class="ui-note__body">Mismo orden que en Illustrator</span></span></li>
-                  </ul>
-                </div>
-              </div></div>
-            </div>
-          </article>
+        <div class="span-6 start-7" role="img" aria-label="La app Fargot entera: cuenta, plugins, equipos y estado de Illustrator y After Effects">
+          <div class="fa" aria-hidden="true">
+            <div class="fa__win"><i>–</i><i>×</i></div>
+            <div class="fa__brand"><img src="img/fargot-logo.png" alt=""><span>P L U G I N S</span></div>
+            <div class="fa__glass"><div class="fa__row"><span class="fa__av">F</span><div class="fa__grow"><div class="fa__t">Tu cuenta Fargot</div><div class="fa__s">Licencia activa · todos los plugins</div></div><span class="fa__btn">Cerrar sesión</span></div></div>
+            <p class="fa__h">TUS PLUGINS</p>
+            <div class="fa__glass"><div class="fa__row"><span class="fa__ico"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M4 12h12M11 7l5 5-5 5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="fa__grow"><div class="fa__t" style="font-size:14.5px;font-weight:600">Fargot Transfer</div><div class="fa__s">Instalado · v1.0.0</div></div><span class="fa__btn fa__btn--primary">Reinstalar</span></div><div class="fa__soon">Más plugins de la suite Fargot, próximamente.</div></div>
+            <p class="fa__h">TUS EQUIPOS · 2 DE 2</p>
+            <div class="fa__glass"><div class="fa__row"><div class="fa__grow fa__t">Escritorio</div><span class="fa__cur">Este equipo</span></div><div class="fa__row"><div class="fa__grow fa__t">Portátil</div><span class="fa__s">Hace 2 h</span></div></div>
+            <p class="fa__h">ESTADO</p>
+            <div class="fa__glass"><div class="fa__row"><div class="fa__grow fa__t">Illustrator y After Effects</div><span class="fa__dot"></span><span class="fa__s">Abiertos</span></div></div>
+          </div>
         </div>
-      </div>
-      <div class="grid">
-        <article class="card card--row span-6">
-          <h3>Mantiene tus textos editables</h3>
-          <p>Cada texto llega como capa de texto con su fuente, tamaño, color, interlineado y alineación.</p>
-          <div class="panel panel--flush" data-fx="painterly-landscape" data-fx-seed="47" data-fx-params='{"drift":0}'>
-            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:400px;--ax:max(24px, 50% - 200px);--ay:calc(100% - 180px);--ay-sm:calc(100% - 180px)">
-              <div class="ui ui-panel ui-checks" data-ui="checklist">
-                <div class="ui-checks__head"><div class="ui-title">Capa de texto NATURE BACKGROUND</div><span class="ui-spacer"></span><div class="ui-meta" data-checks-count>2 de 5</div></div>
-                <div class="ui-checks__bar"><i data-checks-bar style="--k:0.4"></i></div>
-                <ul class="ui-checks__list">
-                  <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Fuente OpenSans Extrabold y Light</span></li>
-                  <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Tamaño 21 pt</span></li>
-                  <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Interlineado automático</span></li>
-                  <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Alineado a la izquierda</span></li>
-                  <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Misma posición que en Illustrator</span></li>
-                </ul>
-              </div>
-            </div></div>
-          </div>
-        </article>
-        <article class="card card--row span-6">
-          <h3>Se instala desde la app Fargot</h3>
-          <p>La app instala el plugin en Illustrator y After Effects, lo actualiza y lleva tus 2 equipos.</p>
-          <div class="panel panel--flush">
-            <div class="dg" data-dg-still data-diagram='{"layout":"hub","alt":"La app Fargot conecta Illustrator, After Effects, tus dos equipos y las actualizaciones.","center":{"label":"App Fargot","icon":"ui:app-window"},"spokes":[{"label":"Illustrator","icon":"illustrator"},{"label":"After Effects","icon":"after-effects"},{"label":"Escritorio","icon":"ui:monitor"},{"label":"Portátil","icon":"ui:laptop"},{"label":"Actualizaciones","icon":"ui:refresh-cw"}]}'></div>
-          </div>
-        </article>
       </div>
     </div>
   </section>
-
 
   <section class="section" id="faq" aria-labelledby="preguntas-h">
     <div class="wrap">
       <div class="grid grid--top">
-        <div class="span-5 stack-4">
+        <div class="span-6 stack-4">
           <h2 id="preguntas-h">Preguntas sobre la licencia</h2>
-          <p class="muted">Lo que suelen preguntar antes de comprar un plugin de Fargot.</p>
+          <p class="muted">Lo que suelen preguntar antes de comprar Fargot Suite.</p>
           <a class="link" href="mailto:farrogoeninternet@gmail.com">Escribir a soporte</a>
           <div class="faq-apps"><span class="ic-tile"><img class="ic ic-40" src="assets/icons/illustrator.svg" alt="Illustrator" width="40" height="39"></span><span class="ic-tile"><img class="ic ic-40" src="assets/icons/after-effects.svg" alt="After Effects" width="40" height="39"></span></div>
         </div>
-        <div class="faq span-7 start-6">
+        <div class="faq span-6 start-7">
           <div class="faq__item"><h3>¿Pago cada mes?</h3><p>No. Pagas una vez y tienes todos los plugins de la suite, con sus actualizaciones.</p></div>
           <div class="faq__item"><h3>¿En cuántos equipos lo uso?</h3><p>En 2 a la vez con la misma licencia. Para usar un tercero, cierras sesión en uno desde la app Fargot.</p></div>
           <div class="faq__item"><h3>¿Qué versiones de Adobe necesito?</h3><p>Illustrator y After Effects 2019 o posterior, en Windows 10 u 11.</p></div>
@@ -349,12 +256,12 @@
     <div class="closing__links">
       <div class="grid">
         <div class="span-4 stack-4">
-          <a class="nav__logo" href="#top" aria-label="Fargot, inicio"><img src="img/fargot-logo.png" alt="Fargot" width="68" height="30"></a>
+          <a class="nav__logo" href="#top" aria-label="Fargot Suite, inicio"><img src="img/fargot-logo.png" alt="Fargot" width="68" height="30"></a>
           <p class="footer__lede">Plugins para Illustrator y After Effects.</p>
         </div>
-        <div class="span-2 footer__col"><h3>Transfer</h3><ul><li><a href="#transfer">El plugin</a></li><li><a href="manual-fargot-transfer.pdf">Manual</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Funciones</h3><ul><li><a href="#funciones">Capas editables</a></li><li><a href="#funciones">Degradados</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Suite</h3><ul><li><a href="#suite">La app Fargot</a></li><li><a href="https://github.com/farrogoeninternet-ui/fargot/releases">Versiones</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Plugins</h3><ul><li><a href="transfer.html">Fargot Transfer</a></li><li><a href="#plugins">Próximos</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Licencia</h3><ul><li><a href="#licencia">Un pago</a></li><li><a href="eula.txt">Contrato</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>App</h3><ul><li><a href="#app">La app Fargot</a></li><li><a href="https://github.com/farrogoeninternet-ui/fargot/releases">Versiones</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Preguntas</h3><ul><li><a href="#faq">Preguntas</a></li><li><a href="mailto:farrogoeninternet@gmail.com">Soporte</a></li></ul></div>
       </div>
       <div class="footer__legal">
@@ -369,6 +276,20 @@
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
-<script type="module" src="assets/diagrams/mount.js"></script>
+<script>
+/* la app del hero: el boton Actualizar descarga la version nueva y vuelve a empezar, 4 s por vuelta (quieto con movimiento reducido) */
+(function () {
+  var app = document.querySelector("[data-fa-loop]"); if (!app) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var bar = app.querySelector("[data-fa-bar]"), btn = app.querySelector("[data-fa-btn]"), t = 0;
+  setInterval(function () {
+    if (document.hidden) return;
+    t = (t + 1) % 40;
+    if (t < 8) { bar.style.width = "0"; btn.textContent = "Actualizar"; }
+    else if (t < 30) { var p = Math.round((t - 8) / 22 * 100); bar.style.width = p + "%"; btn.textContent = p + " %"; }
+    else { bar.style.width = "100%"; btn.textContent = "Listo"; }
+  }, 100);
+})();
+</script>
 </body>
 </html>
