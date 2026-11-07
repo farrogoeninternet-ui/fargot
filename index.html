@@ -50,6 +50,11 @@
   @media (min-width: 640px) { .close__word { font-size: min(25.5vw, 30svh, 372px); } }
   /* pantallas bajas (portatiles, zoom del navegador): cada seccion crece con su contenido y nunca se monta sobre la siguiente */
   main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 100svh); }
+  /* en el celular cada seccion mide lo que su contenido, sin huecos de pantalla completa */
+  @media (max-width: 639px) {
+    main > section:not(.hero), footer.closing { min-height: 0 !important; height: auto !important; padding-block: 56px; }
+    main > section.hero { min-height: 0 !important; height: auto !important; }
+  }
 
   /* ---------- la app Fargot tal como es (misma interfaz que Fargot.exe, con datos de ejemplo) */
   .fa { --fa-ink: #f4f7ff; --fa-muted: rgb(226 233 255 / .78); --fa-cyan: #00d2ff;
@@ -77,14 +82,14 @@
   .fa__btn--primary { background: linear-gradient(135deg, #2f7bff, #1e5bff 45%, #0a2fe0); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .24), 0 5px 18px rgb(30 91 255 / .5); min-width: 104px; }
   .fa__ico { width: 42px; height: 42px; border-radius: 13px; flex: none; display: grid; place-items: center; background: linear-gradient(45deg, #2f7bff, #0a2fe0); }
   .fa__soon { padding: 11px 14px; border-top: 1px solid rgb(255 255 255 / .07); color: var(--fa-muted); font-size: 12px; }
-  .fa__dot { width: 8px; height: 8px; border-radius: 50%; background: #34e3a0; box-shadow: 0 0 8px #34e3a0; }
+  .fa__dot { width: 8px; height: 8px; border-radius: 50%; background: #34e3a0; box-shadow: 0 0 0 2px rgb(52 227 160 / .25); }
   .fa__cur { color: var(--fa-cyan); font-size: 11.5px; }
   .fa__upd { box-shadow: inset 0 0 0 1px rgb(0 210 255 / .5); }
   .fa__bar { height: 3px; border-radius: 2px; background: rgb(255 255 255 / .1); margin-top: 6px; overflow: hidden; }
   .fa__bar i { display: block; height: 100%; width: 0; background: var(--fa-cyan); }
 
   /* el hero: la app dentro de la ventana iluminada */
-  .hero__window { display: grid; justify-items: center; background: radial-gradient(120% 80% at 70% 110%, #1e5bff 0, transparent 60%), radial-gradient(90% 70% at 10% 100%, #00a8d6 0, transparent 55%), linear-gradient(#0b1a46, #102866); }
+  .hero__window { display: grid; justify-items: center; background: linear-gradient(160deg, #0b1a46, #13328a); }
   .hero__window .fa { margin-top: 32px; }
   /* la ventana siempre deja ver la app (logo, aviso y cuenta), aunque la pantalla sea baja */
   .hero--centred .hero__window { min-height: clamp(400px, 56svh, 560px); }
@@ -109,7 +114,7 @@
   .pl-msg { width: min(280px, 86%); border-radius: 16px; padding: 14px 16px; background: #0e152e; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .12); font-size: 16px; }
   .pl-msg small { display: block; color: #9aa6c7; font-size: 13px; margin-bottom: 6px; }
   .tag { align-self: flex-start; display: inline-flex; height: 26px; align-items: center; padding: 0 10px; border-radius: 13px; font-size: 13px; border: 1px solid rgb(255 255 255 / .14); color: var(--muted); }
-  .tag.on { color: #34e3a0; border-color: rgb(52 227 160 / .45); }
+  .tag.on { color: #7ff5c6; background: #0b3a2a; border-color: rgb(52 227 160 / .45); }
   .faq-apps { display: flex; gap: var(--s-4); margin-top: var(--s-6); }
 </style>
 </head>
