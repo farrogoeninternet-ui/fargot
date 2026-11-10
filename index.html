@@ -67,7 +67,7 @@
   .fa2__me { margin-top: auto; padding: 10px 6px 0; border-top: 1px solid rgb(255 255 255 / .07); font-size: 11.5px; color: #8b93a7; }
   .fa2__main { padding: 16px 20px 20px; min-width: 0; }
   .fa2__top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-  .fa2__top h4 { margin: 0; flex: 1; font-size: 17px; font-weight: 600; }
+  .fa2__top .fa2__h { margin: 0; flex: 1; font-size: 17px; font-weight: 600; }
   .fa2__b { height: 30px; padding: 0 12px; border-radius: 7px; display: inline-grid; place-items: center; font-size: 12px; font-weight: 500; background: #141927; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .08); }
   .fa2__b--pri { background: #1e5bff; box-shadow: none; }
   .fa2__sub { color: #8b93a7; font-size: 12px; margin-bottom: 12px; }
@@ -84,7 +84,7 @@
   .ap--pr { color: #9999ff; background: #1a1d2e; } .ap--ae { color: #9f8bff; background: #1a1d2e; } .ap--ai { color: #ff9a00; background: #2a1a06; } .ap--ps { color: #31a8ff; background: #06223a; }
   .fa2__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .fa2__card { border-radius: 10px; background: #10141f; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .07); padding: 14px; }
-  .fa2__card h5 { display: flex; align-items: center; gap: 6px; margin: 0 0 6px; font-size: 14px; font-weight: 600; }
+  .fa2__card .fa2__h5 { display: flex; align-items: center; gap: 6px; margin: 0 0 6px; font-size: 14px; font-weight: 600; }
   .fa2__card p { margin: 0 0 10px; color: #8b93a7; font-size: 12px; }
   .fa2__ok { color: #34d399; font-size: 12px; }
   @media (max-width: 760px) { .fa2 { grid-template-columns: 1fr; } .fa2__side { display: none; } .fa2__row { grid-template-columns: 26px minmax(0, 1fr) 54px; } .fa2__row > :nth-child(4) { display: none; } .fa2__cards { grid-template-columns: 1fr; } .fa2__top .fa2__b:not(.fa2__b--pri) { display: none; } }
@@ -154,7 +154,7 @@
         <div class="fa2" aria-hidden="true">
           <div class="fa2__side"><img src="img/fargot-logo.png" alt=""><span class="fa2__nv on">Atlas</span><span class="fa2__nv">Plugins</span><span class="fa2__nv">Cuenta</span><span class="fa2__me">Licencia activa · 1 de 2 equipos</span></div>
           <div class="fa2__main">
-            <div class="fa2__top"><h4>Parrilla Noviembre</h4><span class="fa2__b">Renderizar</span><span class="fa2__b fa2__b--pri">Empaquetar</span></div>
+            <div class="fa2__top"><b class="fa2__h">Parrilla Noviembre</b><span class="fa2__b">Renderizar</span><span class="fa2__b fa2__b--pri">Empaquetar</span></div>
             <div class="fa2__sub">Documentos › Fargot Atlas › Parrilla Noviembre</div>
             <div class="fa2__chips"><span class="fa2__chip on">Todas 4</span><span class="fa2__chip"><span class="ap ap--pr">Pr</span>Premiere</span><span class="fa2__chip"><span class="ap ap--ae">Ae</span>After Effects</span><span class="fa2__chip"><span class="ap ap--ai">Ai</span>Illustrator</span><span class="fa2__chip"><span class="ap ap--ps">Ps</span>Photoshop</span></div>
             <div class="fa2__tbl" data-fa2-loop>
@@ -224,11 +224,11 @@
         <div class="span-6 start-7" role="img" aria-label="La app Fargot en la sección Plugins: Fargot Transfer y Fargot Atlas instalados">
           <div class="fa2" aria-hidden="true" style="grid-template-columns:1fr">
             <div class="fa2__main">
-              <div class="fa2__top"><h4>Plugins</h4><span class="fa2__b">¿Cómo abro los paneles?</span></div>
+              <div class="fa2__top"><b class="fa2__h">Plugins</b><span class="fa2__b">¿Cómo abro los paneles?</span></div>
               <div class="fa2__cards" style="margin-top:12px">
-                <div class="fa2__card"><h5><span class="ap ap--ai">Ai</span><span class="ap ap--ae">Ae</span>Fargot Transfer</h5><p>Tu diseño de Illustrator llega a After Effects en capas editables.</p><span class="fa2__ok">Instalado</span></div>
-                <div class="fa2__card"><h5><span class="ap ap--pr">Pr</span>Fargot Atlas</h5><p>Cada pieza de tu parrilla en su carpeta, con renders por versión.</p><span class="fa2__ok">Panel instalado</span></div>
-                <div class="fa2__card" style="opacity:.6"><h5>Próximo plugin</h5><p>Incluido en tu licencia cuando salga.</p></div>
+                <div class="fa2__card"><b class="fa2__h5"><span class="ap ap--ai">Ai</span><span class="ap ap--ae">Ae</span>Fargot Transfer</b><p>Tu diseño de Illustrator llega a After Effects en capas editables.</p><span class="fa2__ok">Instalado</span></div>
+                <div class="fa2__card"><b class="fa2__h5"><span class="ap ap--pr">Pr</span>Fargot Atlas</b><p>Cada pieza de tu parrilla en su carpeta, con renders por versión.</p><span class="fa2__ok">Panel instalado</span></div>
+                <div class="fa2__card" style="opacity:.6"><b class="fa2__h5">Próximo plugin</b><p>Incluido en tu licencia cuando salga.</p></div>
               </div>
             </div>
           </div>
