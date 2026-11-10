@@ -39,6 +39,10 @@
 .ojo { margin-top: var(--s-3); padding: 10px 14px; border-radius: 10px; background: rgb(245 184 74 / .1); border: 1px solid rgb(245 184 74 / .35); color: #ffe2ad; font-size: 15px; }
 .ok { display: grid; gap: 10px; margin-top: var(--s-4); }
 .ok div { display: flex; gap: 12px; padding: 14px 16px; border-radius: 12px; background: #0e152e; border: 1px solid rgb(255 255 255 / .08); font-size: 16px; }
+.beta { display: inline-block; vertical-align: middle; margin-left: 8px; padding: 3px 10px; border-radius: 99px; background: rgb(245 184 74 / .16); color: #f5b84a; font-size: 14px; font-weight: 600; letter-spacing: .02em; }
+.claro { margin-top: var(--s-4); padding: var(--s-5); border-radius: 14px; background: rgb(30 91 255 / .08); border: 1px solid rgb(30 91 255 / .3); }
+.claro h3 { margin: 0 0 var(--s-3); font-size: 18px; font-weight: 500; }
+.claro ul { margin: 0; padding-left: 20px; } .claro li { margin: 8px 0; font-size: 16px; line-height: 1.55; }
 .ok b { display: grid; place-items: center; flex: none; width: 26px; height: 26px; border-radius: 50%; background: #1e5bff; font-size: 13px; }
 </style>
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
@@ -69,13 +73,14 @@
     <div class="wrap guia">
       <p class="crumb"><a href="index.html">Fargot Suite</a> › Guía</p>
       <h1 id="g-h" style="font-size:clamp(38px,5vw,60px);margin:0">Guía paso a paso</h1>
-      <p>Todo lo que necesitas para empezar: instalar la app, abrir cada panel y qué hacer si algo no aparece.</p>
+      <p>Todo lo que necesitas para empezar: instalar la app (Windows) o los paneles (Mac, beta), abrir cada panel y qué hacer si algo no aparece.</p>
       <div class="toc">
         <a href="#instalar"><span class="app-ic" style="background:#1e5bff;color:#fff">1</span>Instalar la app</a>
         <a href="#pr"><span class="app-ic app-ic--pr">Pr</span>Premiere</a>
         <a href="#ae"><span class="app-ic app-ic--ae">Ae</span>After Effects</a>
         <a href="#ai"><span class="app-ic app-ic--ai">Ai</span>Illustrator</a>
         <a href="#ps"><span class="app-ic app-ic--ps">Ps</span>Photoshop</a>
+        <a href="#mac"><span class="app-ic" style="background:#26262a;color:#fff">⌘</span>Mac (beta)</a>
         <a href="#no-aparece"><span class="app-ic" style="background:#3a2a06;color:#f5b84a">?</span>¿No aparece?</a>
       </div>
 
@@ -134,6 +139,26 @@
           <li>Elige la parrilla en el panel y pulsa <strong>Enviar a Atlas</strong>.</li>
         </ol>
         <p class="ojo">En Photoshop está en <strong>Extensiones (heredadas)</strong>. No lo busques en el panel "Complementos": ahí no aparece.</p>
+      </div>
+
+      <h2 id="mac">Fargot en Mac <span class="beta">Beta</span></h2>
+      <p>Fargot Transfer y Fargot Atlas ya funcionan en Mac, en versión beta. Antes de instalar, esto es lo que debes saber:</p>
+      <div class="claro">
+        <h3>Lo que te contamos con transparencia</h3>
+        <ul>
+          <li><strong>En Mac no hay app Fargot.</strong> Para que una app abra en Mac sin avisos, Apple cobra una cuenta de desarrollador (US$99 al año). Mientras la suite crece, en Mac usamos solo los paneles, que se instalan como cualquier extensión de Adobe y no necesitan esa firma.</li>
+          <li><strong>Es una beta:</strong> todavía no la hemos probado en un Mac. Puede tener fallos; si encuentras uno, <a href="reportar.html">cuéntanos</a> y lo arreglamos.</li>
+          <li><strong>Lo que sí tienes:</strong> Fargot Transfer completo; Fargot Atlas con Enviar, Empaquetar y Renderizar desde el panel; la misma licencia (2 equipos, Windows o Mac) y tu clave guardada en el Llavero de macOS.</li>
+          <li><strong>Lo que todavía no:</strong> la vista de todas tus parrillas, el archivo automático del mes y el aviso cuando Media Encoder termina, que en Windows hace la app. Las actualizaciones no se instalan solas: el panel te avisa y las descargas aquí.</li>
+        </ul>
+      </div>
+      <div class="ok">
+        <div><b>1</b><span>Descarga los paneles: <a href="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Transfer.zxp">Fargot-Transfer.zxp</a> y <a href="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Atlas.zxp">Fargot-Atlas.zxp</a>.</span></div>
+        <div><b>2</b><span>Instala un instalador gratuito de extensiones de Adobe, por ejemplo <a href="https://aescripts.com/learn/zxp-installer/" rel="noopener">ZXP Installer de aescripts</a>.</span></div>
+        <div><b>3</b><span>Abre el instalador y arrastra encima cada archivo .zxp. Espera el mensaje de "instalado".</span></div>
+        <div><b>4</b><span><strong>Cierra y vuelve a abrir</strong> tus programas de Adobe.</span></div>
+        <div><b>5</b><span>Abre el panel en el menú del programa (los mismos menús de arriba) e <strong>inicia sesión</strong> con el correo de tu compra y tu clave de licencia.</span></div>
+        <div><b>6</b><span>Cuando haya una versión nueva, el panel te avisa: descarga los .zxp de nuevo y repite los pasos 3 y 4.</span></div>
       </div>
 
       <h2 id="no-aparece">3. ¿No aparece el panel?</h2>
