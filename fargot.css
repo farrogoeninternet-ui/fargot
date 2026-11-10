@@ -1,0 +1,37 @@
+/* Fargot: estilos compartidos de las paginas de plugins y de la guia */
+:root {
+  --p-bg: #070b18; --p-surface: #0e152e; --p-ink: #eef2ff; --p-muted: #9aa6c7;
+  --p-accent: #1e5bff; --p-accent-ink: #ffffff; --p-action: #1e5bff; --p-action-ink: #ffffff;
+  --p-inv-bg: #eef2ff; --p-inv-surface: #dbdfed; --p-inv-ink: #070b18; --p-inv-muted: #535866;
+  --p-inv-accent: #1e5bff; --p-inv-accent-ink: #ffffff; --p-inv-action: #1e5bff; --p-inv-action-ink: #ffffff;
+  --font-display: "Geist", system-ui, sans-serif; --font-text: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --display-weight: 500; --display-tracking: -0.035em; --display-tracking-xl: -0.045em;
+}
+.nav__logo img { height: 30px; width: auto; display: block; }
+main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 100svh); }
+@media (max-width: 639px) { main > section:not(.hero), footer.closing { min-height: 0 !important; padding-block: 56px; } }
+.crumb { color: var(--muted); font-size: 15px; margin: 0 0 var(--s-4); }
+.crumb a { color: inherit; }
+
+/* pasos del motion graphic */
+.steps-row { display: flex; gap: var(--s-3); flex-wrap: wrap; margin-bottom: var(--s-5); }
+.step { display: inline-flex; align-items: center; gap: 10px; height: 40px; padding: 0 16px 0 8px; border-radius: 99px; border: 1px solid rgb(255 255 255 / .12); color: var(--muted); font-size: 15px; transition: color .3s, border-color .3s, background .3s; }
+.step b { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: rgb(255 255 255 / .08); color: var(--ink); font-weight: 500; font-size: 13px; transition: background .3s; }
+.step.is-on { color: var(--ink); border-color: rgb(30 91 255 / .7); background: rgb(30 91 255 / .12); }
+.step.is-on b { background: #1e5bff; }
+
+/* tarjetas */
+.what { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); margin-top: var(--s-7); }
+.what article { padding: var(--s-6); border-radius: var(--r-lg); background: #0e152e; border: 1px solid rgb(255 255 255 / .08); }
+.what h3 { margin: 0 0 var(--s-2); font-size: 20px; font-weight: 500; }
+.what p { margin: 0; color: var(--muted); }
+.what .ic-row { display: flex; gap: 8px; margin-bottom: var(--s-5); }
+.swatch { width: 40px; height: 40px; border-radius: 10px; }
+@media (max-width: 1023px) { .what { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 639px) { .what { grid-template-columns: 1fr; } .steps-row .step { font-size: 14px; } }
+
+/* iconos de programa (Pr Ae Ai Ps) */
+.app-ic { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; font: 700 13px var(--font-text); flex: none; }
+.app-ic--pr { color: #9999ff; background: #1a1d2e; } .app-ic--ae { color: #9f8bff; background: #1a1d2e; }
+.app-ic--ai { color: #ff9a00; background: #2a1a06; } .app-ic--ps { color: #31a8ff; background: #06223a; }
