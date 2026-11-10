@@ -2,6 +2,8 @@
 <html lang="es" data-type="software" data-radius="soft" data-ground="sky" data-buttons="tonal" data-motion>
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fargot Transfer: de Illustrator a After Effects en capas editables</title>
 <meta name="description" content="Fargot Transfer, plugin de Fargot Suite: envía tu diseño de Illustrator a After Effects como capas nativas, con degradados exactos, textos editables y efectos.">
@@ -102,6 +104,7 @@ main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 10
 @media (max-width: 639px) { .req { grid-template-columns: 1fr; } }
 </style>
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script src="correo.js" defer></script>
 </head>
 <body>
 <header class="nav nav--centre">
@@ -228,7 +231,7 @@ main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 10
     </div>
     <div class="closing__links">
       <div class="footer__legal">
-        <span>&copy; 2026 Fargot &nbsp; <a href="index.html">Fargot Suite</a> &nbsp; <a href="terminos.html">Términos y reembolsos</a> &nbsp; <a href="privacidad.html">Privacidad</a> &nbsp; <a href="eula.txt">Contrato de licencia</a> &nbsp; <a href="mailto:farrogoeninternet@gmail.com">Soporte</a> &nbsp; <a href="reportar.html">Reportar un problema</a></span>
+        <span>&copy; 2026 Fargot &nbsp; <a href="index.html">Fargot Suite</a> &nbsp; <a href="terminos.html">Términos y reembolsos</a> &nbsp; <a href="privacidad.html">Privacidad</a> &nbsp; <a href="eula.txt">Contrato de licencia</a> &nbsp; <a href="reportar.html" data-correo>Soporte</a> &nbsp; <a href="reportar.html">Reportar un problema</a></span>
         <span>Adobe, Illustrator y After Effects son marcas de Adobe Inc.</span>
       </div>
     </div>

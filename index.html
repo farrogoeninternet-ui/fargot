@@ -2,6 +2,8 @@
 <html lang="es" data-type="software" data-radius="soft" data-ground="sky" data-buttons="tonal" data-motion>
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fargot Suite: plugins para creativos</title>
 <meta name="description" content="Fargot Suite reúne plugins de bajo costo para creativos: un solo pago, todos los plugins, 2 equipos por licencia y una app que los instala y actualiza.">
@@ -116,6 +118,7 @@
   .tag.on { color: #7ff5c6; background: #0b3a2a; border-color: rgb(52 227 160 / .45); }
   .faq-apps { display: flex; gap: var(--s-4); margin-top: var(--s-6); }
 </style>
+<script src="correo.js" defer></script>
 </head>
 <body>
 
@@ -178,7 +181,7 @@
           <p>Ya preparamos la siguiente herramienta de la suite. Llegará a la app Fargot como una actualización más.</p>
           <div class="panel"><div class="pl-grid" role="img" aria-label="Fargot Transfer y el siguiente plugin de la suite"><i class="on"></i><i class="next"></i><i></i><i></i><i></i><i></i></div></div>
         </article>
-        <a class="card card--row span-4" href="mailto:farrogoeninternet@gmail.com?subject=Idea%20para%20un%20plugin%20de%20Fargot">
+        <a class="card card--row span-4" href="reportar.html" data-correo data-asunto="Idea para un plugin de Fargot">
           <span class="tag">Tu idea</span>
           <h3>¿Qué plugin necesitas?</h3>
           <p>Cuéntanos qué tarea repites todos los días en Illustrator o After Effects. Las mejores ideas se vuelven plugins.</p>
@@ -233,7 +236,7 @@
         <div class="span-6 stack-4">
           <h2 id="preguntas-h">Preguntas sobre la licencia</h2>
           <p class="muted">Lo que suelen preguntar antes de comprar Fargot Suite.</p>
-          <a class="link" href="mailto:farrogoeninternet@gmail.com">Escribir a soporte</a>
+          <a class="link" href="reportar.html" data-correo>Escribir a soporte</a>
           <a class="link" href="reportar.html">Reportar un problema o enviar una idea</a>
           <div class="faq-apps"><span class="ic-tile"><img class="ic ic-40" src="assets/icons/illustrator.svg" alt="Illustrator" width="40" height="39"></span><span class="ic-tile"><img class="ic ic-40" src="assets/icons/after-effects.svg" alt="After Effects" width="40" height="39"></span></div>
         </div>
@@ -268,7 +271,7 @@
         <div class="span-2 footer__col"><h3>Plugins</h3><ul><li><a href="transfer.html">Fargot Transfer</a></li><li><a href="#plugins">Próximos</a></li></ul></div>
         <div class="span-2 footer__col"><h3>Licencia</h3><ul><li><a href="#licencia">Un pago</a></li><li><a href="eula.txt">Contrato</a></li></ul></div>
         <div class="span-2 footer__col"><h3>App</h3><ul><li><a href="#app">La app Fargot</a></li><li><a href="https://github.com/farrogoeninternet-ui/fargot/releases">Versiones</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Preguntas</h3><ul><li><a href="#faq">Preguntas</a></li><li><a href="mailto:farrogoeninternet@gmail.com">Soporte</a></li><li><a href="reportar.html">Reportar un problema</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Preguntas</h3><ul><li><a href="#faq">Preguntas</a></li><li><a href="reportar.html" data-correo>Soporte</a></li><li><a href="reportar.html">Reportar un problema</a></li></ul></div>
       </div>
       <div class="footer__legal">
         <span>&copy; 2026 Fargot &nbsp; <a href="terminos.html">Términos y reembolsos</a> &nbsp; <a href="privacidad.html">Privacidad</a> &nbsp; <a href="eula.txt">Contrato de licencia</a></span>

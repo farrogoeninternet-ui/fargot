@@ -2,6 +2,8 @@
 <html lang="es" data-type="software" data-radius="soft" data-buttons="tonal" data-motion>
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Reportar un problema · Fargot Suite</title>
 <meta name="description" content="Cuéntanos si algo falla en Fargot Suite o qué te gustaría que mejoremos. Leemos cada mensaje.">
@@ -37,6 +39,7 @@
   .fb button[disabled] { opacity: .6; cursor: progress; }
   .fb__note { font-size: 14px; color: var(--muted); }
 </style>
+<script src="correo.js" defer></script>
 </head>
 <body>
 <header class="nav">
@@ -121,7 +124,7 @@
         if (r && r.ok) { f.reset(); count.textContent = "0 / 4000"; show(true, "¡Gracias! Recibimos tu mensaje." + (data.email ? " Si hace falta, te responderemos a tu correo." : "")); }
         else show(false, (r && r.message) || "No se pudo enviar. Inténtalo de nuevo.");
       })
-      .catch(function () { show(false, "No se pudo enviar. Revisa tu conexión o escríbenos a farrogoeninternet@gmail.com."); })
+      .catch(function () { show(false, "No se pudo enviar. Revisa tu conexión o escríbenos a " + (window.correoSoporte || "nuestro correo de soporte") + "."); })
       .then(function () { btn.disabled = false; btn.textContent = "Enviar mensaje"; });
   });
 })();
