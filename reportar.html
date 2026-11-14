@@ -9,47 +9,24 @@
 <meta name="description" content="Cuéntanos si algo falla en Fargot Suite o qué te gustaría que mejoremos. Leemos cada mensaje.">
 <link rel="canonical" href="https://farrogoeninternet-ui.github.io/fargot/reportar.html">
 <link rel="icon" href="img/favicon.png" type="image/png">
-<meta name="theme-color" content="#070b18">
+<meta name="theme-color" content="#ffffff">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/system.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blanco.css">
 <link rel="stylesheet" href="legal.css">
-<style>
-  .fb { display: grid; gap: 18px; margin-top: 28px; }
-  .fb__types { display: flex; flex-wrap: wrap; gap: 10px; border: 0; padding: 0; margin: 0; }
-  .fb__types legend { font-weight: 600; margin-bottom: 10px; }
-  .fb__types label { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 1px solid rgb(255 255 255 / .16); cursor: pointer; transition: background .2s, border-color .2s; }
-  .fb__types input { accent-color: #1e5bff; }
-  .fb__types label:has(input:checked) { background: rgb(30 91 255 / .18); border-color: #1e5bff; }
-  .fb__row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  @media (max-width: 640px) { .fb__row { grid-template-columns: 1fr; } }
-  .fb label.f { display: grid; gap: 6px; font-weight: 600; }
-  .fb label.f span { font-weight: 400; color: var(--muted); font-size: 14px; }
-  .fb input[type=text], .fb input[type=email], .fb select, .fb textarea {
-    font: inherit; font-size: 16px; color: #eef2ff; background: #0e152e; border: 1px solid rgb(255 255 255 / .16);
-    border-radius: 12px; padding: 12px 14px; width: 100%; box-sizing: border-box; }
-  .fb textarea { min-height: 170px; resize: vertical; }
-  .fb input:focus, .fb select:focus, .fb textarea:focus { outline: 2px solid #1e5bff; outline-offset: 1px; }
-  .fb__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-  .fb__count { font-size: 13px; color: var(--muted); text-align: right; margin-top: -10px; }
-  .fb__msg { padding: 14px 16px; border-radius: 12px; display: none; }
-  .fb__msg.ok { display: block; background: rgb(34 197 94 / .14); border: 1px solid rgb(34 197 94 / .5); }
-  .fb__msg.err { display: block; background: rgb(239 68 68 / .14); border: 1px solid rgb(239 68 68 / .5); }
-  .fb button[disabled] { opacity: .6; cursor: progress; }
-  .fb__note { font-size: 14px; color: var(--muted); }
-</style>
 <script src="correo.js" defer></script>
 </head>
 <body>
-<header class="nav">
-  <div class="wrap nav__bar">
-    <a class="skip-link" href="#top">Ir al contenido</a>
-    <a class="nav__logo" href="index.html" aria-label="Fargot Suite, inicio"><img src="img/fargot-logo.png" alt="Fargot" width="68" height="30"></a>
-    <div class="nav__actions"><a class="btn btn--secondary" href="index.html">Volver a Fargot Suite</a></div>
+<a class="saltar" href="#top">Ir al contenido</a>
+<header class="barra">
+  <div class="envoltura">
+    <a class="barra-logo" href="index.html" aria-label="Fargot, inicio"><img src="img/fargot-logo-2.png" alt="Fargot" width="63" height="28"></a>
+    <nav aria-label="Principal"><a href="index.html">Suite</a><a href="ayuda.html">Guía</a><a href="reportar.html">Reportar un problema</a></nav>
+    <div class="acciones"><a class="btn chico" href="index.html">Volver a Fargot</a></div>
   </div>
 </header>
-<main id="top" class="legal wrap">
+<main id="top" class="legal envoltura">
   <h1>Reportar un problema o enviar una idea</h1>
   <p>¿Algo no llegó bien a After Effects, la app no abre o se te ocurrió una mejora? Cuéntanos. Leemos cada mensaje y nos ayuda a mejorar Fargot Suite.</p>
 
@@ -65,13 +42,16 @@
       <label class="f">Plugin o parte
         <select name="plugin">
           <option value="transfer">Fargot Transfer</option>
+          <option value="atlas">Fargot Atlas</option>
+          <option value="studio">Fargot Studio</option>
+          <option value="traductor">Traductor de PDF</option>
           <option value="app">La app Fargot</option>
           <option value="licencia">Licencia o compra</option>
           <option value="web">Esta web</option>
           <option value="otro">Otro</option>
         </select>
       </label>
-      <label class="f">Versión <span>Opcional. Ej.: Illustrator 2025, After Effects 2024, Fargot 1.0.2</span>
+      <label class="f">Versión <span>Opcional. Ej.: Illustrator 2025, After Effects 2024, Fargot 2.0</span>
         <input type="text" name="version" maxlength="40" autocomplete="off">
       </label>
     </div>
@@ -88,11 +68,11 @@
     <div class="fb__hp" aria-hidden="true"><label>No llenar <input type="text" name="web" tabindex="-1" autocomplete="off"></label></div>
 
     <p class="fb__note">Al enviar aceptas que guardemos este mensaje (y tu correo, si lo dejas) para atenderlo, como explica la <a href="privacidad.html">política de privacidad</a>. No adjuntes contraseñas ni claves de licencia.</p>
-    <div><button class="btn btn--primary" type="submit" id="send">Enviar mensaje</button></div>
+    <div><button class="btn pri" type="submit" id="send">Enviar mensaje</button></div>
     <div class="fb__msg" id="msg" role="status" aria-live="polite"></div>
   </form>
 </main>
-<footer class="legal-foot wrap">
+<footer class="legal-foot envoltura">
   <span>&copy; 2026 Fargot</span>
   <a href="terminos.html">Términos de venta y reembolsos</a>
   <a href="privacidad.html">Privacidad</a>

@@ -1,396 +1,234 @@
 <!doctype html>
-<html lang="es" data-type="software" data-radius="soft" data-ground="sky" data-buttons="tonal" data-motion>
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Fargot Suite: los mejores plugins para tus programas favoritos</title>
-<meta name="description" content="Fargot Suite: plugins para creativos en Premiere, After Effects, Illustrator y Photoshop. Un solo pago, todos los plugins, 2 equipos por licencia y una app que los instala y actualiza.">
+<title>Fargot: herramientas para editores, motion designers y guionistas</title>
+<meta name="description" content="Fargot reúne plugins para Premiere, After Effects, Illustrator y Photoshop, Fargot Studio para escribir guiones y un traductor de PDF gratis. Un solo pago, 2 equipos y una app que lo instala todo.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Fargot Suite: los mejores plugins para tus programas favoritos">
-<meta property="og:description" content="Plugins para Premiere, After Effects, Illustrator y Photoshop. Un solo pago, todos los plugins.">
+<meta property="og:title" content="Fargot: herramientas para editores, motion designers y guionistas">
+<meta property="og:description" content="Plugins para Premiere, After Effects, Illustrator y Photoshop, Fargot Studio y un traductor de PDF gratis. Un solo pago.">
 <meta property="og:url" content="https://farrogoeninternet-ui.github.io/fargot/">
 <meta property="og:image" content="https://farrogoeninternet-ui.github.io/fargot/share.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="img/favicon.png" type="image/png">
-<meta name="theme-color" content="#070b18">
+<meta name="theme-color" content="#ffffff">
 <link rel="canonical" href="https://farrogoeninternet-ui.github.io/fargot/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/system.css">
-<link rel="stylesheet" href="assets/ui/cards.css">
-<link rel="stylesheet" href="assets/motion/motion.css">
-<link rel="stylesheet" href="assets/backgrounds/backgrounds.css">
-<link rel="stylesheet" href="assets/layout/layout.css">
-<link rel="stylesheet" href="assets/icons/icon.css">
-<style>
-:root {
-  --p-bg: #070b18; --p-surface: #0e152e; --p-ink: #eef2ff; --p-muted: #9aa6c7;
-  --p-accent: #1e5bff; --p-accent-ink: #ffffff; --p-action: #1e5bff; --p-action-ink: #ffffff;
-  --p-inv-bg: #eef2ff; --p-inv-surface: #dbdfed; --p-inv-ink: #070b18; --p-inv-muted: #535866;
-  --p-inv-accent: #1e5bff; --p-inv-accent-ink: #ffffff; --p-inv-action: #1e5bff; --p-inv-action-ink: #ffffff;
-  --font-display: "Geist", system-ui, sans-serif;
-  --font-text: "Geist", system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  --display-weight: 500;
-  --display-tracking: -0.035em;
-  --display-tracking-xl: -0.045em;
-}
-</style>
-<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
-<script src="assets/backgrounds/backgrounds.js"></script>
-<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
-<link rel="modulepreload" href="assets/moments/moments.js">
-<link rel="modulepreload" href="assets/moments/lib.js">
-<link rel="modulepreload" href="assets/moments/liquid-type/moment.js">
-<style>
-  .nav__logo img { height: 30px; width: auto; display: block; }
-  .close__word { line-height: 1; }
-  @media (min-width: 640px) { .close__word { font-size: min(25.5vw, 30svh, 372px); } }
-  /* pantallas bajas (portatiles, zoom del navegador): cada seccion crece con su contenido y nunca se monta sobre la siguiente */
-  main > section, footer.closing { height: auto; min-height: calc(var(--h, 1) * 100svh); }
-  /* en el celular cada seccion mide lo que su contenido, sin huecos de pantalla completa */
-  @media (max-width: 639px) {
-    main > section:not(.hero), footer.closing { min-height: 0 !important; height: auto !important; padding-block: 56px; }
-    main > section.hero { min-height: 0 !important; height: auto !important; }
-  }
-
-  /* ---------- la app Fargot tal como es hoy (misma interfaz que Fargot.exe, con datos de ejemplo) */
-  .fa2 { width: min(900px, 100%); display: grid; grid-template-columns: 170px 1fr; border-radius: 14px; overflow: hidden; background: #07090f; color: #eef1f8; text-align: left;
-    font: 400 13px/1.35 var(--font-text); box-shadow: 0 0 0 1px rgb(255 255 255 / .1), 0 40px 80px -30px rgb(0 0 0 / .8); }
-  .fa2__side { background: #0b0e17; border-right: 1px solid rgb(255 255 255 / .07); padding: 16px 10px; display: flex; flex-direction: column; gap: 2px; }
-  .fa2__side img { height: 22px; width: auto; align-self: flex-start; margin: 2px 8px 20px; }
-  .fa2__nv { padding: 8px 10px; border-radius: 7px; color: #8b93a7; font-size: 13px; }
-  .fa2__nv.on { background: rgb(30 91 255 / .16); color: #eef1f8; }
-  .fa2__me { margin-top: auto; padding: 10px 6px 0; border-top: 1px solid rgb(255 255 255 / .07); font-size: 11.5px; color: #8b93a7; }
-  .fa2__main { padding: 16px 20px 20px; min-width: 0; }
-  .fa2__top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-  .fa2__top .fa2__h { margin: 0; flex: 1; font-size: 17px; font-weight: 600; }
-  .fa2__b { height: 30px; padding: 0 12px; border-radius: 7px; display: inline-grid; place-items: center; font-size: 12px; font-weight: 500; background: #141927; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .08); }
-  .fa2__b--pri { background: #1e5bff; box-shadow: none; }
-  .fa2__sub { color: #8b93a7; font-size: 12px; margin-bottom: 12px; }
-  .fa2__chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-  .fa2__chip { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px 0 6px; border-radius: 7px; background: #141927; color: #8b93a7; font-size: 12px; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .07); }
-  .fa2__chip.on { color: #eef1f8; background: rgb(30 91 255 / .16); box-shadow: inset 0 0 0 1px rgb(30 91 255 / .5); }
-  .fa2__tbl { border-radius: 10px; background: #10141f; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .07); overflow: hidden; }
-  .fa2__row { display: grid; grid-template-columns: 30px minmax(0, 1fr) 90px 120px; align-items: center; gap: 10px; min-height: 46px; padding: 0 14px; border-top: 1px solid rgb(255 255 255 / .06); }
-  .fa2__row:first-child { border-top: 0; min-height: 32px; color: #5d6478; font-size: 11px; }
-  .fa2__row b { font-weight: 500; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .fa2__row small { color: #5d6478; font-size: 11px; }
-  .fa2__v { font-variant-numeric: tabular-nums; } .fa2__st { display: flex; align-items: center; gap: 6px; color: #8b93a7; font-size: 12px; }
-  .fa2__st i { width: 7px; height: 7px; border-radius: 50%; background: #34d399; flex: none; }
-  .ap { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; font: 700 10.5px var(--font-text); flex: none; }
-  .ap--pr { color: #9999ff; background: #1a1d2e; } .ap--ae { color: #9f8bff; background: #1a1d2e; } .ap--ai { color: #ff9a00; background: #2a1a06; } .ap--ps { color: #31a8ff; background: #06223a; }
-  .fa2__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .fa2__card { border-radius: 10px; background: #10141f; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .07); padding: 14px; }
-  .fa2__card .fa2__h5 { display: flex; align-items: center; gap: 6px; margin: 0 0 6px; font-size: 14px; font-weight: 600; }
-  .fa2__card p { margin: 0 0 10px; color: #8b93a7; font-size: 12px; }
-  .fa2__ok { color: #34d399; font-size: 12px; }
-  @media (max-width: 760px) { .fa2 { grid-template-columns: 1fr; } .fa2__side { display: none; } .fa2__row { grid-template-columns: 26px minmax(0, 1fr) 54px; } .fa2__row > :nth-child(4) { display: none; } .fa2__cards { grid-template-columns: 1fr; } .fa2__top .fa2__b:not(.fa2__b--pri) { display: none; } }
-
-  /* el hero: el video de presentacion de Fargot (animacion en vivo, sin archivo de video) */
-  .hero--centred, .hero--centred .hero-text { height: auto !important; min-height: 0 !important; }
-  .hero--centred { padding-bottom: var(--s-8); }
-  .hero--centred .hero__window { width: min(100%, 1040px); margin-inline: auto; border-radius: 20px; }
-  .hero--centred .hero__window { position: relative; min-height: 0 !important; height: auto !important; aspect-ratio: 16 / 9; flex: none; background: #04060d; overflow: hidden; }
-  @media (max-width: 760px) { .hero--centred .hero__window { aspect-ratio: 4 / 5; } }
-  .reel { position: absolute; inset: 0; overflow: hidden; color: #eef2ff; font-family: var(--font-display); }
-  .reel__stage { position: absolute; left: 50%; top: 50%; width: 1280px; height: 720px; transform-origin: 0 0; }
-  .reel__bg { position: absolute; inset: -20%; background: radial-gradient(40% 50% at 30% 40%, rgb(30 91 255 / .35), transparent 70%), radial-gradient(35% 45% at 75% 65%, rgb(0 210 255 / .18), transparent 70%); animation: deriva 18s ease-in-out infinite alternate; }
-  @keyframes deriva { to { transform: translate(6%, -4%) scale(1.08); } }
-  .esc { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; opacity: 0; transition: opacity .6s; pointer-events: none; }
-  .esc.on { opacity: 1; }
-  .esc .e { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); transition-delay: calc(var(--d, 0) * 1s); }
-  .esc.on .e { opacity: 1; transform: none; }
-  .r-big { font-size: 92px; line-height: .98; letter-spacing: -.045em; font-weight: 500; margin: 0; }
-  .r-mid { font-size: 64px; line-height: 1.02; letter-spacing: -.04em; font-weight: 500; margin: 0; }
-  .r-small { font-size: 24px; color: #9aa6c7; margin: 22px 0 0; font-family: var(--font-text); letter-spacing: 0; }
-  .r-grad { background: linear-gradient(90deg, #6aa2ff, #00d2ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .r-logo { height: 120px; width: auto; }
-  .r-apps { display: flex; gap: 22px; justify-content: center; margin-bottom: 40px; }
-  .r-app { display: grid; place-items: center; width: 108px; height: 108px; border-radius: 26px; font: 700 40px var(--font-text); box-shadow: 0 20px 50px rgb(0 0 0 / .45); }
-  .r-app--pr { color: #9999ff; background: #1a1d2e; } .r-app--ae { color: #9f8bff; background: #1a1d2e; } .r-app--ai { color: #ff9a00; background: #2a1a06; } .r-app--ps { color: #31a8ff; background: #06223a; }
-  .esc .r-app { opacity: 0; transform: translateY(60px) rotate(-8deg) scale(.8); transition: transform .8s cubic-bezier(.2,.9,.25,1.2), opacity .5s; transition-delay: calc(var(--d) * 1s); }
-  .esc.on .r-app { opacity: 1; transform: none; }
-  /* Transfer: un diseño que vuela de Illustrator a After Effects */
-  .r-flujo { display: flex; align-items: center; gap: 40px; margin-bottom: 44px; }
-  .r-flujo .r-app { width: 96px; height: 96px; font-size: 34px; }
-  .r-vuelo { position: relative; width: 300px; height: 96px; }
-  .r-vuelo i { position: absolute; top: 34px; width: 28px; height: 28px; border-radius: 7px; left: 0; opacity: 0; }
-  .esc.on .r-vuelo i { animation: vuela 1.6s cubic-bezier(.6,0,.3,1) infinite; animation-delay: calc(var(--d) * 1s); }
-  @keyframes vuela { 0% { left: 0; opacity: 0; transform: rotate(0) } 15% { opacity: 1 } 85% { opacity: 1 } 100% { left: 272px; opacity: 0; transform: rotate(180deg) } }
-  /* Atlas: piezas que caen en sus carpetas */
-  .r-carpetas { display: flex; gap: 26px; justify-content: center; margin-bottom: 44px; }
-  .r-carpeta { position: relative; width: 150px; height: 112px; border-radius: 10px; background: #f5b84a; box-shadow: 0 20px 40px rgb(0 0 0 / .4); }
-  .r-carpeta::before { content: ""; position: absolute; left: 0; top: -12px; width: 60px; height: 20px; border-radius: 8px 8px 0 0; background: #f5b84a; }
-  .r-carpeta b { position: absolute; left: 0; right: 0; bottom: 12px; font: 600 16px var(--font-text); color: #3a2a06; }
-  .r-carpeta i { position: absolute; left: 50%; top: -120px; width: 46px; height: 58px; margin-left: -23px; border-radius: 6px; background: #eef2ff; box-shadow: 0 8px 20px rgb(0 0 0 / .35); opacity: 0; }
-  .esc.on .r-carpeta i { animation: cae 1s cubic-bezier(.5,0,.3,1) forwards; animation-delay: calc(var(--d) * 1s); }
-  @keyframes cae { 0% { top: -140px; opacity: 0 } 30% { opacity: 1 } 100% { top: 18px; opacity: 1 } }
-  .r-ver { display: inline-block; margin-left: 12px; padding: 4px 12px; border-radius: 99px; background: rgb(52 211 153 / .15); color: #34d399; font: 600 22px var(--font-text); vertical-align: middle; }
-  /* subtitulos de progreso y boton de pausa */
-  .reel__barra { position: absolute; left: 24px; right: 76px; bottom: 26px; display: flex; gap: 6px; z-index: 2; }
-  .reel__barra i { flex: 1; height: 3px; border-radius: 2px; background: rgb(255 255 255 / .16); overflow: hidden; }
-  .reel__barra i b { display: block; height: 100%; width: 0; background: #eef2ff; }
-  .reel__pausa { position: absolute; right: 16px; bottom: 12px; z-index: 3; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgb(255 255 255 / .25); background: rgb(7 11 24 / .7); color: #eef2ff; display: grid; place-items: center; cursor: pointer; }
-  .reel__pausa:focus-visible { outline: 2px solid #eef2ff; outline-offset: 2px; }
-  @media (prefers-reduced-motion: reduce) { .reel__bg { animation: none; } .esc, .esc .e, .esc .r-app { transition: none; } }
-  .hero__window .ui-pause:focus-visible { outline: 2px solid #070b18; outline-offset: 2px; box-shadow: 0 0 0 6px #eef2ff; }
-  .fa2__row.is-new { animation: fila .5s ease both; }
-  @keyframes fila { from { opacity: 0; transform: translateY(-6px); } }
-  @media (prefers-reduced-motion: reduce) { .fa2__row.is-new { animation: none; } }
-
-  /* la seccion de la app: la app junto a lo que hace */
-  .app-split .fa2 { margin-left: auto; }
-  .app-split .rows { margin-top: var(--s-7); }
-  @media (max-width: 1023px) { .app-split .fa2 { margin: var(--s-6) 0 0; } }
-
-  /* plugins de la suite */
-  #plugins .panel { --p-h: 220px; display: grid; place-items: center; }
-  .pl-flow { display: flex; align-items: center; gap: 14px; }
-  .pl-flow svg { color: #9aa6c7; }
-  .pl-grid { display: grid; grid-template-columns: repeat(3, 44px); gap: 10px; }
-  .pl-grid i { width: 44px; height: 44px; border-radius: 13px; display: block; background: rgb(255 255 255 / .07); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .1); }
-  .pl-grid i.on { background: linear-gradient(45deg, #2f7bff, #0a2fe0); }
-  .pl-grid i.next { box-shadow: inset 0 0 0 1px rgb(0 210 255 / .7); background: rgb(0 210 255 / .08); }
-  .pl-msg { width: min(280px, 86%); border-radius: 16px; padding: 14px 16px; background: #0e152e; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .12); font-size: 16px; }
-  .pl-msg small { display: block; color: #9aa6c7; font-size: 13px; margin-bottom: 6px; }
-  .tag { align-self: flex-start; display: inline-flex; height: 26px; align-items: center; padding: 0 10px; border-radius: 13px; font-size: 13px; border: 1px solid rgb(255 255 255 / .14); color: var(--muted); }
-  .tag.on { color: #7ff5c6; background: #0b3a2a; border-color: rgb(52 227 160 / .45); }
-  .faq-apps { display: flex; gap: var(--s-4); margin-top: var(--s-6); }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blanco.css">
 <script src="correo.js" defer></script>
+<script src="sitio.js" defer></script>
 </head>
 <body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
 
-<header class="nav nav--centre">
-  <div class="wrap nav__bar">
-    <a class="skip-link" href="#top">Ir al contenido</a>
-    <a class="nav__logo" href="#top" aria-label="Fargot Suite, inicio"><img src="img/fargot-logo.png" alt="Fargot" width="68" height="30"></a>
-    <nav class="nav__links" aria-label="Principal">
-      <div class="nav__item"><a class="nav__link" href="#plugins">Plugins</a></div>
-      <div class="nav__item"><a class="nav__link" href="#licencia">Licencia</a></div>
-      <div class="nav__item"><a class="nav__link" href="#app">App</a></div>
-      <div class="nav__item"><a class="nav__link" href="#faq">Preguntas</a></div>
+<header class="barra">
+  <div class="envoltura">
+    <a class="barra-logo" href="index.html" aria-label="Fargot, inicio"><img src="img/fargot-logo-2.png" alt="Fargot" width="63" height="28"></a>
+    <nav aria-label="Principal">
+      <a href="#apps">Apps</a>
+      <a href="#app">La app</a>
+      <a href="#licencia">Licencia</a>
+      <a href="#preguntas">Preguntas</a>
+      <a href="ayuda.html">Guía</a>
     </nav>
-    <div class="nav__actions">
-      <a class="btn btn--primary" href="https://farfot.lemonsqueezy.com/checkout/buy/a297658e-514b-4c76-a8c4-a7425564fb5b">Comprar Fargot Suite</a>
+    <div class="acciones">
+      <a class="btn chico" href="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Setup.exe">Descargar</a>
+      <a class="btn chico pri" href="https://farfot.lemonsqueezy.com/checkout/buy/a297658e-514b-4c76-a8c4-a7425564fb5b">Comprar Fargot Suite</a>
     </div>
-    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menú">
-      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
   </div>
 </header>
 
-<main id="top">
-  <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
-    <div class="wrap"><div class="hero-text">
-      <div class="hero__c">
-        <a class="pill" href="atlas.html"><span>Nuevo: Fargot Atlas</span><span class="muted">Ver cómo funciona</span></a>
-        <h1 id="hero-h">Los mejores plugins para tus programas favoritos</h1>
-        <p class="hero__lead">Fargot Suite es la caja de herramientas de los creativos que trabajan en Premiere, After Effects, Illustrator y Photoshop. Un solo pago te da todos los plugins en 2 equipos, y la app Fargot los instala y los mantiene al día.</p>
-        <div class="btn-row"><a class="btn btn--primary" href="https://farfot.lemonsqueezy.com/checkout/buy/a297658e-514b-4c76-a8c4-a7425564fb5b">Comprar Fargot Suite</a><a class="btn btn--secondary" href="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Setup.exe">Descargar para Windows</a><a class="btn btn--secondary" href="ayuda.html#mac">Descargar para Mac (beta)</a></div>
+<main id="contenido">
+  <section class="portada" aria-labelledby="portada-h">
+    <div class="envoltura">
+      <span class="etq">Nuevo · Fargot 2.0, ahora en blanco</span>
+      <h1 id="portada-h">Las herramientas que te faltaban en <em>tus programas</em></h1>
+      <p class="bajada">Plugins para Premiere, After Effects, Illustrator y Photoshop, Fargot Studio para escribir tus guiones y un traductor de PDF gratis. Un solo pago, 2 equipos, y una app que lo instala y lo mantiene al día.</p>
+      <div class="botones">
+        <a class="btn pri" href="https://farfot.lemonsqueezy.com/checkout/buy/a297658e-514b-4c76-a8c4-a7425564fb5b">Comprar Fargot Suite</a>
+        <a class="btn" href="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Setup.exe"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10M5.5 8.5 10 13l4.5-4.5M4 17h12"/></svg>Descargar para Windows</a>
       </div>
-      <div class="hero__window" role="img" aria-label="Video de presentación de Fargot Suite: hecho por creativos para creativos; plugins para Premiere, After Effects, Illustrator y Photoshop; Fargot Transfer lleva tu diseño editable de Illustrator a After Effects; Fargot Atlas ordena tu parrilla en un clic; un solo pago para todos los plugins; hecho en Colombia.">
-        <div class="reel" id="reel" aria-hidden="true">
-          <div class="reel__bg"></div>
-          <div class="reel__stage" id="reelStage">
-            <div class="esc" data-t="4">
-              <div><img class="r-logo e" src="img/fargot-logo.png" alt="" style="--d:.1"><p class="r-mid e" style="--d:.5;margin-top:26px">Hecho por creativos,<br><span class="r-grad">para creativos.</span></p></div>
-            </div>
-            <div class="esc" data-t="4.5">
-              <div><div class="r-apps"><span class="r-app r-app--pr" style="--d:.1">Pr</span><span class="r-app r-app--ae" style="--d:.25">Ae</span><span class="r-app r-app--ai" style="--d:.4">Ai</span><span class="r-app r-app--ps" style="--d:.55">Ps</span></div>
-                <p class="r-mid e" style="--d:.9">Tus programas favoritos,<br><span class="r-grad">con superpoderes.</span></p></div>
-            </div>
-            <div class="esc" data-t="4">
-              <div><p class="r-big e" style="--d:.1">Menos clics repetidos.</p><p class="r-big e r-grad" style="--d:.7">Más tiempo para crear.</p></div>
-            </div>
-            <div class="esc" data-t="5">
-              <div><div class="r-flujo" style="justify-content:center"><span class="r-app r-app--ai" style="--d:.1">Ai</span><span class="r-vuelo"><i style="--d:.6;background:#1e5bff"></i><i style="--d:.9;background:#ffe600"></i><i style="--d:1.2;background:#ff00b4"></i></span><span class="r-app r-app--ae" style="--d:.3">Ae</span></div>
-                <p class="r-mid e" style="--d:.5">Fargot Transfer</p><p class="r-small e" style="--d:.8">Tu diseño de Illustrator llega a After Effects en capas editables.</p></div>
-            </div>
-            <div class="esc" data-t="5.5">
-              <div><div class="r-carpetas"><span class="r-carpeta"><i style="--d:.5"></i><b>Video 01</b></span><span class="r-carpeta"><i style="--d:.8"></i><b>Video 02</b></span><span class="r-carpeta"><i style="--d:1.1"></i><b>Carrusel</b></span><span class="r-carpeta"><i style="--d:1.4"></i><b>Historia</b></span></div>
-                <p class="r-mid e" style="--d:.3">Fargot Atlas <span class="r-ver e" style="--d:2">v02</span></p><p class="r-small e" style="--d:.6">Tu parrilla, ordenada en un clic: cada pieza en su carpeta, con sus versiones.</p></div>
-            </div>
-            <div class="esc" data-t="4">
-              <div><p class="r-big e" style="--d:.1">Un pago.</p><p class="r-big e r-grad" style="--d:.5">Todos los plugins.</p><p class="r-small e" style="--d:1">Y los que vienen, incluidos.</p></div>
-            </div>
-            <div class="esc" data-t="4.5">
-              <div><p class="r-mid e" style="--d:.1">Hecho en Colombia</p><p class="r-mid e r-grad" style="--d:.5">por un creativo que también<br>entrega a última hora.</p></div>
-            </div>
-            <div class="esc" data-t="4">
-              <div><img class="r-logo e" src="img/fargot-logo.png" alt="" style="--d:.1"><p class="r-small e" style="--d:.5;font-size:28px;color:#eef2ff">Los mejores plugins para tus programas favoritos.</p></div>
-            </div>
+      <p class="nota">La app es gratis. Mac en beta: <a href="ayuda.html#mac">los paneles, sin app</a>.</p>
+    </div>
+
+    <div class="escenario aparece">
+      <div class="app" data-demo="6500" role="img" aria-label="La app Fargot: Inicio, Apps y Atlas">
+        <div class="app-titulo"><i></i><i></i><i></i><span style="margin-left:6px">Fargot</span></div>
+        <div class="app-barra"><img src="img/fargot-logo-2.png" alt=""><div class="app-buscar">Buscar apps, envíos y piezas</div><span class="app-av">E</span></div>
+        <div class="app-cuerpo">
+          <div class="app-lat">
+            <span data-v="inicio"><svg viewBox="0 0 22 22"><path d="M3.5 10 11 4l7.5 6v8h-5v-5h-5v5h-5z"/></svg>Inicio</span>
+            <span data-v="apps"><svg viewBox="0 0 22 22"><rect x="3.5" y="3.5" width="6" height="6" rx="1.5"/><rect x="12.5" y="3.5" width="6" height="6" rx="1.5"/><rect x="3.5" y="12.5" width="6" height="6" rx="1.5"/><rect x="12.5" y="12.5" width="6" height="6" rx="1.5"/></svg>Apps</span>
+            <span data-v="atlas"><svg viewBox="0 0 22 22"><path d="M3.5 7.5 11 3.5l7.5 4v7L11 18.5l-7.5-4z"/><path d="M3.5 7.5 11 11.5l7.5-4M11 11.5v7"/></svg>Atlas</span>
+            <span class="crece"></span>
+            <span data-v="ajustes"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="2.8"/><path d="M11 3v2.2M11 16.8V19M3 11h2.2M16.8 11H19M5.3 5.3l1.6 1.6M15.1 15.1l1.6 1.6M5.3 16.7l1.6-1.6M15.1 6.9l1.6-1.6"/></svg>Ajustes</span>
           </div>
-          <div class="reel__barra" id="reelBarra"></div>
-        </div>
-        <button class="reel__pausa" id="reelPausa" type="button" aria-label="Pausar el video"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" id="reelIco"><path d="M4 2v10M10 2v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-      </div>
-    </div></div>
-  </section>
-
-  <section class="section" id="plugins" style="--hm: 2" aria-labelledby="plugins-h">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="plugins-h">Los plugins de la suite. <span class="muted">Todos entran en la misma licencia.</span></h2>
-      </div>
-      <div class="grid">
-        <a class="card card--row span-4" href="transfer.html">
-          <span class="tag on">Disponible</span>
-          <h3>Fargot Transfer</h3>
-          <p>Pasa tu diseño de Illustrator a After Effects como capas editables, con degradados, textos y efectos.</p>
-          <div class="panel"><div class="pl-flow"><img class="ic ic-40" src="assets/icons/illustrator.svg" alt="Illustrator" width="40" height="39"><svg width="40" height="16" viewBox="0 0 40 16" aria-hidden="true"><path d="M2 8h32M28 3l6 5-6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><img class="ic ic-40" src="assets/icons/after-effects.svg" alt="After Effects" width="40" height="39"></div></div>
-        </a>
-        <a class="card card--row span-4" href="atlas.html">
-          <span class="tag on">Nuevo</span>
-          <h3>Fargot Atlas</h3>
-          <p>Empaqueta y renderiza cada pieza de tu parrilla en su carpeta, con medios, tipografías y versiones. En Premiere, After Effects, Illustrator y Photoshop.</p>
-          <div class="panel"><div class="pl-flow" role="img" aria-label="Premiere, After Effects, Illustrator y Photoshop"><span class="ap ap--pr" style="width:40px;height:40px;font-size:15px;border-radius:10px">Pr</span><span class="ap ap--ae" style="width:40px;height:40px;font-size:15px;border-radius:10px">Ae</span><span class="ap ap--ai" style="width:40px;height:40px;font-size:15px;border-radius:10px">Ai</span><span class="ap ap--ps" style="width:40px;height:40px;font-size:15px;border-radius:10px">Ps</span></div></div>
-        </a>
-        <a class="card card--row span-4" href="reportar.html" data-correo data-asunto="Idea para un plugin de Fargot">
-          <span class="tag">Tu idea</span>
-          <h3>¿Qué plugin necesitas?</h3>
-          <p>Cuéntanos qué tarea repites todos los días en tus programas. Las mejores ideas se vuelven el próximo plugin de la suite.</p>
-          <div class="panel"><div class="pl-msg" role="img" aria-label="Un mensaje al equipo Fargot con tu idea"><small>Para el equipo Fargot</small>Quiero un plugin que…</div></div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section statement" id="licencia" data-moment="liquid-type" aria-labelledby="licencia-h">
-    <div class="wrap">
-      <div class="section-head" style="max-width:none">
-        <h2 id="licencia-h" class="mo-lt__type">Un pago, todos los plugins</h2>
-        <p>Compras la licencia de Fargot Suite una vez y tienes cada plugin de la suite con sus actualizaciones, en tu escritorio y tu portátil a la vez.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="app" aria-labelledby="app-h">
-    <div class="wrap">
-      <div class="grid grid--top app-split">
-        <div class="span-6">
-          <h2 id="app-h">La app Fargot para toda la suite</h2>
-          <ul class="rows">
-            <li><span class="rows__name">Inicia sesión una vez</span><p>Con el correo y la clave de tu compra.</p></li>
-            <li><span class="rows__name">Instala todo sola</span><p>Pone los paneles en Premiere, After Effects, Illustrator y Photoshop por ti.</p></li>
-            <li><span class="rows__name">Ordena tus parrillas</span><p>Con Atlas ves cada pieza, la empaquetas y la renderizas sin abrir carpetas.</p></li>
-            <li><span class="rows__name">Usa 2 equipos a la vez</span><p>Ves tus equipos y cierras sesión en uno desde aquí.</p></li>
-            <li><span class="rows__name">Se actualiza sola</span><p>Te avisa de cada versión nueva y la instala.</p></li>
-          </ul>
-          <p style="margin-top:var(--s-6)"><a class="link" href="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Setup.exe">Descargar la app Fargot para Windows</a><br><a class="link" href="ayuda.html#mac">En Mac (beta): los paneles, sin app</a></p>
-        </div>
-        <div class="span-6 start-7" role="img" aria-label="La app Fargot en la sección Plugins: Fargot Transfer y Fargot Atlas instalados">
-          <div class="fa2" aria-hidden="true" style="grid-template-columns:1fr">
-            <div class="fa2__main">
-              <div class="fa2__top"><b class="fa2__h">Plugins</b><span class="fa2__b">¿Cómo abro los paneles?</span></div>
-              <div class="fa2__cards" style="margin-top:12px">
-                <div class="fa2__card"><b class="fa2__h5"><span class="ap ap--ai">Ai</span><span class="ap ap--ae">Ae</span>Fargot Transfer</b><p>Tu diseño de Illustrator llega a After Effects en capas editables.</p><span class="fa2__ok">Instalado</span></div>
-                <div class="fa2__card"><b class="fa2__h5"><span class="ap ap--pr">Pr</span>Fargot Atlas</b><p>Cada pieza de tu parrilla en su carpeta, con renders por versión.</p><span class="fa2__ok">Panel instalado</span></div>
-                <div class="fa2__card" style="opacity:.6"><b class="fa2__h5">Próximo plugin</b><p>Incluido en tu licencia cuando salga.</p></div>
+          <div class="app-vistas">
+            <div class="app-vista" data-v="inicio" data-nombre="Inicio">
+              <h4>Buenos días, Esteban</h4><p class="sub">Sigue donde quedaste o empieza algo nuevo.</p>
+              <div class="r3">
+                <div class="t acc"><div class="cab"><span class="ic c-at">At</span>Empaquetar con Atlas</div><p>Cada pieza en su carpeta, con medios, tipografías y renders.</p><span class="mb pri">Abrir Atlas</span></div>
+                <div class="t acc"><div class="cab"><span class="ic c-st">St</span>Escribir un guion</div><p>Guion, escaleta, personajes y la biblia de tu mundo.</p><span class="mb">Abrir Fargot Studio</span></div>
+                <div class="t acc"><div class="cab"><span class="ic c-td">Td</span>Traducir un PDF</div><p>Conserva el diseño. Gratis, también sin internet.</p><span class="mb">Traducir</span></div>
+              </div>
+              <p style="font-weight:600;margin:20px 0 8px">Enviado hoy a Atlas</p>
+              <div class="t">
+                <div class="fila" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="sello s-pr">Pr</span><span><b style="font-weight:600">Parrilla Noviembre</b><small>6 piezas · hace 4 min</small></span><span class="mb">Abrir</span></div>
+                <div class="fila" style="grid-template-columns:34px minmax(0,1fr) auto"><span class="sello s-ae">Ae</span><span><b style="font-weight:600">Campaña Navidad</b><small>3 piezas · hace 1 h</small></span><span class="mb">Abrir</span></div>
               </div>
             </div>
+            <div class="app-vista" data-v="apps" data-nombre="Apps">
+              <h4>Apps y plugins</h4><p class="sub">Tú decides qué se instala, qué se actualiza y qué se quita.</p>
+              <div class="t">
+                <div class="fila"><span class="ic c-at">At</span><span><b style="font-weight:600">Fargot Atlas</b><small>Empaqueta y renderiza cada pieza, con versiones.</small></span><span class="estado-ok">Instalado</span><span class="mb pri">Abrir</span></div>
+                <div class="fila"><span class="ic c-tr">Tr</span><span><b style="font-weight:600">Fargot Transfer</b><small>De Illustrator a After Effects en capas editables.</small></span><span class="estado-ok">Instalado</span><span class="mb pri">Abrir</span></div>
+                <div class="fila"><span class="ic c-st">St</span><span><b style="font-weight:600">Fargot Studio</b><small>Guion, escaleta, personajes y la biblia de tu mundo.</small></span><span class="muted" style="font-size:11.5px">Incluida</span><span class="mb">Instalar</span></div>
+                <div class="fila"><span class="ic c-td">Td</span><span><b style="font-weight:600">Fargot Traductor</b><small>Traduce PDFs conservando el diseño.</small></span><span class="muted" style="font-size:11.5px">Gratis</span><span class="mb">Abrir</span></div>
+              </div>
+            </div>
+            <div class="app-vista" data-v="atlas" data-nombre="Atlas">
+              <div class="pest"><b class="on"><span class="sello s-pr" style="padding:0 4px;font-size:10px">Pr</span>Premiere</b><b>After Effects</b><b>Illustrator</b><b>Photoshop</b></div>
+              <div class="atlas-g">
+                <div>
+                  <p class="muted" style="font-size:10.5px;font-weight:700;letter-spacing:.05em;margin-bottom:6px">HOY</p>
+                  <div class="envio on"><b>Parrilla Noviembre <span class="tag">NUEVO</span></b><span class="muted">6 piezas · hace 4 min</span></div>
+                  <div class="envio"><b>Spots Cliente B</b><span class="muted">4 piezas · 9:12 a. m.</span></div>
+                </div>
+                <div class="t">
+                  <div style="padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="font-size:14px">Parrilla Noviembre</b><span style="display:flex;gap:6px"><span class="mb">Numerar</span><span class="mb">Renderizar 6</span><span class="mb pri">Empaquetar 6</span></span></div>
+                  <div class="pieza"><span class="cb"></span><span>Video 01</span><span class="v">v2</span></div>
+                  <div class="pieza"><span class="cb"></span><span>Video 02</span><span class="v">v2</span></div>
+                  <div class="pieza"><span class="cb"></span><span>Video 03</span><span class="v">v1</span></div>
+                  <div class="pieza"><span class="cb"></span><span>Historia 01</span><span class="v">v1</span></div>
+                  <div style="padding:10px 14px 14px;font-size:11.5px" class="muted">Noviembre › Premiere › Parrilla Noviembre<div class="progreso"><i></i></div></div>
+                </div>
+              </div>
+              <div class="aviso-app">✓ Empaquetado: 6 piezas en su carpeta</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="app-puntos"></div>
+    </div>
+  </section>
+
+  <section class="seccion" id="apps" aria-labelledby="apps-h">
+    <div class="envoltura">
+      <div class="seccion-cab aparece"><span class="pre">Fargot Suite</span><h2 id="apps-h">Todo en una licencia.</h2><p>Plugins para los programas que usas cada día y apps para lo que pasa antes y después de editar.</p></div>
+      <div class="apps-g">
+        <article class="app-tarjeta aparece">
+          <div class="cab"><span class="ic g c-at">At</span><div><h3>Fargot Atlas</h3><span class="etq ok">Disponible</span></div></div>
+          <p>Empaqueta y renderiza cada pieza en su carpeta, con medios, tipografías y versiones: Mes › Programa › Envío. Numera las piezas en un clic (Video 01 v2, Video 02 v2…) y archiva lo que ya no usas.</p>
+          <div class="progs"><span class="sello s-pr">Pr</span><span class="sello s-ae">Ae</span><span class="sello s-ai">Ai</span><span class="sello s-ps">Ps</span></div>
+          <div class="pie"><a class="btn chico" href="atlas.html">Ver cómo funciona</a></div>
+        </article>
+        <article class="app-tarjeta aparece">
+          <div class="cab"><span class="ic g c-tr">Tr</span><div><h3>Fargot Transfer</h3><span class="etq ok">Disponible</span></div></div>
+          <p>Tu diseño de Illustrator llega a After Effects como capas editables: formas, degradados exactos, textos y efectos. Nada de imágenes planas.</p>
+          <div class="progs"><span class="sello s-ai">Ai</span><span class="sello s-ae">Ae</span></div>
+          <div class="pie"><a class="btn chico" href="transfer.html">Ver cómo funciona</a></div>
+        </article>
+        <article class="app-tarjeta aparece">
+          <div class="cab"><span class="ic g c-st">St</span><div><h3>Fargot Studio</h3><span class="etq">Incluida en la licencia</span></div></div>
+          <p>Escribe tu guion con formato profesional, arma la escaleta, crea personajes y guarda la biblia de tu mundo. Para series, cortos y piezas de marca.</p>
+          <div class="pie"><span class="muted" style="font-size:14px">Se abre desde la app Fargot.</span></div>
+        </article>
+        <article class="app-tarjeta aparece">
+          <div class="cab"><span class="ic g c-td">Td</span><div><h3>Fargot Traductor</h3><span class="etq ok">Gratis para todos</span></div></div>
+          <p>Traduce un PDF completo, por capítulos o por páginas, y conserva el diseño original. También funciona sin internet.</p>
+          <div class="pie"><a class="btn chico pri" href="traductor.html">Traducir un PDF</a></div>
+        </article>
+      </div>
+      <div class="app-tarjeta aparece" style="margin-top:18px;flex-direction:row;align-items:center;gap:20px;flex-wrap:wrap;background:var(--fondo);border-color:transparent">
+        <div style="flex:1;min-width:240px"><h3 style="font-size:19px">¿Qué herramienta te falta?</h3><p style="margin-top:6px">Cuéntanos qué tarea repites todos los días. Las mejores ideas se vuelven el próximo plugin de la suite.</p></div>
+        <a class="btn" href="reportar.html">Proponer una idea</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion gris" id="app" aria-labelledby="app-h">
+    <div class="envoltura dos">
+      <div class="aparece">
+        <span class="pre">La app Fargot</span>
+        <h2 id="app-h" style="font-size:clamp(32px,4.4vw,52px)">Un solo lugar para toda la suite.</h2>
+        <p class="muted" style="font-size:18px;margin-top:14px">Como Creative Cloud, pero para tus herramientas Fargot. Tú decides qué instalar y cuándo.</p>
+        <div class="lista-pasos" style="margin-top:28px">
+          <div><b>1</b><span><strong>Inicia sesión una vez</strong><span>Con el correo y la clave de tu compra.</span></span></div>
+          <div><b>2</b><span><strong>Elige qué instalar</strong><span>Instala o quita cada plugin con un clic. Nada se instala solo si no quieres.</span></span></div>
+          <div><b>3</b><span><strong>Trabaja con Atlas desde la app</strong><span>Tus envíos del día, por programa, sin abrir carpetas.</span></span></div>
+          <div><b>4</b><span><strong>Hazla tuya</strong><span>Tu foto, tu color, lo que ves al abrirla. Y 2 equipos con la misma licencia.</span></span></div>
+        </div>
+      </div>
+      <div class="aparece">
+        <div class="app" aria-hidden="true">
+          <div class="app-titulo"><i></i><i></i><i></i><span style="margin-left:6px">Fargot · Ajustes</span></div>
+          <div style="padding:20px;display:flex;flex-direction:column;gap:12px">
+            <div class="t" style="padding:16px;display:flex;gap:14px;align-items:center"><span class="app-av" style="width:52px;height:52px;border-radius:26px;font-size:20px">E</span><span><b style="font-size:15px">Esteban</b><br><span class="muted">Editor y motion</span></span></div>
+            <div class="t" style="padding:16px"><b>Color de acento</b><div style="display:flex;gap:8px;margin-top:10px"><i style="width:26px;height:26px;border-radius:13px;background:#1E5BFF;box-shadow:0 0 0 2px #fff,0 0 0 4px #1E5BFF"></i><i style="width:26px;height:26px;border-radius:13px;background:#6A3DF0"></i><i style="width:26px;height:26px;border-radius:13px;background:#0E8F7E"></i><i style="width:26px;height:26px;border-radius:13px;background:#C2410C"></i><i style="width:26px;height:26px;border-radius:13px;background:#C0266B"></i><i style="width:26px;height:26px;border-radius:13px;background:#14161B"></i></div></div>
+            <div class="t" style="padding:4px 0"><div class="fila" style="grid-template-columns:22px minmax(0,1fr) auto"><span>🖥</span><span><b style="font-weight:600">Escritorio</b><small>Este equipo</small></span><span class="mb">Cerrar sesión</span></div><div class="fila" style="grid-template-columns:22px minmax(0,1fr) auto"><span>💻</span><span><b style="font-weight:600">Portátil</b><small>Último uso ayer</small></span><span class="mb">Cerrar allá</span></div></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="faq" aria-labelledby="preguntas-h">
-    <div class="wrap">
-      <div class="grid grid--top">
-        <div class="span-6 stack-4">
-          <h2 id="preguntas-h">Preguntas sobre la licencia</h2>
-          <p class="muted">Lo que suelen preguntar antes de comprar Fargot Suite.</p>
-          <a class="link" href="reportar.html" data-correo>Escribir a soporte</a>
-          <a class="link" href="reportar.html">Reportar un problema o enviar una idea</a>
-          <div class="faq-apps"><span class="ic-tile"><img class="ic ic-40" src="assets/icons/illustrator.svg" alt="Illustrator" width="40" height="39"></span><span class="ic-tile"><img class="ic ic-40" src="assets/icons/after-effects.svg" alt="After Effects" width="40" height="39"></span></div>
+  <section class="seccion" id="licencia" aria-labelledby="licencia-h">
+    <div class="envoltura">
+      <div class="precio aparece">
+        <div>
+          <h2 id="licencia-h">Un pago. Todo incluido.</h2>
+          <p>Compras Fargot Suite una vez y tienes cada plugin y cada app, con sus actualizaciones y las herramientas que vienen. La clave te llega al correo al instante.</p>
+          <div class="botones"><a class="btn pri" href="https://farfot.lemonsqueezy.com/checkout/buy/a297658e-514b-4c76-a8c4-a7425564fb5b">Comprar Fargot Suite</a><a class="btn" href="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Setup.exe">Descargar la app gratis</a></div>
         </div>
-        <div class="faq span-6 start-7">
-          <div class="faq__item"><h3>¿Pago cada mes?</h3><p>No. Pagas una vez y tienes todos los plugins de la suite, con sus actualizaciones.</p></div>
-          <div class="faq__item"><h3>¿En cuántos equipos lo uso?</h3><p>En 2 a la vez con la misma licencia. Para usar un tercero, cierras sesión en uno desde la app Fargot.</p></div>
-          <div class="faq__item"><h3>¿En qué programas funciona?</h3><p>Premiere Pro, After Effects, Illustrator y Photoshop (2019 o posterior), en Windows 10 u 11 y en Mac (beta). <a href="ayuda.html">Cómo abrir cada panel, paso a paso</a>.</p></div>
-          <div class="faq__item"><h3>¿Tengo que pagarle algo extra a Adobe?</h3><p>No. El plugin no se compra en Adobe ni pide nada de Adobe: lo instala la app Fargot y se activa con tu licencia de Fargot Suite. Solo necesitas tener tus programas de Adobe.</p></div>
-          <div class="faq__item"><h3>¿Funciona sin internet?</h3><p>Sí, hasta 7 días. Solo necesitas conexión para activar la licencia y renovarla.</p></div>
-          <div class="faq__item"><h3>¿Funciona en Mac?</h3><p>Sí, en beta: Fargot Transfer y Fargot Atlas funcionan en Mac como paneles (sin la app Fargot). <a href="ayuda.html#mac">Lo que incluye, lo que falta y cómo instalarlo</a>.</p></div>
-          <div class="faq__item"><h3>¿Cómo recibo mi clave?</h3><p>Te llega por correo al comprar. La escribes en la app Fargot junto con el correo de la compra.</p></div>
-        </div>
+        <ul>
+          <li><svg viewBox="0 0 20 20"><path d="m4 10.5 4 4 8-9"/></svg>Fargot Atlas y Fargot Transfer</li>
+          <li><svg viewBox="0 0 20 20"><path d="m4 10.5 4 4 8-9"/></svg>Fargot Studio para tus guiones</li>
+          <li><svg viewBox="0 0 20 20"><path d="m4 10.5 4 4 8-9"/></svg>Los próximos plugins, sin pagar de nuevo</li>
+          <li><svg viewBox="0 0 20 20"><path d="m4 10.5 4 4 8-9"/></svg>2 equipos a la vez</li>
+          <li><svg viewBox="0 0 20 20"><path d="m4 10.5 4 4 8-9"/></svg>Funciona hasta 7 días sin internet</li>
+          <li><svg viewBox="0 0 20 20"><path d="m4 10.5 4 4 8-9"/></svg>Hecho en Colombia, por un creativo que también entrega a última hora</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion gris" id="preguntas" aria-labelledby="preguntas-h">
+    <div class="envoltura faq">
+      <div class="aparece">
+        <span class="pre">Preguntas</span>
+        <h2 id="preguntas-h" style="font-size:clamp(30px,4vw,44px)">Antes de comprar</h2>
+        <p class="muted" style="margin-top:14px">¿Algo más? <a href="mailto:" data-correo>Escríbenos</a> o <a href="reportar.html">reporta un problema</a>.</p>
+      </div>
+      <div class="aparece">
+        <details><summary>¿Pago cada mes?</summary><p>No. Pagas una vez y tienes todas las herramientas de la suite, con sus actualizaciones.</p></details>
+        <details><summary>¿En cuántos equipos lo uso?</summary><p>En 2 a la vez con la misma licencia. Para usar un tercero, cierras sesión en uno desde la app Fargot.</p></details>
+        <details><summary>¿En qué programas funciona?</summary><p>Premiere Pro, After Effects, Illustrator y Photoshop (2019 o posterior), en Windows 10 u 11, y en Mac en beta. <a href="ayuda.html">Cómo abrir cada panel, paso a paso</a>.</p></details>
+        <details><summary>¿Tengo que pagarle algo extra a Adobe?</summary><p>No. Los plugins no se compran en Adobe: los instala la app Fargot y se activan con tu licencia. Solo necesitas tus programas de Adobe.</p></details>
+        <details><summary>¿El traductor de PDF es gratis?</summary><p>Sí, para todos y sin licencia. Puedes usarlo en esta web o desde la app Fargot.</p></details>
+        <details><summary>¿Funciona sin internet?</summary><p>Sí, hasta 7 días. Solo necesitas conexión para activar la licencia y renovarla.</p></details>
+        <details><summary>¿Funciona en Mac?</summary><p>En beta: Fargot Transfer y Fargot Atlas funcionan en Mac como paneles, todavía sin la app. <a href="ayuda.html#mac">Lo que incluye y cómo instalarlo</a>.</p></details>
+        <details><summary>¿Cómo recibo mi clave?</summary><p>Te llega por correo al comprar. La escribes en la app Fargot junto con el correo de la compra.</p></details>
       </div>
     </div>
   </section>
 </main>
 
-<footer class="footer closing" id="contact" aria-labelledby="close-h">
-  <div class="wrap">
-    <div class="closing__cta close--word">
-      <div class="section-head--split">
-        <div><h2 id="close-h">Compra Fargot Suite</h2><p class="t-lead">Un pago, todos los plugins. Tu clave te llega por correo al instante.</p></div>
-        <a class="btn btn--primary" href="https://farfot.lemonsqueezy.com/checkout/buy/a297658e-514b-4c76-a8c4-a7425564fb5b">Comprar Fargot Suite<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
-      </div>
-      <p class="close__word" aria-hidden="true">Fargot</p>
+<footer class="pie">
+  <div class="envoltura">
+    <div class="pie-g">
+      <div><img src="img/fargot-logo-2.png" alt="Fargot" width="59" height="26"><p class="muted" style="margin-top:12px;font-size:14.5px;max-width:260px">Herramientas para editores, motion designers y guionistas.</p></div>
+      <div><h4>Suite</h4><a href="atlas.html">Fargot Atlas</a><a href="transfer.html">Fargot Transfer</a><a href="#apps">Fargot Studio</a><a href="traductor.html">Traductor de PDF</a></div>
+      <div><h4>La app</h4><a href="https://github.com/farrogoeninternet-ui/fargot/releases/latest/download/Fargot-Setup.exe">Descargar</a><a href="https://github.com/farrogoeninternet-ui/fargot/releases">Versiones</a><a href="ayuda.html">Guía</a></div>
+      <div><h4>Licencia</h4><a href="https://farfot.lemonsqueezy.com/checkout/buy/a297658e-514b-4c76-a8c4-a7425564fb5b">Comprar</a><a href="eula.txt">Contrato</a><a href="terminos.html">Términos y reembolsos</a></div>
+      <div><h4>Ayuda</h4><a href="#preguntas">Preguntas</a><a href="reportar.html">Reportar un problema</a><a href="privacidad.html">Privacidad</a></div>
     </div>
-    <div class="closing__links">
-      <div class="grid">
-        <div class="span-4 stack-4">
-          <a class="nav__logo" href="#top" aria-label="Fargot Suite, inicio"><img src="img/fargot-logo.png" alt="Fargot" width="68" height="30"></a>
-          <p class="footer__lede">Los mejores plugins para Premiere, After Effects, Illustrator y Photoshop.</p>
-        </div>
-        <div class="span-2 footer__col"><h3>Plugins</h3><ul><li><a href="transfer.html">Fargot Transfer</a></li><li><a href="atlas.html">Fargot Atlas</a></li><li><a href="ayuda.html">Guía</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Licencia</h3><ul><li><a href="#licencia">Un pago</a></li><li><a href="eula.txt">Contrato</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>App</h3><ul><li><a href="#app">La app Fargot</a></li><li><a href="https://github.com/farrogoeninternet-ui/fargot/releases">Versiones</a></li></ul></div>
-        <div class="span-2 footer__col"><h3>Preguntas</h3><ul><li><a href="#faq">Preguntas</a></li><li><a href="reportar.html" data-correo>Soporte</a></li><li><a href="reportar.html">Reportar un problema</a></li></ul></div>
-      </div>
-      <div class="footer__legal">
-        <span>&copy; 2026 Fargot &nbsp; <a href="terminos.html">Términos y reembolsos</a> &nbsp; <a href="privacidad.html">Privacidad</a> &nbsp; <a href="eula.txt">Contrato de licencia</a></span>
-        <div class="socials"></div>
-        <span>Adobe, Premiere Pro, After Effects, Illustrator y Photoshop son marcas de Adobe Inc.</span>
-      </div>
-    </div>
+    <div class="pie-legal"><span>© <span data-ano>2026</span> Fargot · Hecho en Colombia</span><span>Adobe, Premiere Pro, After Effects, Illustrator y Photoshop son marcas de Adobe Inc.</span></div>
   </div>
 </footer>
-
-<script type="module" src="assets/system.js"></script>
-<script type="module" src="assets/motion/motion.js"></script>
-<script type="module" src="assets/layout/layout.js"></script>
-<script>
-/* video de presentacion: escenas en bucle con barra de progreso (quieto en la ultima con movimiento reducido) */
-(function () {
-  var reel = document.getElementById("reel"); if (!reel) return;
-  var stage = document.getElementById("reelStage"), escenas = Array.prototype.slice.call(reel.querySelectorAll(".esc"));
-  var barra = document.getElementById("reelBarra"), boton = document.getElementById("reelPausa");
-  escenas.forEach(function () { var i = document.createElement("i"); i.appendChild(document.createElement("b")); barra.appendChild(i); });
-  var marcas = Array.prototype.slice.call(barra.querySelectorAll("b"));
-  function ajustar() {
-    var w = reel.clientWidth, h = reel.clientHeight, k = Math.min(w / 1280, h / 720) * (w < 760 ? 1.45 : 1);
-    stage.style.transform = "scale(" + k + ") translate(-50%, -50%)";
-  }
-  ajustar(); addEventListener("resize", ajustar);
-  var n = 0, t0 = 0, pausado = false, quieto = matchMedia("(prefers-reduced-motion: reduce)").matches, gastado = 0;
-  function mostrar(k) {
-    escenas.forEach(function (e, i) { e.classList.toggle("on", i === k); });
-    marcas.forEach(function (m, i) { m.style.width = i < k ? "100%" : "0"; });
-  }
-  if (quieto) { mostrar(escenas.length - 1); boton.hidden = true; return; }
-  mostrar(0); t0 = performance.now();
-  function cuadro(ahora) {
-    if (!pausado && !document.hidden) {
-      var dur = Number(escenas[n].dataset.t) * 1000, p = Math.min(1, (ahora - t0 + gastado) / dur);
-      marcas[n].style.width = (p * 100) + "%";
-      if (p >= 1) { n = (n + 1) % escenas.length; gastado = 0; t0 = ahora; mostrar(n); }
-    } else { t0 = ahora - 0; }
-    requestAnimationFrame(cuadro);
-  }
-  requestAnimationFrame(function (a) { t0 = a; requestAnimationFrame(cuadro); });
-  boton.addEventListener("click", function () {
-    if (!pausado) { gastado += performance.now() - t0; }
-    pausado = !pausado; t0 = performance.now();
-    document.getElementById("reelIco").innerHTML = pausado ? '<path d="M4 2l8 5-8 5z" fill="currentColor"/>' : '<path d="M4 2v10M10 2v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
-    boton.setAttribute("aria-label", pausado ? "Reanudar el video" : "Pausar el video");
-    reel.querySelectorAll(".esc.on *").forEach(function (e) { e.style.animationPlayState = pausado ? "paused" : "running"; });
-  });
-})();
-</script>
 </body>
 </html>

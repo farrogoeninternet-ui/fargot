@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' data: blob: https://cdn.jsdelivr.net https://translate.googleapis.com https://huggingface.co https://*.huggingface.co https://*.hf.co; worker-src 'self' blob: https://cdn.jsdelivr.net; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fargot Traductor: traduce un PDF conservando el diseño, gratis</title>
+<meta name="description" content="Traduce un PDF completo, por capítulos o por páginas, y conserva el diseño original. Gratis, en tu navegador: tu PDF no se sube a ningún servidor.">
+<meta property="og:title" content="Fargot Traductor: traduce un PDF conservando el diseño">
+<meta property="og:url" content="https://farrogoeninternet-ui.github.io/fargot/traductor.html">
+<meta property="og:image" content="https://farrogoeninternet-ui.github.io/fargot/share.jpg">
+<link rel="icon" href="img/favicon.png" type="image/png">
+<meta name="theme-color" content="#ffffff">
+<link rel="canonical" href="https://farrogoeninternet-ui.github.io/fargot/traductor.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="blanco.css">
+<script src="sitio.js" defer></script>
+<style>
+  .tr { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 22px; align-items: start; }
+  @media (max-width: 960px) { .tr { grid-template-columns: 1fr; } }
+  .zona { border: 2px dashed var(--linea2); border-radius: 22px; background: #fff; min-height: 420px; display: grid; place-items: center; text-align: center; padding: 32px; cursor: pointer; transition: border-color .2s, background .2s; }
+  .zona:hover, .zona.sobre { border-color: var(--acento); background: var(--acento-suave); }
+  .zona h2 { font-size: 24px; margin: 18px 0 8px; } .zona p { color: var(--gris); }
+  .zona .ic { margin: 0 auto; }
+  .panel { background: #fff; border: 1px solid var(--linea); border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 18px; position: sticky; top: 86px; }
+  .panel h3 { font-size: 15px; letter-spacing: 0; }
+  .grupo { display: flex; flex-direction: column; gap: 8px; }
+  .grupo > b { font-size: 13px; color: var(--texto2); }
+  .seg { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--fondo); border-radius: 12px; padding: 4px; gap: 4px; }
+  .seg button { border: 0; background: transparent; border-radius: 9px; height: 34px; font: 600 13.5px inherit; font-family: inherit; color: var(--texto2); cursor: pointer; }
+  .seg button.on { background: #fff; color: var(--tinta); box-shadow: 0 1px 2px rgb(20 22 27 / .1); }
+  select, input[type=number] { font: inherit; font-size: 14.5px; height: 40px; border: 1px solid var(--linea2); border-radius: 10px; padding: 0 12px; background: #fff; color: var(--tinta); width: 100%; }
+  .dos-campos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .dos-campos label { font-size: 12.5px; color: var(--gris); display: flex; flex-direction: column; gap: 4px; }
+  .motor { display: flex; gap: 10px; padding: 10px 12px; border: 1px solid var(--linea2); border-radius: 12px; cursor: pointer; font-size: 14px; }
+  .motor:has(input:checked) { border-color: var(--acento); background: var(--acento-suave); }
+  .motor input { accent-color: var(--acento); margin-top: 3px; }
+  .motor small { display: block; color: var(--gris); font-size: 12.5px; }
+  .archivo { display: flex; gap: 12px; align-items: center; padding: 12px 14px; background: var(--fondo); border-radius: 12px; }
+  .archivo b { display: block; font-size: 14px; word-break: break-all; } .archivo span { font-size: 12.5px; color: var(--gris); }
+  .vista { background: var(--fondo); border-radius: 22px; padding: 22px; min-height: 420px; }
+  .minis { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .minis figure { margin: 0; text-align: center; font-size: 12.5px; color: var(--gris); }
+  .minis img { width: 200px; border-radius: 8px; box-shadow: 0 10px 30px -12px rgb(20 22 27 / .35); background: #fff; display: block; margin-bottom: 8px; }
+  .prog { height: 6px; border-radius: 3px; background: #E6E8EC; overflow: hidden; }
+  .prog i { display: block; height: 6px; width: 0; background: var(--acento); border-radius: 3px; transition: width .3s; }
+  .estado { font-size: 13.5px; color: var(--texto2); }
+  .aviso { font-size: 13.5px; padding: 10px 12px; border-radius: 10px; background: #FFF8EC; color: #6B3A00; }
+  .error { font-size: 13.5px; padding: 10px 12px; border-radius: 10px; background: #FDF0F0; color: #C62828; }
+  .listo { font-size: 14px; padding: 12px 14px; border-radius: 12px; background: var(--ok-fondo); color: var(--ok); }
+  .nota-priv { font-size: 12.5px; color: var(--gris); }
+</style>
+</head>
+<body>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<header class="barra">
+  <div class="envoltura">
+    <a class="barra-logo" href="index.html" aria-label="Fargot, inicio"><img src="img/fargot-logo-2.png" alt="Fargot" width="63" height="28"></a>
+    <nav aria-label="Principal"><a href="index.html#apps">Suite</a><a href="#como">Cómo funciona</a><a href="ayuda.html">Guía</a></nav>
+    <div class="acciones"><a class="btn chico" href="index.html">Conocer Fargot Suite</a></div>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="prod-cab" style="padding-bottom:28px">
+    <div class="envoltura">
+      <div class="miga"><a href="index.html">Fargot</a><span>›</span><span>Traductor de PDF</span></div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px"><span class="ic g c-td">Td</span><span class="etq ok">Gratis para todos</span></div>
+      <h1 style="font-size:clamp(36px,5vw,60px)">Traduce un PDF y conserva su diseño.</h1>
+      <p class="bajada">Todo el documento, por capítulos o por páginas. Funciona en tu navegador: tu PDF no se sube a ningún servidor.</p>
+    </div>
+  </section>
+
+  <section style="padding-bottom:96px">
+    <div class="envoltura tr">
+      <div>
+        <label class="zona" id="zona" tabindex="0">
+          <input type="file" id="archivo" accept="application/pdf,.pdf" hidden>
+          <div>
+            <span class="ic g c-td"><svg viewBox="0 0 22 22" style="width:26px;height:26px"><path d="M11 15V4M6.5 8.5 11 4l4.5 4.5M4 18h14"/></svg></span>
+            <h2>Arrastra tu PDF aquí</h2>
+            <p>o haz clic para elegirlo</p>
+          </div>
+        </label>
+        <div class="vista" id="vista" hidden></div>
+      </div>
+
+      <aside class="panel" aria-label="Opciones de traducción">
+        <div class="archivo" id="infoArchivo" hidden></div>
+        <div class="grupo">
+          <b>Qué traducir</b>
+          <div class="seg" role="tablist"><button type="button" data-modo="todo" class="on">Todo</button><button type="button" data-modo="cap">Capítulos</button><button type="button" data-modo="pag">Páginas</button></div>
+          <div id="opCap" hidden><div class="dos-campos"><label>Desde<select id="capDesde"></select></label><label>Hasta<select id="capHasta"></select></label></div></div>
+          <div id="opPag" hidden><div class="dos-campos"><label>Desde la página<input type="number" id="pagDesde" min="1" value="1"></label><label>Hasta la página<input type="number" id="pagHasta" min="1" value="1"></label></div></div>
+        </div>
+        <div class="grupo">
+          <b>Traducir al</b>
+          <select id="idioma"><option value="es" selected>Español</option><option value="en">Inglés</option><option value="pt">Portugués</option><option value="fr">Francés</option><option value="it">Italiano</option><option value="de">Alemán</option></select>
+        </div>
+        <div class="grupo">
+          <b>Traductor</b>
+          <label class="motor"><input type="radio" name="motor" value="auto" checked><span>Automático<small>Rápido, con Google. Si Google pone límite, sigue sin conexión.</small></span></label>
+          <label class="motor"><input type="radio" name="motor" value="local"><span>Sin conexión<small>Traduce dentro de tu navegador. Solo de inglés a español, francés o alemán. La primera vez descarga unos 110 MB.</small></span></label>
+        </div>
+        <button class="btn pri" id="bTraducir" disabled>Traducir</button>
+        <div id="estado" class="grupo" hidden></div>
+        <p class="nota-priv">El texto de tu PDF se envía a Google solo en modo Automático, frase por frase, para traducirlo. El archivo nunca sale de tu equipo.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="seccion gris" id="como" aria-labelledby="como-h">
+    <div class="envoltura">
+      <div class="seccion-cab aparece"><span class="pre">Cómo funciona</span><h2 id="como-h">Mismo diseño, otro idioma.</h2></div>
+      <div class="rasgos">
+        <article class="aparece"><span class="ico"><svg viewBox="0 0 22 22"><rect x="4" y="3" width="14" height="16" rx="2"/><path d="M8 8h6M8 11h6M8 14h4"/></svg></span><h3>Conserva el diseño</h3><p>Quita el texto original y escribe la traducción en el mismo lugar, con su tamaño y color. Imágenes y fondos no se tocan.</p></article>
+        <article class="aparece"><span class="ico"><svg viewBox="0 0 22 22"><path d="M5 5h12M5 11h12M5 17h7"/></svg></span><h3>Por capítulos o páginas</h3><p>Usa el índice del PDF para traducir solo los capítulos que necesitas, o un rango de páginas.</p></article>
+        <article class="aparece"><span class="ico"><svg viewBox="0 0 22 22"><rect x="5" y="9" width="12" height="9" rx="2"/><path d="M8 9V7a3 3 0 0 1 6 0v2"/></svg></span><h3>Privado</h3><p>Todo ocurre en tu navegador. Tu PDF no se sube a ningún servidor.</p></article>
+      </div>
+      <p class="muted aparece" style="margin-top:28px;font-size:14px">Límites: no traduce el texto que forma parte de imágenes ni PDFs escaneados. Usa fuentes estándar, así que la letra puede verse un poco distinta; si la traducción es más larga, se reduce un poco para que quepa. ¿Lo quieres en tu escritorio? Viene en la <a href="index.html">app Fargot</a>, gratis.</p>
+      <p class="muted" style="margin-top:10px;font-size:12.5px">Usa <a href="https://mupdf.com" rel="noopener">MuPDF</a> (AGPL-3.0) y <a href="https://github.com/huggingface/transformers.js" rel="noopener">Transformers.js</a> con modelos OPUS-MT. El código de esta página está en el <a href="https://github.com/farrogoeninternet-ui/fargot" rel="noopener">repositorio de Fargot</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <div class="pie-legal" style="margin-top:0;border-top:0;padding-top:0"><span>© <span data-ano>2026</span> Fargot · <a href="index.html">Fargot Suite</a> · <a href="terminos.html">Términos</a> · <a href="privacidad.html">Privacidad</a> · <a href="reportar.html">Reportar un problema</a></span></div>
+  </div>
+</footer>
+
+<script type="module">
+// Fargot Traductor (web) · motor
+// Misma lógica que el traductor de escritorio: quita el texto original de cada página y
+// escribe la traducción en el mismo lugar, con el mismo tamaño y color. Todo ocurre en el
+// navegador: el PDF nunca se sube a ningún servidor.
+// MuPDF (AGPL-3.0) y Transformers.js (Apache-2.0) se cargan desde jsDelivr.
+
+const MUPDF_URL = "https://cdn.jsdelivr.net/npm/mupdf@1.28.1/dist/mupdf.js";
+const TRANSFORMERS_URL = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.2";
+
+let mupdf = null;
+async function cargarMotor() {
+  if (!mupdf) mupdf = await import(MUPDF_URL);
+  return mupdf;
+}
+
+const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
+const esperarPintura = () => new Promise((r) => requestAnimationFrame(() => setTimeout(r, 0)));
+
+// ---------------------------------------------------------------- traductor sin conexión (en el navegador)
+
+const MODELOS_LOCALES = { es: "Xenova/opus-mt-en-es", fr: "Xenova/opus-mt-en-fr", de: "Xenova/opus-mt-en-de" };
+const cargados = new Map();
+let colaLocal = Promise.resolve();
+
+async function cargarLocal(destino, onAviso) {
+  if (!MODELOS_LOCALES[destino]) throw new Error("El traductor sin conexión solo traduce de inglés a español, francés o alemán. Elige uno de esos idiomas o usa el modo Automático.");
+  if (!cargados.has(destino)) {
+    cargados.set(destino, (async () => {
+      const { pipeline, env } = await import(TRANSFORMERS_URL);
+      env.allowLocalModels = false;
+      let ultimo = -1;
+      onAviso?.("Preparando el traductor sin conexión…");
+      const tr = await pipeline("translation", MODELOS_LOCALES[destino], {
+        dtype: "q8",
+        progress_callback: (p) => {
+          if (p.status !== "progress" || !/\.onnx$/.test(p.file || "")) return;
+          const pct = Math.floor((p.progress || 0) / 5) * 5;
+          if (pct !== ultimo) { ultimo = pct; onAviso?.(`Descargando el traductor sin conexión (solo la primera vez, unos 110 MB): ${pct}%`); }
+        },
+      });
+      onAviso?.(null);
+      return tr;
+    })().catch((e) => { cargados.delete(destino); throw e; }));
+  }
+  return cargados.get(destino);
+}
+
+function enFrases(texto) {
+  const frases = texto.split(/(?<=[.!?:;])\s+(?=[A-Z0-9"“(])/).filter(Boolean);
+  return frases.flatMap((f) => (f.length <= 400 ? [f] : f.split(/(?<=,)\s+/)));
+}
+
+async function traducirLocal(textos, destino, onAviso) {
+  const tr = await cargarLocal(destino, onAviso);
+  const tarea = colaLocal.then(async () => {
+    const res = [];
+    for (const texto of textos) {
+      const frases = enFrases(texto), salida = [];
+      for (let i = 0; i < frases.length; i += 8) {
+        const r = await tr(frases.slice(i, i + 8), { max_new_tokens: 512 });
+        salida.push(...r.map((x) => x.translation_text.trim()));
+        await esperarPintura();
+      }
+      res.push(salida.join(" "));
+    }
+    return res;
+  });
+  colaLocal = tarea.catch(() => {});
+  return tarea;
+}
+
+// ---------------------------------------------------------------- traducción
+
+// Lo ya traducido se guarda mientras la página esté abierta: si traduces otra parte que se
+// solapa, se reutiliza y va más rápido.
+const CACHE = new Map();
+function cacheDe(origen, destino) {
+  const k = origen + ">" + destino;
+  if (!CACHE.has(k)) CACHE.set(k, {});
+  return CACHE.get(k);
+}
+
+class Traductor {
+  // motor: "auto" = Google y, si Google pone límite, sigue sin conexión · "local" · "google"
+  constructor({ origen, destino, paralelo, motor = "auto", onAviso }) {
+    this.motor = motor; this.usarLocal = motor === "local"; this.onAviso = onAviso;
+    this.origen = origen; this.destino = destino; this.paralelo = paralelo;
+    this.cache = cacheDe(origen, destino);
+  }
+  async traducirLista(textos) {
+    const pendientes = [...new Set(textos.filter((t) => !(t in this.cache)))];
+    if (this.usarLocal && pendientes.length) {
+      const r = await traducirLocal(pendientes, this.destino, this.onAviso);
+      pendientes.forEach((t, i) => { this.cache[t] = r[i]; });
+      return textos.map((t) => this.cache[t]);
+    }
+    let siguiente = 0, fallo = null;
+    const trabajador = async () => {
+      while (siguiente < pendientes.length && !fallo) {
+        const t = pendientes[siguiente++];
+        try { this.cache[t] = await this.traducirUno(t); } catch (e) { fallo ??= e; }
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(this.paralelo, pendientes.length) }, trabajador));
+    if (fallo) throw fallo;
+    return textos.map((t) => this.cache[t]);
+  }
+  async turno() {
+    const ahora = Date.now();
+    const espera = Math.max(0, (this.proximo || 0) - ahora);
+    this.proximo = Math.max(ahora, this.proximo || 0) + 250;
+    if (espera) await dormir(espera);
+  }
+  async aLocal(texto) {
+    if (!this.usarLocal) {
+      this.usarLocal = true;
+      this.onAviso?.("Google puso un límite: sigo con el traductor sin conexión.", true);
+    }
+    return (await traducirLocal([texto], this.destino, this.onAviso))[0];
+  }
+  async traducirUno(texto) {
+    if (this.usarLocal) return (await traducirLocal([texto], this.destino, this.onAviso))[0];
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${this.origen}&tl=${this.destino}&dt=t`;
+    let ultimoError;
+    for (let intento = 0; intento < 4; intento++) {
+      await this.turno();
+      let r;
+      try {
+        r = await fetch(url, { method: "POST", signal: AbortSignal.timeout(20000),
+          headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" }, body: "q=" + encodeURIComponent(texto) });
+      } catch (e) {
+        // en el navegador, un límite de Google suele llegar como error de red
+        if (this.motor === "auto" && intento >= 1 && MODELOS_LOCALES[this.destino]) return this.aLocal(texto);
+        ultimoError = new Error("No hay conexión con el traductor. Revisa tu internet y vuelve a pulsar Traducir: lo ya traducido no se pierde.");
+        await dormir(2000 * 2 ** intento); continue;
+      }
+      if (r.status === 429) {
+        if (this.motor === "auto" && MODELOS_LOCALES[this.destino]) return this.aLocal(texto);
+        throw new Error("Google limitó las traducciones desde tu conexión por hacer demasiadas seguidas. Espera un rato y vuelve a pulsar Traducir: lo ya traducido no se pierde.");
+      }
+      if (r.ok) {
+        try { const d = await r.json(); return d[0].map((p) => p[0]).join("").trim(); } catch { /* se reintenta */ }
+      }
+      ultimoError = new Error(`El traductor respondió con un error (${r.status}). Vuelve a intentarlo en unos minutos.`);
+      await dormir(2000 * 2 ** intento);
+    }
+    throw ultimoError;
+  }
+}
+
+// ---------------------------------------------------------------- lectura del texto de la página
+
+function masFrecuente(valores) {
+  const cuenta = new Map();
+  let mejor = valores[0], max = 0;
+  for (const v of valores) {
+    const n = (cuenta.get(v) || 0) + 1;
+    cuenta.set(v, n);
+    if (n > max) { max = n; mejor = v; }
+  }
+  return mejor;
+}
+
+// Recorre la página y devuelve sus líneas de texto agrupadas por bloque.
+function leerBloques(pagina) {
+  const st = pagina.toStructuredText("");
+  const bloques = [];
+  let bloque = null, linea = null;
+  st.walk({
+    beginTextBlock(bbox) { bloque = { bbox, lineas: [] }; },
+    beginLine(bbox, wmode, dir) { linea = { bbox, wmode, dir, chars: [] }; },
+    onChar(c, origin, font, size, quad, color) {
+      linea.chars.push({
+        c, x: origin[0], y: origin[1], size,
+        estilo: estiloDeFuente(font),
+        color: (color || [0]).map((v) => Math.round(v * 1000) / 1000).join(","),
+      });
+    },
+    endLine() {
+      if (linea && linea.chars.length) bloque.lineas.push(cerrarLinea(linea));
+      linea = null;
+    },
+    endTextBlock() {
+      if (bloque && bloque.lineas.length) bloques.push(bloque);
+      bloque = null;
+    },
+  });
+  st.destroy?.();
+  return bloques;
+}
+
+function estiloDeFuente(font) {
+  const nombre = font.getName().toLowerCase();
+  const negrita = font.isBold() || /bold|black|heavy|semibold|demi/.test(nombre);
+  const cursiva = font.isItalic() || /italic|oblique/.test(nombre);
+  const familia = font.isMono() || /mono|courier|consol/.test(nombre) ? "mono" : font.isSerif() ? "serif" : "sans";
+  return `${familia}|${negrita ? "b" : ""}${cursiva ? "i" : ""}`;
+}
+
+function cerrarLinea(l) {
+  const visibles = l.chars.filter((c) => c.c.trim());
+  const base = visibles.length ? visibles : l.chars;
+  const horizontal = l.wmode === 0 && Math.abs(l.dir[1]) < 0.01 && l.dir[0] > 0;
+  return {
+    bbox: l.bbox,
+    texto: l.chars.map((c) => c.c).join("").replace(/\s+/g, " ").trim(),
+    size: masFrecuente(base.map((c) => Math.round(c.size * 10) / 10)),
+    estilo: masFrecuente(base.map((c) => c.estilo)),
+    color: masFrecuente(base.map((c) => c.color)),
+    base: base[0].y,
+    horizontal,
+  };
+}
+
+// Une las líneas de un bloque en párrafos con el mismo tamaño, estilo y color.
+function armarSegmentos(bloques) {
+  const segmentos = [];
+  for (const b of bloques) {
+    let actual = null;
+    for (const ln of b.lineas) {
+      if (!ln.texto) continue;
+      const mismoFormato = actual
+        && Math.abs(actual.size - ln.size) < 0.6
+        && actual.estilo === ln.estilo
+        && actual.color === ln.color
+        && ln.horizontal && actual.horizontal
+        && ln.base - actual.lineas.at(-1).base < ln.size * 2.2
+        && ln.base > actual.lineas.at(-1).base;
+      if (mismoFormato) actual.lineas.push(ln);
+      else {
+        actual = { size: ln.size, estilo: ln.estilo, color: ln.color, horizontal: ln.horizontal, lineas: [ln] };
+        segmentos.push(actual);
+      }
+    }
+  }
+  for (const s of segmentos) completarSegmento(s);
+  return segmentos;
+}
+
+function completarSegmento(s) {
+  const L = s.lineas;
+  s.rect = [
+    Math.min(...L.map((l) => l.bbox[0])), Math.min(...L.map((l) => l.bbox[1])),
+    Math.max(...L.map((l) => l.bbox[2])), Math.max(...L.map((l) => l.bbox[3])),
+  ];
+  // Texto del párrafo: une las líneas y repara palabras cortadas con guion.
+  let texto = L[0].texto;
+  for (let i = 1; i < L.length; i++) {
+    const sig = L[i].texto;
+    if (/[A-Za-zÀ-ÿ]-$/.test(texto) && /^[a-zà-ÿ]/.test(sig)) texto = texto.slice(0, -1) + sig;
+    else texto += " " + sig;
+  }
+  s.texto = texto;
+  s.interlineado = L.length > 1 ? (L.at(-1).base - L[0].base) / (L.length - 1) : s.size * 1.2;
+  // Alineación: centrada o a la derecha si las líneas lo indican.
+  s.alineacion = "izquierda";
+  if (L.length > 1) {
+    const rango = (vals) => Math.max(...vals) - Math.min(...vals);
+    const izq = rango(L.map((l) => l.bbox[0]));
+    const der = rango(L.map((l) => l.bbox[2]));
+    const cen = rango(L.map((l) => (l.bbox[0] + l.bbox[2]) / 2));
+    if (izq > 4 && cen < 2.5) s.alineacion = "centro";
+    else if (izq > 4 && der < 1.5) s.alineacion = "derecha";
+  }
+  s.traducible = s.horizontal && /[A-Za-z]{2,}/.test(texto);
+}
+
+// ---------------------------------------------------------------- fuentes y codificación
+
+// Fuentes estándar de PDF (no hay que incrustarlas y admiten acentos y la ñ).
+const FUENTES_BASE = {
+  "sans|": "Helvetica", "sans|b": "Helvetica-Bold", "sans|i": "Helvetica-Oblique", "sans|bi": "Helvetica-BoldOblique",
+  "serif|": "Times-Roman", "serif|b": "Times-Bold", "serif|i": "Times-Italic", "serif|bi": "Times-BoldItalic",
+  "mono|": "Courier", "mono|b": "Courier-Bold", "mono|i": "Courier-Oblique", "mono|bi": "Courier-BoldOblique",
+};
+
+// Caracteres fuera de Latin-1 que sí existen en WinAnsiEncoding.
+const WINANSI_EXTRA = {
+  "€": 0x80, "‚": 0x82, "ƒ": 0x83, "„": 0x84, "…": 0x85, "†": 0x86, "‡": 0x87, "ˆ": 0x88, "‰": 0x89,
+  "Š": 0x8a, "‹": 0x8b, "Œ": 0x8c, "Ž": 0x8e, "‘": 0x91, "’": 0x92, "“": 0x93, "”": 0x94, "•": 0x95,
+  "–": 0x96, "—": 0x97, "˜": 0x98, "™": 0x99, "š": 0x9a, "›": 0x9b, "œ": 0x9c, "ž": 0x9e, "Ÿ": 0x9f,
+};
+const SUSTITUTOS = { " ": " ", " ": " ", " ": " ", "‐": "-", "‑": "-", "−": "-", "→": "->", "←": "<-", "✓": "v", "■": "•", "▪": "•", "●": "•" };
+
+function codigoWinAnsi(ch) {
+  if (ch in SUSTITUTOS) return null; // se resuelve antes
+  if (ch in WINANSI_EXTRA) return WINANSI_EXTRA[ch];
+  const cp = ch.codePointAt(0);
+  if ((cp >= 0x20 && cp <= 0x7e) || (cp >= 0xa0 && cp <= 0xff)) return cp;
+  return "?".charCodeAt(0);
+}
+
+function normalizar(texto) {
+  return [...texto.normalize("NFC")].map((ch) => SUSTITUTOS[ch] ?? ch).join("");
+}
+
+class Fuentes {
+  constructor(doc) {
+    this.doc = doc;
+    this.porEstilo = new Map();
+  }
+  obtener(estilo) {
+    if (!this.porEstilo.has(estilo)) {
+      const base = FUENTES_BASE[estilo] || "Helvetica";
+      const font = new mupdf.Font(base);
+      const ref = this.doc.addSimpleFont(font, "Latin");
+      this.porEstilo.set(estilo, { font, ref, nombre: `TrF${this.porEstilo.size}`, anchos: new Map() });
+    }
+    return this.porEstilo.get(estilo);
+  }
+  ancho(f, texto, size) {
+    let total = 0;
+    for (const ch of texto) {
+      let w = f.anchos.get(ch);
+      if (w === undefined) {
+        w = f.font.advanceGlyph(f.font.encodeCharacter(ch));
+        f.anchos.set(ch, w);
+      }
+      total += w;
+    }
+    return total * size;
+  }
+}
+
+// ---------------------------------------------------------------- composición del texto traducido
+
+function partirEnLineas(fuentes, f, texto, size, anchoMax) {
+  const palabras = texto.split(/\s+/).filter(Boolean);
+  const lineas = [];
+  let actual = "";
+  for (const p of palabras) {
+    const prueba = actual ? actual + " " + p : p;
+    if (!actual || fuentes.ancho(f, prueba, size) <= anchoMax) actual = prueba;
+    else { lineas.push(actual); actual = p; }
+  }
+  if (actual) lineas.push(actual);
+  return lineas;
+}
+
+// Busca el tamaño más grande (hasta 60 % del original) con el que la
+// traducción cabe en el mismo espacio que ocupaba el texto original.
+function ajustar(fuentes, f, seg, texto) {
+  // Una línea suelta (título, etiqueta) puede usar el espacio libre a su derecha.
+  const anchoMax = seg.lineas.length === 1 && seg.alineacion === "izquierda"
+    ? Math.max(seg.rect[2], seg.limiteDerecho) - seg.rect[0]
+    : (seg.rect[2] - seg.rect[0]) + 1;
+  const maxLineas = seg.lineas.length;
+  let mejor = null;
+  for (let s = seg.size; s >= seg.size * 0.6 - 0.01; s *= 0.96) {
+    const lineas = partirEnLineas(fuentes, f, texto, s, anchoMax);
+    const cabeAncho = lineas.every((l) => fuentes.ancho(f, l, s) <= anchoMax);
+    mejor = { size: s, lineas };
+    if (lineas.length <= maxLineas && cabeAncho) break;
+  }
+  return { ...mejor, interlineado: seg.interlineado * (mejor.size / seg.size), anchoMax };
+}
+
+function operadorColor(color) {
+  const v = color.split(",").map(Number);
+  if (v.length === 1) return `${v[0]} g`;
+  if (v.length === 3) return `${v.join(" ")} rg`;
+  if (v.length === 4) return `${v.join(" ")} k`;
+  return "0 g";
+}
+
+function hexWinAnsi(texto) {
+  let hex = "";
+  for (const ch of texto) hex += codigoWinAnsi(ch).toString(16).padStart(2, "0");
+  return `<${hex}>`;
+}
+
+function invertir([a, b, c, d, e, f]) {
+  const det = a * d - b * c;
+  return [d / det, -b / det, -c / det, a / det, (c * f - d * e) / det, (b * e - a * f) / det];
+}
+
+const num = (n) => (Math.round(n * 1000) / 1000).toString();
+
+// ---------------------------------------------------------------- página
+
+async function traducirPagina(doc, pagina, traductor, fuentes) {
+  const todos = armarSegmentos(leerBloques(pagina));
+  const segmentos = todos.filter((s) => s.traducible);
+  if (!segmentos.length) return 0;
+
+  // Hasta dónde puede crecer cada línea suelta hacia la derecha sin pisar otro texto.
+  const anchoPagina = pagina.getBounds()[2];
+  for (const s of segmentos) {
+    let limite = anchoPagina - Math.max(18, Math.min(s.rect[0], 54));
+    for (const o of todos) {
+      if (o === s) continue;
+      const seSolapanVertical = o.rect[1] < s.rect[3] && o.rect[3] > s.rect[1];
+      if (seSolapanVertical && o.rect[0] >= s.rect[2] - 1) limite = Math.min(limite, o.rect[0] - 6);
+    }
+    s.limiteDerecho = limite;
+  }
+
+  const traducciones = await traductor.traducirLista(segmentos.map((s) => s.texto));
+
+  // 1) Borrar solo el texto original (las imágenes y dibujos se mantienen).
+  for (const s of segmentos) {
+    for (const l of s.lineas) {
+      const [x0, y0, x1, y1] = l.bbox;
+      const margen = (y1 - y0) * 0.2;
+      const r = pagina.createAnnotation("Redact");
+      r.setRect([x0, y0 + margen, x1, y1 - margen]);
+    }
+  }
+  pagina.applyRedactions(false, mupdf.PDFPage.REDACT_IMAGE_NONE, mupdf.PDFPage.REDACT_LINE_ART_NONE, mupdf.PDFPage.REDACT_TEXT_REMOVE);
+
+  // 2) Escribir la traducción en el mismo sitio.
+  const objPagina = pagina.getObject();
+  let recursos = objPagina.getInheritable("Resources");
+  if (recursos.isNull()) { recursos = doc.newDictionary(); objPagina.put("Resources", recursos); }
+  let dicFuentes = recursos.get("Font");
+  if (dicFuentes.isNull()) { dicFuentes = doc.newDictionary(); recursos.put("Font", dicFuentes); }
+
+  const inv = invertir(pagina.getTransform()).map(num).join(" ");
+  let contenido = `q\n${inv} cm\nBT\n`;
+  segmentos.forEach((seg, i) => {
+    const texto = normalizar(traducciones[i] || seg.texto);
+    const f = fuentes.obtener(seg.estilo);
+    dicFuentes.put(f.nombre, f.ref);
+    const { size, lineas, interlineado, anchoMax } = ajustar(fuentes, f, seg, texto);
+    contenido += `/${f.nombre} ${num(size)} Tf\n${operadorColor(seg.color)}\n`;
+    lineas.forEach((linea, j) => {
+      const ancho = fuentes.ancho(f, linea, size);
+      let x = seg.rect[0];
+      if (seg.alineacion === "centro") x = seg.rect[0] + (anchoMax - ancho) / 2;
+      else if (seg.alineacion === "derecha") x = seg.rect[2] - ancho;
+      const y = seg.lineas[0].base + j * interlineado;
+      contenido += `1 0 0 -1 ${num(x)} ${num(y)} Tm ${hexWinAnsi(linea)} Tj\n`;
+    });
+  });
+  contenido += "ET\nQ\n";
+
+  // Se aísla el contenido original entre q/Q para que no afecte al nuevo texto.
+  const anterior = objPagina.get("Contents");
+  const lista = doc.newArray();
+  lista.push(doc.addStream("q\n", {}));
+  if (anterior.isArray()) anterior.forEach((v) => lista.push(v));
+  else if (!anterior.isNull()) lista.push(anterior);
+  lista.push(doc.addStream("Q\n" + contenido, {}));
+  objPagina.put("Contents", lista);
+
+  return segmentos.length;
+}
+
+// ---------------------------------------------------------------- principal
+
+async function traducirPDF({ datos, destino = "es", origen = "auto", desde = 1, hasta = Infinity,
+  paralelo = 2, motor = "auto", onAviso, onInicio, onPagina, onProgreso, cancelado = () => false }) {
+  await cargarMotor();
+  const doc = new mupdf.PDFDocument(datos);
+  try {
+    const total = doc.countPages();
+    desde = Math.max(1, Math.min(desde, total));
+    hasta = Math.max(desde, Math.min(hasta, total));
+    onInicio?.({ total, desde, hasta });
+    const traductor = new Traductor({ origen, destino, paralelo, motor, onAviso });
+    const fuentes = new Fuentes(doc);
+    const recientes = [];
+    for (let n = desde; n <= hasta; n++) {
+      if (cancelado()) throw new Error("Traducción cancelada.");
+      const t0 = Date.now();
+      const pagina = doc.loadPage(n - 1);
+      await traducirPagina(doc, pagina, traductor, fuentes);
+      recientes.push(Date.now() - t0);
+      if (recientes.length > 15) recientes.shift();
+      const media = recientes.reduce((s, x) => s + x, 0) / recientes.length;
+      if (onPagina) { const p = doc.loadPage(n - 1); try { onPagina(n, p, mupdf); } finally { p.destroy?.(); } }
+      onProgreso?.({ pagina: n, desde, hasta, total, restanteSeg: Math.round((media / 1000) * (hasta - n)) });
+      await esperarPintura();
+    }
+    // solo las páginas pedidas: el PDF final trae únicamente lo traducido
+    if (desde > 1 || hasta < total) {
+      const quedan = [];
+      for (let n = desde; n <= hasta; n++) quedan.push(n - 1);
+      if (doc.rearrangePages) doc.rearrangePages(quedan);
+    }
+    return doc.saveToBuffer("garbage,compress").asUint8Array();
+  } finally {
+    doc.destroy?.();
+  }
+}
+
+// Páginas, capítulos del índice y miniaturas.
+async function leerInfo(datos) {
+  await cargarMotor();
+  const doc = new mupdf.PDFDocument(datos);
+  try {
+    const paginas = doc.countPages();
+    const planos = [];
+    const recorrer = (items, nivel) => {
+      for (const it of items || []) {
+        if (typeof it.page === "number" && it.page >= 0 && it.title?.trim()) planos.push({ titulo: it.title.trim(), desde: it.page + 1, nivel });
+        if (nivel < 1) recorrer(it.down, nivel + 1);
+      }
+    };
+    try { recorrer(doc.loadOutline(), 0); } catch { /* sin índice */ }
+    planos.sort((a, b) => a.desde - b.desde);
+    planos.forEach((c, i) => { const sig = planos.slice(i + 1).find((o) => o.nivel <= c.nivel && o.desde > c.desde); c.hasta = sig ? sig.desde - 1 : paginas; });
+    // ¿tiene texto? (los PDF escaneados son solo imágenes)
+    let conTexto = false;
+    for (let n = 0; n < Math.min(paginas, 5) && !conTexto; n++) {
+      const p = doc.loadPage(n);
+      conTexto = /[A-Za-z]{3,}/.test(p.toStructuredText("").asText());
+      p.destroy?.();
+    }
+    return { paginas, capitulos: planos, conTexto };
+  } finally { doc.destroy?.(); }
+}
+
+async function miniatura(datos, numero, ancho = 220) {
+  await cargarMotor();
+  const doc = new mupdf.PDFDocument(datos);
+  try { return imagenDePagina(doc.loadPage(numero - 1), ancho); } finally { doc.destroy?.(); }
+}
+
+function imagenDePagina(pagina, ancho, mu = mupdf) {
+  const b = pagina.getBounds();
+  const s = ancho / (b[2] - b[0]);
+  const pix = pagina.toPixmap(mu.Matrix.scale(s, s), mu.ColorSpace.DeviceRGB, false, true);
+  const png = pix.asPNG();
+  pix.destroy?.();
+  return URL.createObjectURL(new Blob([png], { type: "image/png" }));
+}
+
+// ---------------------------------------------------------------- interfaz
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const S = { datos: null, nombre: "", info: null, modo: "todo", corriendo: false, cancelar: false, urls: [] };
+
+// ---------- elegir archivo
+const zona = $("zona");
+$("archivo").onchange = (e) => e.target.files[0] && abrir(e.target.files[0]);
+zona.addEventListener("dragover", (e) => { e.preventDefault(); zona.classList.add("sobre"); });
+zona.addEventListener("dragleave", () => zona.classList.remove("sobre"));
+zona.addEventListener("drop", (e) => { e.preventDefault(); zona.classList.remove("sobre"); const f = e.dataTransfer.files[0]; if (f) abrir(f); });
+zona.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); $("archivo").click(); } });
+
+function limpiarUrls() { S.urls.forEach((u) => URL.revokeObjectURL(u)); S.urls = []; }
+
+async function abrir(f) {
+  if (S.corriendo) return;
+  if (!/\.pdf$/i.test(f.name) && f.type !== "application/pdf") return estado("error", "Ese archivo no es un PDF.");
+  S.nombre = f.name;
+  zona.hidden = true; $("vista").hidden = false;
+  $("vista").innerHTML = '<p class="estado" style="text-align:center;padding-top:150px">Abriendo el PDF…</p>';
+  try {
+    S.datos = new Uint8Array(await f.arrayBuffer());
+    S.info = await leerInfo(S.datos);
+  } catch (e) {
+    zona.hidden = false; $("vista").hidden = true;
+    return estado("error", /fetch|import|module/i.test(String(e)) ? "No se pudo cargar el motor de PDF. Revisa tu internet y recarga la página." : "No se pudo abrir el PDF: " + (e.message || e));
+  }
+  $("infoArchivo").hidden = false;
+  $("infoArchivo").innerHTML = `<span class="ic c-td" style="width:34px;height:34px;font-size:12px">PDF</span><span style="flex:1;min-width:0"><b>${esc(S.nombre)}</b><span>${S.info.paginas} páginas${S.info.capitulos.length ? " · " + S.info.capitulos.length + " capítulos" : ""}</span></span><button class="btn chico" id="bOtro">Cambiar</button>`;
+  $("bOtro").onclick = () => { if (!S.corriendo) { S.datos = null; zona.hidden = false; $("vista").hidden = true; $("infoArchivo").hidden = true; $("bTraducir").disabled = true; $("estado").hidden = true; limpiarUrls(); } };
+  $("pagDesde").max = $("pagHasta").max = S.info.paginas; $("pagDesde").value = 1; $("pagHasta").value = S.info.paginas;
+  const ops = S.info.capitulos.map((c, i) => `<option value="${i}">${c.nivel ? "  · " : ""}${esc(c.titulo.slice(0, 60))} (pág. ${c.desde})</option>`).join("");
+  $("capDesde").innerHTML = ops; $("capHasta").innerHTML = ops;
+  if (S.info.capitulos.length) $("capHasta").value = S.info.capitulos.length - 1;
+  document.querySelector('[data-modo="cap"]').disabled = !S.info.capitulos.length;
+  document.querySelector('[data-modo="cap"]').title = S.info.capitulos.length ? "" : "Este PDF no tiene índice de capítulos";
+  if (!S.info.conTexto) estado("aviso", "Este PDF parece escaneado (sus páginas son imágenes): no hay texto que traducir.");
+  else $("estado").hidden = true;
+  $("bTraducir").disabled = !S.info.conTexto;
+  modo(S.info.capitulos.length && S.modo === "cap" ? "cap" : S.modo === "cap" ? "todo" : S.modo);
+}
+
+// ---------- rango
+function rango() {
+  if (!S.info) return [1, 1];
+  if (S.modo === "cap") {
+    const a = S.info.capitulos[+$("capDesde").value], b = S.info.capitulos[+$("capHasta").value];
+    return [Math.min(a.desde, b.desde), Math.max(a.hasta, b.hasta)];
+  }
+  if (S.modo === "pag") {
+    const d = Math.max(1, Math.min(+$("pagDesde").value || 1, S.info.paginas));
+    const h = Math.max(1, Math.min(+$("pagHasta").value || S.info.paginas, S.info.paginas));
+    return [Math.min(d, h), Math.max(d, h)];
+  }
+  return [1, S.info.paginas];
+}
+function modo(m) {
+  S.modo = m;
+  document.querySelectorAll("[data-modo]").forEach((b) => b.classList.toggle("on", b.dataset.modo === m));
+  $("opCap").hidden = m !== "cap"; $("opPag").hidden = m !== "pag";
+  pintarMinis();
+}
+document.querySelectorAll("[data-modo]").forEach((b) => (b.onclick = () => !b.disabled && modo(b.dataset.modo)));
+["capDesde", "capHasta", "pagDesde", "pagHasta"].forEach((id) => $(id).addEventListener("change", pintarMinis));
+
+let pintando = 0;
+async function pintarMinis() {
+  if (!S.datos || S.corriendo) return;
+  const yo = ++pintando, [d, h] = rango();
+  const [a, b] = await Promise.all([miniatura(S.datos, d), d === h ? null : miniatura(S.datos, h)]);
+  if (yo !== pintando) return;
+  limpiarUrls(); S.urls.push(a); if (b) S.urls.push(b);
+  const n = h - d + 1;
+  $("vista").innerHTML = `<p class="estado" style="text-align:center;margin-bottom:16px"><b>${n} página${n === 1 ? "" : "s"}</b> · de la ${d} a la ${h}</p>
+    <div class="minis"><figure><img src="${a}" alt="Página ${d}">Página ${d}</figure>${b ? `<figure><img src="${b}" alt="Página ${h}">Página ${h}</figure>` : ""}</div>`;
+}
+
+// ---------- traducir
+function estado(tipo, html) {
+  const e = $("estado"); e.hidden = false;
+  e.innerHTML = tipo === "progreso" ? html : `<div class="${tipo}">${html}</div>`;
+}
+function tiempo(s) { return s < 60 ? "menos de un minuto" : s < 3600 ? "unos " + Math.round(s / 60) + " min" : "unas " + (s / 3600).toFixed(1) + " h"; }
+
+$("bTraducir").onclick = async () => {
+  if (S.corriendo) { S.cancelar = true; $("bTraducir").textContent = "Cancelando…"; return; }
+  const motor = document.querySelector("input[name=motor]:checked").value;
+  const destino = $("idioma").value;
+  if (motor === "local" && !MODELOS_LOCALES[destino]) return estado("error", "Sin conexión solo traduce de inglés a español, francés o alemán.");
+  const [desde, hasta] = rango();
+  S.corriendo = true; S.cancelar = false;
+  $("bTraducir").textContent = "Cancelar"; $("bTraducir").classList.remove("pri");
+  let aviso = "";
+  const pintar = (p) => estado("progreso", `<div class="estado">Página ${p.pagina} de ${p.hasta - p.desde + 1 > 1 ? p.desde + "–" + p.hasta : p.hasta}${p.restanteSeg != null ? " · falta " + tiempo(p.restanteSeg) : ""}</div><div class="prog"><i style="width:${p.pct}%"></i></div>${aviso ? `<div class="aviso">${esc(aviso)}</div>` : ""}`);
+  pintar({ pagina: desde, desde, hasta, pct: 2 });
+  try {
+    const salida = await traducirPDF({
+      datos: S.datos.slice(), destino, desde, hasta, motor,
+      onAviso: (t) => { aviso = t || ""; },
+      onPagina: (n, pagina, mu) => {
+        const u = imagenDePagina(pagina, 420, mu); S.urls.push(u);
+        $("vista").innerHTML = `<p class="estado" style="text-align:center;margin-bottom:16px">Página ${n}, ya traducida</p><div class="minis"><figure><img src="${u}" alt="Página ${n} traducida" style="width:min(420px,100%)"></figure></div>`;
+      },
+      onProgreso: (p) => pintar({ ...p, pct: Math.round(((p.pagina - p.desde + 1) / (p.hasta - p.desde + 1)) * 100) }),
+      cancelado: () => S.cancelar,
+    });
+    const base = S.nombre.replace(/\.pdf$/i, "");
+    const nombre = `${base}_${destino}${desde > 1 || hasta < S.info.paginas ? `_p${desde}-${hasta}` : ""}.pdf`;
+    const url = URL.createObjectURL(new Blob([salida], { type: "application/pdf" }));
+    S.urls.push(url);
+    const a = document.createElement("a"); a.href = url; a.download = nombre; document.body.appendChild(a); a.click(); a.remove();
+    estado("listo", `✓ Listo: <b>${esc(nombre)}</b> se descargó. <a href="${url}" download="${esc(nombre)}">Descargar de nuevo</a>`);
+  } catch (e) {
+    estado(S.cancelar ? "aviso" : "error", esc(e.message || String(e)));
+  }
+  S.corriendo = false;
+  $("bTraducir").textContent = "Traducir"; $("bTraducir").classList.add("pri");
+};
+</script>
+</body>
+</html>
