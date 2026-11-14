@@ -150,7 +150,8 @@ async function cargarMotor() {
 }
 
 const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
-const esperarPintura = () => new Promise((r) => requestAnimationFrame(() => setTimeout(r, 0)));
+// sin requestAnimationFrame: no corre con la pestaña oculta y la traducción se quedaba quieta
+const esperarPintura = () => new Promise((r) => setTimeout(r, 0));
 
 // ---------------------------------------------------------------- traductor sin conexión (en el navegador)
 
