@@ -35,3 +35,6 @@ main > section, footer.closing { height: auto !important; min-height: 0 !importa
 .app-ic { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; font: 700 13px var(--font-text); flex: none; }
 .app-ic--pr { color: #33338F; background: #EEEEFF; } .app-ic--ae { color: #4B2BB8; background: #EEEEFF; }
 .app-ic--ai { color: #8A4B00; background: #FFF1E0; } .app-ic--ps { color: #0B5394; background: #E3F2FF; }
+
+/* contraste AA: el hover del boton principal siempre oscurece (antes aclaraba en secciones oscuras) */
+html .btn--primary:hover, html:not([data-motion="off"]) .btn--primary:hover { background: color-mix(in oklab, var(--action) 84%, #000); }

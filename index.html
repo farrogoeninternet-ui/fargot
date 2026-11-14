@@ -77,8 +77,8 @@
   .fa2__chip.on { color: #14161B; background: rgb(30 91 255 / .16); box-shadow: inset 0 0 0 1px rgb(30 91 255 / .5); }
   .fa2__tbl { border-radius: 10px; background: #ffffff; box-shadow: inset 0 0 0 1px rgb(20 22 27 / .07); overflow: hidden; }
   .fa2__row { display: grid; grid-template-columns: 30px minmax(0, 1fr) 90px 120px; align-items: center; gap: 10px; min-height: 46px; padding: 0 14px; border-top: 1px solid rgb(20 22 27 / .06); }
-  .fa2__row:first-child { border-top: 0; min-height: 32px; color: #8A909C; font-size: 11px; }
-  .fa2__row b { font-weight: 500; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .fa2__row small { color: #8A909C; font-size: 11px; }
+  .fa2__row:first-child { border-top: 0; min-height: 32px; color: #6B7180; font-size: 11px; }
+  .fa2__row b { font-weight: 500; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .fa2__row small { color: #6B7180; font-size: 11px; }
   .fa2__v { font-variant-numeric: tabular-nums; } .fa2__st { display: flex; align-items: center; gap: 6px; color: #5E6472; font-size: 12px; }
   .fa2__st i { width: 7px; height: 7px; border-radius: 50%; background: #146C43; flex: none; }
   .ap { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; font: 700 10.5px var(--font-text); flex: none; }
@@ -111,13 +111,13 @@
   .r-logo { height: 120px; width: auto; }
   .r-apps { display: flex; gap: 22px; justify-content: center; margin-bottom: 40px; }
   .r-app { display: grid; place-items: center; width: 108px; height: 108px; border-radius: 26px; font: 700 40px var(--font-text); box-shadow: 0 20px 50px rgb(20 22 27 / .14); }
-  .r-app--st { color: #fff; background: #14161B; } .r-app--at { color: #fff; background: #6A3DF0; } .r-app--tr { color: #fff; background: #1E5BFF; } .r-app--td { color: #fff; background: #0E8F7E; }
+  .r-app--st { color: #fff; background: #14161B; } .r-app--at { color: #fff; background: #6A3DF0; } .r-app--tr { color: #fff; background: #1E5BFF; } .r-app--td { color: #fff; background: #0B7A6B; }
   .r-doc { position: relative; width: 110px; height: 140px; border-radius: 12px; background: #fff; box-shadow: 0 18px 40px rgb(20 22 27 / .14), inset 0 0 0 1px rgb(20 22 27 / .08); padding: 22px 16px; display: flex; flex-direction: column; gap: 10px; text-align: left; opacity: 0; transform: translateY(40px); transition: transform .8s cubic-bezier(.2,.9,.25,1.2), opacity .5s; transition-delay: calc(var(--d) * 1s); }
   .esc.on .r-doc { opacity: 1; transform: none; }
   .r-nombres { display: flex; flex-direction: column; gap: 14px; align-items: center; margin-bottom: 40px; }
   .r-nom { position: relative; width: 420px; height: 58px; border-radius: 14px; background: #fff; box-shadow: 0 14px 34px rgb(20 22 27 / .1), inset 0 0 0 1px rgb(20 22 27 / .07); font: 500 24px var(--font-text); overflow: hidden; }
   .r-nom s, .r-nom b { position: absolute; inset: 0; display: grid; place-items: center; transition: opacity .5s, transform .5s; transition-delay: calc((var(--d) + 1.2) * 1s); }
-  .r-nom s { color: #8A909C; text-decoration: none; } .r-nom b { color: #1446CC; font-weight: 600; opacity: 0; transform: translateY(20px); }
+  .r-nom s { color: #6B7180; text-decoration: none; } .r-nom b { color: #1446CC; font-weight: 600; opacity: 0; transform: translateY(20px); }
   .esc.on .r-nom s { opacity: 0; transform: translateY(-20px); } .esc.on .r-nom b { opacity: 1; transform: none; }
   .r-studio { display: flex; gap: 22px; align-items: center; justify-content: center; margin-bottom: 34px; }
   .r-hoja { width: 360px; padding: 22px 26px; border-radius: 12px; background: #fff; box-shadow: 0 18px 40px rgb(20 22 27 / .12), inset 0 0 0 1px rgb(20 22 27 / .07); text-align: left; font-family: "Courier New", Courier, monospace; font-size: 13px; line-height: 1.5; color: #14161B; display: flex; flex-direction: column; gap: 8px; opacity: 0; transform: translateY(30px) rotate(-2deg); transition: transform .8s cubic-bezier(.2,.9,.25,1.1), opacity .5s; transition-delay: calc(var(--d) * 1s); }
@@ -130,7 +130,7 @@
   .r-ficha b { width: 22px; height: 22px; border-radius: 6px; background: #14161B; color: #fff; display: grid; place-items: center; font-size: 11px; flex: none; }
   .esc.on .r-ficha { opacity: 1; transform: none; }
   @media (max-width: 700px) { .r-fichas { display: none; } .r-hoja { width: 260px; font-size: 11px; } }
-  .r-doc b { font: 700 20px var(--font-text); color: #0E8F7E; } .r-doc i { display: block; height: 8px; border-radius: 4px; background: #E6E8EC; width: 100%; }
+  .r-doc b { font: 700 20px var(--font-text); color: #0B7A6B; } .r-doc i { display: block; height: 8px; border-radius: 4px; background: #E6E8EC; width: 100%; }
   .r-app--pr { color: #33338F; background: #EEEEFF; } .r-app--ae { color: #4B2BB8; background: #EFEAFF; } .r-app--ai { color: #8A4B00; background: #FFF1E0; } .r-app--ps { color: #0B5394; background: #E3F2FF; }
   .esc .r-app { opacity: 0; transform: translateY(60px) rotate(-8deg) scale(.8); transition: transform .8s cubic-bezier(.2,.9,.25,1.2), opacity .5s; transition-delay: calc(var(--d) * 1s); }
   .esc.on .r-app { opacity: 1; transform: none; }
@@ -254,7 +254,7 @@
                 <p class="r-mid e" style="--d:.2">Fargot Studio</p><p class="r-small e" style="--d:.5">Tu guion, tu escaleta y la biblia de tu mundo, en un solo lugar.</p></div>
             </div>
             <div class="esc" data-t="5">
-              <div><div class="r-flujo" style="justify-content:center"><span class="r-doc" style="--d:.1"><b>EN</b><i></i><i></i><i style="width:60%"></i></span><span class="r-vuelo" style="width:160px"><i style="--d:.5;background:#0E8F7E"></i><i style="--d:.8;background:#0E8F7E"></i></span><span class="r-doc" style="--d:.3"><b>ES</b><i></i><i></i><i style="width:60%"></i></span></div>
+              <div><div class="r-flujo" style="justify-content:center"><span class="r-doc" style="--d:.1"><b>EN</b><i></i><i></i><i style="width:60%"></i></span><span class="r-vuelo" style="width:160px"><i style="--d:.5;background:#0B7A6B"></i><i style="--d:.8;background:#0B7A6B"></i></span><span class="r-doc" style="--d:.3"><b>ES</b><i></i><i></i><i style="width:60%"></i></span></div>
                 <p class="r-mid e" style="--d:.5">Traductor de PDF <span class="r-ver e" style="--d:1.4">Gratis</span></p><p class="r-small e" style="--d:.8">Traduce un PDF y conserva su diseño. Para todos.</p></div>
             </div>
             <div class="esc" data-t="4.5">
@@ -305,7 +305,7 @@
           <span class="tag on">Gratis para todos</span>
           <h3>Traductor de PDF</h3>
           <p>Traduce un PDF completo, por capítulos o por páginas, y conserva su diseño. En tu navegador o en la app.</p>
-          <div class="panel"><div class="pl-flow" role="img" aria-label="Traductor de PDF"><span style="display:inline-grid;place-items:center;width:52px;height:52px;border-radius:14px;color:#fff;font:700 19px var(--font-text);background:#0E8F7E">Td</span><svg width="40" height="16" viewBox="0 0 40 16" aria-hidden="true"><path d="M2 8h32M28 3l6 5-6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="pl-msg" style="width:auto;padding:10px 14px;font-size:14px"><small>EN → ES</small>Mismo diseño</span></div></div>
+          <div class="panel"><div class="pl-flow" role="img" aria-label="Traductor de PDF"><span style="display:inline-grid;place-items:center;width:52px;height:52px;border-radius:14px;color:#fff;font:700 19px var(--font-text);background:#0B7A6B">Td</span><svg width="40" height="16" viewBox="0 0 40 16" aria-hidden="true"><path d="M2 8h32M28 3l6 5-6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="pl-msg" style="width:auto;padding:10px 14px;font-size:14px"><small>EN → ES</small>Mismo diseño</span></div></div>
         </a>
         <a class="card card--row span-4" href="#escuela">
           <span class="tag">Muy pronto</span>
@@ -358,7 +358,7 @@
                 <div class="fa2__row"><span class="ap" style="background:#6A3DF0;color:#fff">At</span><span><b>Fargot Atlas</b><small>Empaqueta y renderiza cada pieza</small></span><span class="fa2__ok">Instalado</span><span class="fa2__b fa2__b--pri" style="color:#fff">Abrir</span></div>
                 <div class="fa2__row"><span class="ap" style="background:#1E5BFF;color:#fff">Tr</span><span><b>Fargot Transfer</b><small>De Illustrator a After Effects</small></span><span class="fa2__ok">Instalado</span><span class="fa2__b fa2__b--pri" style="color:#fff">Abrir</span></div>
                 <div class="fa2__row"><span class="ap" style="background:#14161B;color:#fff">St</span><span><b>Fargot Studio</b><small>Guion, escaleta y personajes</small></span><span class="fa2__v" style="color:#5E6472">Incluida</span><span class="fa2__b">Instalar</span></div>
-                <div class="fa2__row"><span class="ap" style="background:#0E8F7E;color:#fff">Td</span><span><b>Traductor de PDF</b><small>Conserva el diseño</small></span><span class="fa2__v" style="color:#5E6472">Gratis</span><span class="fa2__b">Abrir</span></div>
+                <div class="fa2__row"><span class="ap" style="background:#0B7A6B;color:#fff">Td</span><span><b>Traductor de PDF</b><small>Conserva el diseño</small></span><span class="fa2__v" style="color:#5E6472">Gratis</span><span class="fa2__b">Abrir</span></div>
               </div>
             </div>
           </div>
