@@ -6,7 +6,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fargot Studio: escribe tu guion, arma la escaleta y crea tu mundo</title>
-<meta name="description" content="Fargot Studio, incluida en Fargot Suite: escribe tu guion con formato profesional, arma la escaleta con tarjetas, crea personajes y guarda la biblia de tu mundo. Exporta en PDF.">
+<meta name="description" content="Fargot Studio, incluida en Fargot Suite: guion con formato profesional, escaleta, análisis, personajes, locaciones, arte, lore, luz y cámara en 3D, lectura en voz alta y cineteca. Exporta a PDF, Fountain y Final Draft.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Fargot Studio: tu guion, tu escaleta y tu mundo">
 <meta property="og:description" content="Guion con formato profesional, escaleta, personajes y la biblia de tu mundo, en un solo lugar.">
@@ -69,6 +69,19 @@
 .toast { position: absolute; left: 50%; bottom: 20px; transform: translate(-50%, 20px); opacity: 0; transition: opacity .35s, transform .35s; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; background: #14161B; color: #fff; font-size: 12.5px; }
 .toast.on { opacity: 1; transform: translate(-50%, 0); }
 .demo-pause { position: absolute; right: 14px; bottom: 14px; z-index: 40; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgb(20 22 27 / .15); background: #fff; color: #14161B; display: grid; place-items: center; cursor: pointer; }
+.set3d { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(70% 60% at 50% 70%, #1b2236, #0a0d17 70%); }
+.set3d .piso { position: absolute; left: -10%; right: -10%; bottom: -30%; height: 70%; background: repeating-linear-gradient(90deg, rgb(255 255 255 / .05) 0 1px, transparent 1px 60px), repeating-linear-gradient(0deg, rgb(255 255 255 / .05) 0 1px, transparent 1px 40px); transform: perspective(500px) rotateX(60deg); }
+.set3d .actor { position: absolute; left: 47%; top: 38%; width: 54px; height: 160px; border-radius: 27px 27px 10px 10px; background: linear-gradient(90deg, #3a3f4a, #8a909c 70%, #c5c9d2); opacity: .25; transition: opacity 1s, filter 1s; }
+.set3d.on .actor { opacity: 1; }
+.luz { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: 0; transform: scale(.8); transition: opacity .5s, transform .5s; }
+.luz.on { opacity: 1; transform: none; }
+.luz i { width: 34px; height: 34px; border-radius: 8px; background: #FFD98A; box-shadow: 0 0 40px 14px rgb(255 217 138 / .35); }
+.luz span { font-size: 11px; color: #C5C9D2; background: rgb(255 255 255 / .08); padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+.haz { position: absolute; left: 28%; top: 30%; width: 260px; height: 140px; background: linear-gradient(100deg, rgb(255 217 138 / .22), transparent 80%); clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 60%); opacity: 0; transition: opacity 1s; }
+.haz.on { opacity: 1; }
+.metro, .cam { position: absolute; bottom: 18px; padding: 10px 14px; border-radius: 10px; background: rgb(255 255 255 / .08); color: #fff; font-size: 12px; display: flex; flex-direction: column; gap: 2px; }
+.metro { left: 18px; } .cam { right: 18px; text-align: right; }
+.metro b, .cam b { font-size: 11px; color: #8A909C; font-weight: 500; }
 .what .ic-st { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; color: #fff; font: 700 13px var(--font-text); }
 </style>
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
@@ -100,19 +113,20 @@
       <p class="crumb"><a href="./">Fargot Suite</a> › Fargot Studio</p>
       <div class="grid grid--top">
         <h1 id="como-h" class="span-7" style="font-size:clamp(38px,5vw,64px);margin:0">Tu historia, de la idea al guion</h1>
-        <p class="span-5 t-lead muted" style="margin:0;align-self:end">Fargot Studio te deja escribir con formato profesional, armar la escaleta con tarjetas y guardar a tus personajes y la biblia de tu mundo. Viene incluida en Fargot Suite.</p>
+        <p class="span-5 t-lead muted" style="margin:0;align-self:end">Escribe con formato profesional, ordena la escaleta, crea tu mundo y prueba la luz de cada escena en 3D. Fargot Studio viene incluida en Fargot Suite: es una app de escritorio aparte que instalas con un clic desde Fargot.</p>
       </div>
       <div class="demo-wrap">
         <div class="steps-row" aria-hidden="true">
           <span class="step" data-step="1"><b>1</b>Escribe con formato de guion</span>
           <span class="step" data-step="2"><b>2</b>Ordena la escaleta</span>
           <span class="step" data-step="3"><b>3</b>Crea tu mundo</span>
+          <span class="step" data-step="4"><b>4</b>Ilumina la escena</span>
         </div>
-        <div class="viewport" id="viewport" role="img" aria-label="Animación: en Fargot Studio se escribe una escena con formato de guion, luego se reordenan las tarjetas de la escaleta y aparecen las fichas de personajes y la biblia del mundo.">
+        <div class="viewport" id="viewport" role="img" aria-label="Animación: en Fargot Studio se escribe una escena con formato de guion, se reordenan las tarjetas de la escaleta, aparecen las fichas de personajes y la biblia del mundo, y se ilumina la escena en 3D.">
           <div class="stage" id="stage">
             <div class="w">
               <div class="w__bar"><span class="dots"><i></i><i></i><i></i></span><span class="st-ic">St</span>Fargot Studio · Corto “La entrega”</div>
-              <div class="side"><div class="nv on" data-p="g">Guion</div><div class="nv" data-p="e">Escaleta</div><div class="nv" data-p="m">Personajes y mundo</div></div>
+              <div class="side"><div class="nv on" data-p="g">Guion</div><div class="nv" data-p="e">Escaleta</div><div class="nv" data-p="m">Personajes y mundo</div><div class="nv" data-p="l">Luz y cámara</div></div>
               <div class="pane on" id="pG">
                 <div class="fmt"><span data-f="esc">Escena</span><span data-f="acc">Acción</span><span data-f="per">Personaje</span><span data-f="dia">Diálogo</span></div>
                 <div class="hoja" id="hoja"></div>
@@ -124,6 +138,18 @@
                   <div class="per-c"><div class="av" style="background:#C0266B">M</div><b>Mateo</b><small>Director creativo</small><p>Pide un cambio más, siempre a las 11:58.</p></div>
                   <div class="per-c"><div class="av" style="background:#0E8F7E">R</div><b>El render</b><small>Antagonista</small><p>Tarda justo lo que no tienes.</p></div>
                   <div class="biblia"><b>Biblia del mundo</b><p>Una agencia pequeña en una ciudad que nunca duerme. Las entregas son a medianoche y cada versión tiene nombre propio.</p></div>
+                </div>
+              </div>
+              <div class="pane" id="pL" style="background:#0a0d17;padding:0">
+                <div class="set3d">
+                  <div class="piso"></div>
+                  <div class="actor"></div>
+                  <div class="luz" id="luz1" style="left:22%;top:26%"><i></i><span>Aputure 600d · softbox</span></div>
+                  <div class="luz" id="luz2" style="left:70%;top:34%"><i></i><span>Relleno · rebote</span></div>
+                  <div class="luz" id="luz3" style="left:52%;top:12%"><i></i><span>Contra · Astera</span></div>
+                  <div class="haz" id="haz1"></div>
+                  <div class="metro"><b>Fotómetro</b><span id="lux">0 lux · f/2.8 · ISO 800</span></div>
+                  <div class="cam"><b>Cámara</b><span>Alexa Mini LF · 50 mm · Plano medio</span></div>
                 </div>
               </div>
               <div class="toast" id="toast"><span id="toastTxt">Guardado</span></div>
@@ -140,12 +166,25 @@
       <h2 id="hace-h">Lo que hace por ti</h2>
       <div class="what">
         <article><div class="ic-row"><span class="ic-st" style="background:#14161B">St</span></div>
-          <h3>Formato profesional, solo</h3><p>Escribes y Fargot Studio pone cada línea en su lugar: escena, acción, personaje y diálogo, con el formato de la industria.</p></article>
-        <article><div class="ic-row"><span class="swatch" style="background:linear-gradient(135deg,#1e5bff,#0E8FD6)"></span></div>
-          <h3>Escaleta con tarjetas</h3><p>Cada escena es una tarjeta que mueves hasta que la historia funcione. El guion sigue el orden de tu escaleta.</p></article>
-        <article><div class="ic-row"><span class="swatch" style="background:linear-gradient(135deg,#C0266B,#f5b84a)"></span></div>
-          <h3>Tu mundo, en un lugar</h3><p>Personajes, lugares y la biblia de tu serie, corto o pieza de marca. Y cuando termines, exportas tu guion en PDF.</p></article>
+          <h3>Guion profesional</h3><p>Formato de la industria (escena, acción, personaje, acotación, diálogo y transición) con paginación real, autocompletado de personajes y locaciones, diálogo doble, deshacer y rehacer, y buscar y reemplazar.</p></article>
+        <article><div class="ic-row"><span class="ic-st" style="background:#1E5BFF">Es</span></div>
+          <h3>Escaleta</h3><p>Tarjetas por actos que mueves hasta que la historia funcione, con imagen y vínculo a cada escena. También se arma sola desde el guion.</p></article>
+        <article><div class="ic-row"><span class="ic-st" style="background:#0E8F7E">An</span></div>
+          <h3>Análisis</h3><p>Estructura con los hitos clásicos, presencia de cada personaje, diálogo por personaje, ritmo de escenas y tu hábito de escritura.</p></article>
+        <article><div class="ic-row"><span class="ic-st" style="background:#C0266B">Pe</span></div>
+          <h3>Personajes, locaciones y lore</h3><p>Fichas con fotos de referencia, biografía, motivación y arco; locaciones creadas desde los encabezados; y la biblia de tu mundo.</p></article>
+        <article><div class="ic-row"><span class="ic-st" style="background:#C2410C">Ar</span></div>
+          <h3>Arte</h3><p>Moodboard y concept art con categorías, notas de dirección de arte y la paleta de color de cada imagen.</p></article>
+        <article><div class="ic-row"><span class="ic-st" style="background:#6A3DF0">3D</span></div>
+          <h3>Luz y cámara en 3D</h3><p>Equipos y cámaras reales, fotómetro y 15 esquemas de luz para probar cada plano antes del rodaje.</p></article>
+        <article><div class="ic-row"><span class="ic-st" style="background:#0B5394">Le</span></div>
+          <h3>Leer en voz alta</h3><p>Escucha tu guion con una voz distinta para cada personaje.</p></article>
+        <article><div class="ic-row"><span class="ic-st" style="background:#8A4B00">Ci</span></div>
+          <h3>Cineteca y manual</h3><p>Miles de películas de referencia y un manual de guion completo, enlazado desde el editor. Y el panel ¿Atascado? cuando no sale la escena.</p></article>
+        <article><div class="ic-row"><span class="ic-st" style="background:#3A3F4A">PDF</span></div>
+          <h3>Exporta e importa</h3><p>PDF con formato estándar, Fountain y Final Draft. Versiones con colores de revisión, copia automática y varios proyectos en el mismo equipo.</p></article>
       </div>
+      <p class="muted" style="margin-top:var(--s-6)">Todo se guarda en tu equipo, también sin internet.</p>
     </div>
   </section>
 </main>
@@ -155,7 +194,7 @@
     <div class="closing__cta close--type">
       <div class="section-head">
         <h2 id="close-h">Compra Fargot Suite</h2>
-        <p>Fargot Studio viene incluida, junto con todos los plugins de la suite. Descargas la app gratis y la abres con tu clave.</p>
+        <p>Fargot Studio viene incluida, junto con todos los plugins de la suite. Descargas Fargot gratis, entras con tu clave e instalas Studio desde Apps: queda como su propio programa en el menú Inicio.</p>
       </div>
       <a class="btn btn--primary btn--xl btn--wide" href="https://farfot.lemonsqueezy.com/checkout/buy/a297658e-514b-4c76-a8c4-a7425564fb5b">Comprar Fargot Suite<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M6 2l4 4-4 4"/></svg></a>
     </div>
@@ -181,7 +220,7 @@
   async function wait(ms) { while (paused) await sleep(200); await sleep(ms); }
   function stepOn(n) { document.querySelectorAll(".step").forEach(function (s) { s.classList.toggle("is-on", Number(s.dataset.step) === n); }); }
   function pane(p) {
-    ["G", "E", "M"].forEach(function (k) { $("p" + k).classList.toggle("on", k === p); });
+    ["G", "E", "M", "L"].forEach(function (k) { $("p" + k).classList.toggle("on", k === p); });
     document.querySelectorAll(".side .nv").forEach(function (n) { n.classList.toggle("on", n.dataset.p === p.toLowerCase()); });
   }
   function toast(t) { $("toastTxt").textContent = t; $("toast").classList.add("on"); setTimeout(function () { $("toast").classList.remove("on"); }, 1600); }
@@ -231,10 +270,19 @@
     await wait(400); document.querySelector(".biblia").classList.add("in");
     await wait(2200);
   }
+  async function luz() {
+    var set = document.querySelector(".set3d"); set.classList.remove("on");
+    ["luz1", "luz2", "luz3"].forEach(function (id) { $(id).classList.remove("on"); }); $("haz1").classList.remove("on");
+    var lux = [0, 640, 820, 910];
+    for (var k = 1; k <= 3; k++) { await wait(650); $("luz" + k).classList.add("on"); if (k === 1) { $("haz1").classList.add("on"); set.classList.add("on"); } $("lux").textContent = lux[k] + " lux · f/" + ["2.8", "2.8", "4", "4"][k] + " · ISO 800"; }
+    toast("Esquema guardado en la escena 1");
+    await wait(2400);
+  }
   async function play() {
     stepOn(1); pane("G"); await escribir(); await wait(1200);
     stepOn(2); pane("E"); await wait(400); await escaleta();
     stepOn(3); pane("M"); await mundo();
+    stepOn(4); pane("L"); await luz();
   }
   async function loop() { if (reduced) { stepOn(3); pane("M"); document.querySelectorAll(".per-c,.biblia").forEach(function (p) { p.classList.add("in"); }); return; } while (true) { await play(); await sleep(500); } }
   $("demoPause").addEventListener("click", function () {
