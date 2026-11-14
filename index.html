@@ -119,6 +119,17 @@
   .r-nom s, .r-nom b { position: absolute; inset: 0; display: grid; place-items: center; transition: opacity .5s, transform .5s; transition-delay: calc((var(--d) + 1.2) * 1s); }
   .r-nom s { color: #8A909C; text-decoration: none; } .r-nom b { color: #1446CC; font-weight: 600; opacity: 0; transform: translateY(20px); }
   .esc.on .r-nom s { opacity: 0; transform: translateY(-20px); } .esc.on .r-nom b { opacity: 1; transform: none; }
+  .r-studio { display: flex; gap: 22px; align-items: center; justify-content: center; margin-bottom: 34px; }
+  .r-hoja { width: 360px; padding: 22px 26px; border-radius: 12px; background: #fff; box-shadow: 0 18px 40px rgb(20 22 27 / .12), inset 0 0 0 1px rgb(20 22 27 / .07); text-align: left; font-family: "Courier New", Courier, monospace; font-size: 13px; line-height: 1.5; color: #14161B; display: flex; flex-direction: column; gap: 8px; opacity: 0; transform: translateY(30px) rotate(-2deg); transition: transform .8s cubic-bezier(.2,.9,.25,1.1), opacity .5s; transition-delay: calc(var(--d) * 1s); }
+  .esc.on .r-hoja { opacity: 1; transform: none; }
+  .r-ln { display: block; clip-path: inset(0 100% 0 0); transition: clip-path .9s steps(28, end); transition-delay: calc(var(--d) * 1s); }
+  .esc.on .r-ln { clip-path: inset(0 0 0 0); }
+  .r-ln--esc { font-weight: 700; } .r-ln--per { text-align: center; font-weight: 700; margin-top: 4px; } .r-ln--dia { text-align: center; padding: 0 40px; }
+  .r-fichas { display: flex; flex-direction: column; gap: 10px; }
+  .r-ficha { display: flex; gap: 10px; align-items: center; width: 150px; padding: 10px 12px; border-radius: 10px; background: #fff; box-shadow: 0 10px 24px rgb(20 22 27 / .1), inset 0 0 0 1px rgb(20 22 27 / .07); font: 500 13px var(--font-text); color: #14161B; text-align: left; opacity: 0; transform: translateX(30px); transition: transform .6s cubic-bezier(.2,.9,.25,1.2), opacity .4s; transition-delay: calc(var(--d) * 1s); }
+  .r-ficha b { width: 22px; height: 22px; border-radius: 6px; background: #14161B; color: #fff; display: grid; place-items: center; font-size: 11px; flex: none; }
+  .esc.on .r-ficha { opacity: 1; transform: none; }
+  @media (max-width: 700px) { .r-fichas { display: none; } .r-hoja { width: 260px; font-size: 11px; } }
   .r-doc b { font: 700 20px var(--font-text); color: #0E8F7E; } .r-doc i { display: block; height: 8px; border-radius: 4px; background: #E6E8EC; width: 100%; }
   .r-app--pr { color: #33338F; background: #EEEEFF; } .r-app--ae { color: #4B2BB8; background: #EFEAFF; } .r-app--ai { color: #8A4B00; background: #FFF1E0; } .r-app--ps { color: #0B5394; background: #E3F2FF; }
   .esc .r-app { opacity: 0; transform: translateY(60px) rotate(-8deg) scale(.8); transition: transform .8s cubic-bezier(.2,.9,.25,1.2), opacity .5s; transition-delay: calc(var(--d) * 1s); }
@@ -230,9 +241,17 @@
               <div><div class="r-nombres"><span class="r-nom" style="--d:.2"><s>final_final2.mp4</s><b>Video 01 v2</b></span><span class="r-nom" style="--d:.5"><s>reel copia.mp4</s><b>Video 02 v2</b></span><span class="r-nom" style="--d:.8"><s>historia_ok.mp4</s><b>Video 03 v2</b></span></div>
                 <p class="r-mid e" style="--d:.3">Numera en un clic</p><p class="r-small e" style="--d:.6">Un nombre para todo el envío, con su número y su versión.</p></div>
             </div>
-            <div class="esc" data-t="5">
-              <div><div class="r-apps"><span class="r-app r-app--st" style="--d:.1">St</span></div>
-                <p class="r-mid e" style="--d:.4">Fargot Studio</p><p class="r-small e" style="--d:.7">Tu guion, tu escaleta y la biblia de tu mundo, en un solo lugar.</p></div>
+            <div class="esc" data-t="6">
+              <div><div class="r-studio">
+                  <div class="r-hoja" style="--d:.1">
+                    <span class="r-ln r-ln--esc" style="--d:.4">1. INT. ESTUDIO DE EDICIÓN – NOCHE</span>
+                    <span class="r-ln" style="--d:.9">Una pantalla ilumina el cuarto. Faltan diez minutos para la entrega.</span>
+                    <span class="r-ln r-ln--per" style="--d:1.5">LUCÍA</span>
+                    <span class="r-ln r-ln--dia" style="--d:1.9">Exporta. Ya.</span>
+                  </div>
+                  <div class="r-fichas"><span class="r-ficha" style="--d:2.4"><b>1</b>La entrega</span><span class="r-ficha" style="--d:2.6"><b>2</b>El error</span><span class="r-ficha" style="--d:2.8"><b>3</b>Render final</span></div>
+                </div>
+                <p class="r-mid e" style="--d:.2">Fargot Studio</p><p class="r-small e" style="--d:.5">Tu guion, tu escaleta y la biblia de tu mundo, en un solo lugar.</p></div>
             </div>
             <div class="esc" data-t="5">
               <div><div class="r-flujo" style="justify-content:center"><span class="r-doc" style="--d:.1"><b>EN</b><i></i><i></i><i style="width:60%"></i></span><span class="r-vuelo" style="width:160px"><i style="--d:.5;background:#0E8F7E"></i><i style="--d:.8;background:#0E8F7E"></i></span><span class="r-doc" style="--d:.3"><b>ES</b><i></i><i></i><i style="width:60%"></i></span></div>
