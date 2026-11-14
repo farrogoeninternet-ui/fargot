@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="es" data-type="software" data-radius="soft" data-ground="sky" data-buttons="tonal" data-motion>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fargot Studio: escribe tu guion, arma la escaleta y crea tu mundo</title>
+<meta name="description" content="Fargot Studio, incluida en Fargot Suite: escribe tu guion con formato profesional, arma la escaleta con tarjetas, crea personajes y guarda la biblia de tu mundo. Exporta en PDF.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Fargot Studio: tu guion, tu escaleta y tu mundo">
+<meta property="og:description" content="Guion con formato profesional, escaleta, personajes y la biblia de tu mundo, en un solo lugar.">
+<meta property="og:url" content="https://farrogoeninternet-ui.github.io/fargot/studio.html">
+<meta property="og:image" content="https://farrogoeninternet-ui.github.io/fargot/share.jpg">
+<link rel="canonical" href="https://farrogoeninternet-ui.github.io/fargot/studio.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/favicon.png" type="image/png">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<link rel="stylesheet" href="assets/icons/icon.css">
+<link rel="stylesheet" href="fargot.css">
+<style>
+.demo-wrap { position: relative; margin-top: var(--s-7); }
+.viewport { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; border: 1px solid rgb(20 22 27 / .1); background: #F4F5F7; }
+.stage { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; transform-origin: 0 0; font: 400 13px/1.35 var(--font-text); color: #3A3F4A; }
+@media (max-width: 760px) { .viewport { aspect-ratio: 4 / 3; } }
+.stage::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 70% at 25% 30%, rgb(30 91 255 / .12), transparent 70%); }
+.w { position: absolute; left: 90px; top: 50px; width: 1100px; height: 620px; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px rgb(20 22 27 / .08), 0 40px 80px -30px rgb(20 22 27 / .24); }
+.w__bar { height: 36px; display: flex; align-items: center; gap: 10px; padding: 0 14px; background: #F7F8FA; border-bottom: 1px solid rgb(20 22 27 / .07); color: #5E6472; font-size: 13px; }
+.w__bar .dots { display: flex; gap: 6px; } .w__bar .dots i { width: 10px; height: 10px; border-radius: 50%; background: #DADDE3; }
+.st-ic { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 5px; background: #14161B; color: #fff; font: 700 10px var(--font-text); }
+.side { position: absolute; left: 0; top: 36px; bottom: 0; width: 170px; background: #F7F8FA; border-right: 1px solid rgb(20 22 27 / .07); padding: 16px 10px; }
+.side .nv { padding: 8px 10px; border-radius: 7px; color: #5E6472; font-size: 13px; margin-bottom: 3px; transition: background .3s, color .3s; }
+.side .nv.on { background: rgb(30 91 255 / .12); color: #14161B; font-weight: 600; }
+.pane { position: absolute; left: 170px; right: 0; top: 36px; bottom: 0; padding: 22px 28px; opacity: 0; transform: translateY(10px); transition: opacity .45s, transform .45s; }
+.pane.on { opacity: 1; transform: none; }
+.pane h4 { margin: 0 0 14px; font: 600 18px var(--font-text); color: #14161B; }
+/* guion */
+.hoja { width: 560px; margin: 0 auto; min-height: 520px; background: #fff; box-shadow: 0 0 0 1px rgb(20 22 27 / .08), 0 16px 36px -18px rgb(20 22 27 / .3); border-radius: 6px; padding: 38px 56px; font-family: "Courier New", Courier, monospace; font-size: 14px; line-height: 1.55; color: #14161B; }
+.ln { display: block; min-height: 22px; margin-bottom: 10px; white-space: pre-wrap; }
+.ln.esc { font-weight: 700; } .ln.per { text-align: center; font-weight: 700; margin: 14px 0 0; } .ln.dia { padding: 0 70px; text-align: center; } .ln.par { text-align: center; color: #5E6472; margin: 0 0 4px; }
+.caret { display: inline-block; width: 2px; height: 16px; background: #1E5BFF; vertical-align: -3px; animation: parpadeo 1s steps(1) infinite; }
+@keyframes parpadeo { 50% { opacity: 0; } }
+.fmt { position: absolute; right: 28px; top: 22px; display: flex; gap: 6px; }
+.fmt span { height: 26px; padding: 0 10px; border-radius: 6px; font-size: 11.5px; display: grid; place-items: center; background: #F4F5F7; color: #5E6472; transition: background .2s, color .2s; }
+.fmt span.on { background: #14161B; color: #fff; }
+/* escaleta */
+.cards { position: relative; height: 470px; }
+.card-e { position: absolute; width: 270px; height: 150px; border-radius: 12px; background: #fff; box-shadow: 0 0 0 1px rgb(20 22 27 / .08), 0 14px 30px -16px rgb(20 22 27 / .3); padding: 14px 16px; transition: left .7s cubic-bezier(.65,0,.35,1), top .7s cubic-bezier(.65,0,.35,1), opacity .4s, transform .4s; opacity: 0; transform: scale(.9); }
+.card-e.in { opacity: 1; transform: none; }
+.card-e.drag { transform: rotate(-3deg) scale(1.04); box-shadow: 0 0 0 2px #1E5BFF, 0 24px 40px -14px rgb(20 22 27 / .35); z-index: 5; }
+.card-e b { display: flex; gap: 8px; align-items: center; font-size: 13.5px; color: #14161B; } .card-e b i { width: 22px; height: 22px; border-radius: 6px; background: #14161B; color: #fff; font: 700 11px var(--font-text); font-style: normal; display: grid; place-items: center; }
+.card-e p { margin: 10px 0 0; font-size: 12px; color: #5E6472; line-height: 1.45; }
+.card-e .cl { position: absolute; left: 16px; bottom: 12px; height: 4px; width: 60px; border-radius: 2px; }
+/* mundo */
+.mundo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.per-c { border-radius: 12px; background: #fff; box-shadow: 0 0 0 1px rgb(20 22 27 / .08); padding: 16px; opacity: 0; transform: translateY(12px); transition: opacity .4s, transform .4s; }
+.per-c.in { opacity: 1; transform: none; }
+.per-c .av { width: 46px; height: 46px; border-radius: 23px; display: grid; place-items: center; color: #fff; font: 700 17px var(--font-text); margin-bottom: 10px; }
+.per-c b { display: block; color: #14161B; font-size: 14px; } .per-c small { color: #5E6472; font-size: 12px; }
+.per-c p { font-size: 12px; color: #3A3F4A; margin: 8px 0 0; line-height: 1.45; }
+.biblia { grid-column: 1 / -1; border-radius: 12px; background: #F7F8FA; padding: 16px 18px; opacity: 0; transition: opacity .5s; }
+.biblia.in { opacity: 1; } .biblia b { color: #14161B; font-size: 13px; } .biblia p { margin: 6px 0 0; font-size: 12.5px; color: #3A3F4A; }
+.toast { position: absolute; left: 50%; bottom: 20px; transform: translate(-50%, 20px); opacity: 0; transition: opacity .35s, transform .35s; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; background: #14161B; color: #fff; font-size: 12.5px; }
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
+.demo-pause { position: absolute; right: 14px; bottom: 14px; z-index: 40; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgb(20 22 27 / .15); background: #fff; color: #14161B; display: grid; place-items: center; cursor: pointer; }
+.what .ic-st { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; color: #fff; font: 700 13px var(--font-text); }
+</style>
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script src="correo.js" defer></script>
+</head>
+<body>
+<header class="nav nav--centre">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Ir al contenido</a>
+    <a class="nav__logo" href="./" aria-label="Fargot Suite, inicio"><img src="img/fargot-logo-2.png" alt="Fargot" width="68" height="30"></a>
+    <nav class="nav__links" aria-label="Principal">
+      <div class="nav__item"><a class="nav__link" href="./">Suite</a></div>
+      <div class="nav__item"><a class="nav__link" href="#como">Cómo funciona</a></div>
+      <div class="nav__item"><a class="nav__link" href="#hace">Qué hace</a></div>
+      <div class="nav__item"><a class="nav__link" href="ayuda.html">Guía</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary" href="https://farfot.lemonsqueezy.com/checkout/buy/a297658e-514b-4c76-a8c4-a7425564fb5b">Comprar Fargot Suite</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menú">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="section" id="como" style="--h:1; min-height:100svh; height:auto" aria-labelledby="como-h" data-enter>
+    <div class="wrap">
+      <p class="crumb"><a href="./">Fargot Suite</a> › Fargot Studio</p>
+      <div class="grid grid--top">
+        <h1 id="como-h" class="span-7" style="font-size:clamp(38px,5vw,64px);margin:0">Tu historia, de la idea al guion</h1>
+        <p class="span-5 t-lead muted" style="margin:0;align-self:end">Fargot Studio te deja escribir con formato profesional, armar la escaleta con tarjetas y guardar a tus personajes y la biblia de tu mundo. Viene incluida en Fargot Suite.</p>
+      </div>
+      <div class="demo-wrap">
+        <div class="steps-row" aria-hidden="true">
+          <span class="step" data-step="1"><b>1</b>Escribe con formato de guion</span>
+          <span class="step" data-step="2"><b>2</b>Ordena la escaleta</span>
+          <span class="step" data-step="3"><b>3</b>Crea tu mundo</span>
+        </div>
+        <div class="viewport" id="viewport" role="img" aria-label="Animación: en Fargot Studio se escribe una escena con formato de guion, luego se reordenan las tarjetas de la escaleta y aparecen las fichas de personajes y la biblia del mundo.">
+          <div class="stage" id="stage">
+            <div class="w">
+              <div class="w__bar"><span class="dots"><i></i><i></i><i></i></span><span class="st-ic">St</span>Fargot Studio · Corto “La entrega”</div>
+              <div class="side"><div class="nv on" data-p="g">Guion</div><div class="nv" data-p="e">Escaleta</div><div class="nv" data-p="m">Personajes y mundo</div></div>
+              <div class="pane on" id="pG">
+                <div class="fmt"><span data-f="esc">Escena</span><span data-f="acc">Acción</span><span data-f="per">Personaje</span><span data-f="dia">Diálogo</span></div>
+                <div class="hoja" id="hoja"></div>
+              </div>
+              <div class="pane" id="pE"><h4>Escaleta</h4><div class="cards" id="cards"></div></div>
+              <div class="pane" id="pM"><h4>Personajes y mundo</h4>
+                <div class="mundo">
+                  <div class="per-c"><div class="av" style="background:#1E5BFF">L</div><b>Lucía</b><small>Editora · protagonista</small><p>Nunca entrega tarde. Hoy es la excepción.</p></div>
+                  <div class="per-c"><div class="av" style="background:#C0266B">M</div><b>Mateo</b><small>Director creativo</small><p>Pide un cambio más, siempre a las 11:58.</p></div>
+                  <div class="per-c"><div class="av" style="background:#0E8F7E">R</div><b>El render</b><small>Antagonista</small><p>Tarda justo lo que no tienes.</p></div>
+                  <div class="biblia"><b>Biblia del mundo</b><p>Una agencia pequeña en una ciudad que nunca duerme. Las entregas son a medianoche y cada versión tiene nombre propio.</p></div>
+                </div>
+              </div>
+              <div class="toast" id="toast"><span id="toastTxt">Guardado</span></div>
+            </div>
+          </div>
+          <button class="demo-pause" id="demoPause" type="button" aria-label="Pausar la animación"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" id="pauseIco"><path d="M4 2v10M10 2v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="hace" style="--h:1" aria-labelledby="hace-h">
+    <div class="wrap">
+      <h2 id="hace-h">Lo que hace por ti</h2>
+      <div class="what">
+        <article><div class="ic-row"><span class="ic-st" style="background:#14161B">St</span></div>
+          <h3>Formato profesional, solo</h3><p>Escribes y Fargot Studio pone cada línea en su lugar: escena, acción, personaje y diálogo, con el formato de la industria.</p></article>
+        <article><div class="ic-row"><span class="swatch" style="background:linear-gradient(135deg,#1e5bff,#0E8FD6)"></span></div>
+          <h3>Escaleta con tarjetas</h3><p>Cada escena es una tarjeta que mueves hasta que la historia funcione. El guion sigue el orden de tu escaleta.</p></article>
+        <article><div class="ic-row"><span class="swatch" style="background:linear-gradient(135deg,#C0266B,#f5b84a)"></span></div>
+          <h3>Tu mundo, en un lugar</h3><p>Personajes, lugares y la biblia de tu serie, corto o pieza de marca. Y cuando termines, exportas tu guion en PDF.</p></article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer closing" id="contact" aria-labelledby="close-h" style="--h:1">
+  <div class="wrap">
+    <div class="closing__cta close--type">
+      <div class="section-head">
+        <h2 id="close-h">Compra Fargot Suite</h2>
+        <p>Fargot Studio viene incluida, junto con todos los plugins de la suite. Descargas la app gratis y la abres con tu clave.</p>
+      </div>
+      <a class="btn btn--primary btn--xl btn--wide" href="https://farfot.lemonsqueezy.com/checkout/buy/a297658e-514b-4c76-a8c4-a7425564fb5b">Comprar Fargot Suite<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M6 2l4 4-4 4"/></svg></a>
+    </div>
+    <div class="closing__links">
+      <div class="footer__legal">
+        <span>&copy; 2026 Fargot &nbsp; <a href="./">Fargot Suite</a> &nbsp; <a href="ayuda.html">Guía</a> &nbsp; <a href="terminos.html">Términos y reembolsos</a> &nbsp; <a href="privacidad.html">Privacidad</a> &nbsp; <a href="eula.txt">Contrato de licencia</a> &nbsp; <a href="reportar.html">Reportar un problema</a></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script>
+(function () {
+  var stage = document.getElementById("stage"), vp = document.getElementById("viewport");
+  function fit() { var s = vp.clientWidth / 1280; var narrow = vp.clientWidth < 700; stage.style.transform = narrow ? "scale(" + (vp.clientWidth / 900) + ") translate(-90px,-30px)" : "scale(" + s + ")"; }
+  fit(); addEventListener("resize", fit);
+  var $ = function (id) { return document.getElementById(id); };
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var paused = false;
+  function sleep(ms) { return new Promise(function (ok) { setTimeout(ok, ms); }); }
+  async function wait(ms) { while (paused) await sleep(200); await sleep(ms); }
+  function stepOn(n) { document.querySelectorAll(".step").forEach(function (s) { s.classList.toggle("is-on", Number(s.dataset.step) === n); }); }
+  function pane(p) {
+    ["G", "E", "M"].forEach(function (k) { $("p" + k).classList.toggle("on", k === p); });
+    document.querySelectorAll(".side .nv").forEach(function (n) { n.classList.toggle("on", n.dataset.p === p.toLowerCase()); });
+  }
+  function toast(t) { $("toastTxt").textContent = t; $("toast").classList.add("on"); setTimeout(function () { $("toast").classList.remove("on"); }, 1600); }
+  function fmt(f) { document.querySelectorAll(".fmt span").forEach(function (s) { s.classList.toggle("on", s.dataset.f === f); }); }
+  var GUION = [
+    ["esc", "1. INT. AGENCIA – NOCHE"],
+    ["acc", "Una sola pantalla ilumina la sala. El reloj marca las 11:52."],
+    ["per", "LUCÍA"],
+    ["dia", "Ocho minutos. Exporta, por favor."],
+    ["per", "MATEO"],
+    ["dia", "¿Y si probamos otra música?"]
+  ];
+  async function escribir() {
+    var hoja = $("hoja"); hoja.innerHTML = "";
+    for (var i = 0; i < GUION.length; i++) {
+      fmt(GUION[i][0]);
+      var ln = document.createElement("span"); ln.className = "ln " + GUION[i][0]; hoja.appendChild(ln);
+      var car = document.createElement("span"); car.className = "caret";
+      var t = GUION[i][1];
+      for (var c = 0; c <= t.length; c++) { ln.textContent = t.slice(0, c); ln.appendChild(car); await wait(reduced ? 0 : 26); }
+      ln.removeChild(car); await wait(220);
+    }
+    fmt(""); toast("Guion guardado");
+  }
+  var ESCENAS = [["1", "La entrega", "Ocho minutos para exportar.", "#1E5BFF"], ["2", "El cambio", "Mateo pide otra música.", "#C0266B"], ["3", "El render", "La barra no avanza.", "#f5b84a"], ["4", "Medianoche", "Enviado. Justo a tiempo.", "#0E8F7E"]];
+  var POS = [[20, 10], [310, 10], [600, 10], [20, 190]];
+  async function escaleta() {
+    var cards = $("cards"); cards.innerHTML = "";
+    var els = ESCENAS.map(function (e, k) {
+      var d = document.createElement("div"); d.className = "card-e";
+      d.innerHTML = "<b><i>" + e[0] + "</i>" + e[1] + "</b><p>" + e[2] + "</p><span class='cl' style='background:" + e[3] + "'></span>";
+      d.style.left = POS[k][0] + "px"; d.style.top = POS[k][1] + "px"; cards.appendChild(d); return d;
+    });
+    for (var k = 0; k < els.length; k++) { await wait(160); els[k].classList.add("in"); }
+    await wait(900);
+    // mueve "El render" antes de "El cambio"
+    els[2].classList.add("drag"); await wait(300);
+    els[2].style.left = POS[1][0] + "px"; els[1].style.left = POS[2][0] + "px";
+    await wait(800); els[2].classList.remove("drag");
+    els[2].querySelector("i").textContent = "2"; els[1].querySelector("i").textContent = "3";
+    toast("Escaleta reordenada: el guion sigue el nuevo orden");
+    await wait(1400);
+  }
+  async function mundo() {
+    var ps = document.querySelectorAll(".per-c"); ps.forEach(function (p) { p.classList.remove("in"); }); document.querySelector(".biblia").classList.remove("in");
+    for (var k = 0; k < ps.length; k++) { await wait(260); ps[k].classList.add("in"); }
+    await wait(400); document.querySelector(".biblia").classList.add("in");
+    await wait(2200);
+  }
+  async function play() {
+    stepOn(1); pane("G"); await escribir(); await wait(1200);
+    stepOn(2); pane("E"); await wait(400); await escaleta();
+    stepOn(3); pane("M"); await mundo();
+  }
+  async function loop() { if (reduced) { stepOn(3); pane("M"); document.querySelectorAll(".per-c,.biblia").forEach(function (p) { p.classList.add("in"); }); return; } while (true) { await play(); await sleep(500); } }
+  $("demoPause").addEventListener("click", function () {
+    paused = !paused;
+    $("pauseIco").innerHTML = paused ? '<path d="M4 2l8 5-8 5z" fill="currentColor"/>' : '<path d="M4 2v10M10 2v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+    this.setAttribute("aria-label", paused ? "Reanudar la animación" : "Pausar la animación");
+  });
+  loop();
+})();
+</script>
+</body>
+</html>

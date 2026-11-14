@@ -62,11 +62,11 @@
 .side .nv { padding: 7px 8px; border-radius: 6px; color: #5E6472; font-size: 12px; margin-bottom: 2px; }
 .side .nv.on { background: rgb(30 91 255 / .16); color: #14161B; }
 .main { position: absolute; left: 132px; right: 0; top: 36px; bottom: 0; padding: 16px 18px; }
-.main .m-h { display: block; margin: 0; font: 600 17px var(--font-text); color: #fff; }
+.main .m-h { display: block; margin: 0; font: 600 17px var(--font-text); color: #14161B; }
 .main .sub { color: #5E6472; font-size: 11.5px; margin: 4px 0 10px; }
 .tops { position: absolute; right: 18px; top: 14px; display: flex; gap: 6px; }
 .abtn { height: 28px; padding: 0 12px; border-radius: 6px; display: grid; place-items: center; font-size: 12px; font-weight: 500; background: #F4F5F7; color: #14161B; box-shadow: inset 0 0 0 1px rgb(20 22 27 / .08); transition: transform .12s; }
-.abtn.pri { background: #1e5bff; box-shadow: none; } .abtn.press { transform: scale(.94); }
+.abtn.pri { background: #1e5bff; color: #fff; box-shadow: none; } .abtn.press { transform: scale(.94); }
 .chips { display: flex; gap: 6px; margin-bottom: 10px; }
 .chip { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px 0 6px; border-radius: 6px; background: #F4F5F7; color: #5E6472; font-size: 11.5px; box-shadow: inset 0 0 0 1px rgb(20 22 27 / .07); }
 .chip.on { color: #14161B; background: rgb(30 91 255 / .16); box-shadow: inset 0 0 0 1px rgb(30 91 255 / .5); }
@@ -75,7 +75,7 @@
 .row.in { opacity: 1; transform: none; }
 .row b { font-weight: 500; font-size: 12.5px; color: #14161B; } .row small { display: block; color: #8A909C; font-size: 10.5px; }
 .row .v { font-variant-numeric: tabular-nums; color: #5E6472; font-size: 12px; }
-.row .v.on { color: #fff; font-weight: 600; }
+.row .v.on { color: #1446CC; font-weight: 600; }
 .row .st { display: flex; align-items: center; gap: 6px; color: #5E6472; font-size: 11.5px; }
 .row .st i { width: 7px; height: 7px; border-radius: 50%; background: #707890; transition: background .3s; }
 .row .st.ok i { background: #146C43; }
@@ -95,7 +95,7 @@
 .tree .tag { margin-left: auto; color: #146C43; font-size: 11px; }
 .cursor { position: absolute; left: 640px; top: 700px; width: 22px; height: 22px; z-index: 30; filter: drop-shadow(0 2px 3px rgb(20 22 27 / .18)); transition: transform .12s; }
 .cursor.press { transform: scale(.82); }
-.demo-pause { position: absolute; right: 14px; bottom: 14px; z-index: 40; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgb(20 22 27 / .2); background: rgb(7 11 24 / .8); color: #14161B; display: grid; place-items: center; cursor: pointer; }
+.demo-pause { position: absolute; right: 14px; bottom: 14px; z-index: 40; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgb(20 22 27 / .2); background: #fff; color: #14161B; display: grid; place-items: center; cursor: pointer; }
 .demo-pause:focus-visible { outline: 2px solid #14161B; outline-offset: 2px; }
 </style>
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
