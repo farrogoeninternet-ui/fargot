@@ -150,6 +150,16 @@
   .esc.on .r-carpeta i { animation: cae 1s cubic-bezier(.5,0,.3,1) forwards; animation-delay: calc(var(--d) * 1s); }
   @keyframes cae { 0% { top: -140px; opacity: 0 } 30% { opacity: 1 } 100% { top: 18px; opacity: 1 } }
   .r-ver { display: inline-block; margin-left: 12px; padding: 4px 12px; border-radius: 99px; background: #E7F6EF; color: #146C43; font: 600 22px var(--font-text); vertical-align: middle; }
+  /* Studio: libros (novela, cuento, cómic) y Android */
+  .r-libros { display: flex; gap: 24px; justify-content: center; align-items: flex-end; margin-bottom: 40px; }
+  .r-libro { position: relative; width: 118px; height: 168px; border-radius: 4px 12px 12px 4px; padding: 18px 12px 12px 20px; color: #fff; font: 700 17px/1.1 var(--font-text); text-align: left; box-shadow: 0 20px 44px rgb(20 22 27 / .18); opacity: 0; transform: translateY(50px) rotate(-6deg); transition: transform .8s cubic-bezier(.2,.9,.25,1.2), opacity .5s; transition-delay: calc(var(--d) * 1s); }
+  .r-libro::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 9px; border-radius: 4px 0 0 4px; background: rgb(0 0 0 / .22); }
+  .r-libro small { display: block; margin-top: 8px; font: 500 11px var(--font-text); opacity: .8; }
+  .esc.on .r-libro { opacity: 1; transform: none; }
+  .r-tel { position: relative; width: 92px; height: 176px; border-radius: 20px; border: 5px solid #14161B; background: #fff; padding: 22px 10px; display: flex; flex-direction: column; gap: 7px; opacity: 0; transform: translateY(50px); transition: transform .8s cubic-bezier(.2,.9,.25,1.2), opacity .5s; transition-delay: calc(var(--d) * 1s); }
+  .r-tel i { display: block; height: 6px; border-radius: 3px; background: #E6E8EC; } .r-tel i:first-child { background: #1E5BFF; width: 60%; }
+  .esc.on .r-tel { opacity: 1; transform: none; }
+  @media (max-width: 700px) { .r-tel { display: none; } .r-libro { width: 96px; height: 136px; font-size: 14px; } }
   /* subtitulos de progreso y boton de pausa */
   .reel__barra { position: absolute; left: 24px; right: 76px; bottom: 26px; display: flex; gap: 6px; z-index: 2; }
   .reel__barra i { flex: 1; height: 3px; border-radius: 2px; background: rgb(20 22 27 / .16); overflow: hidden; }
@@ -252,6 +262,10 @@
                   <div class="r-fichas"><span class="r-ficha" style="--d:2.4"><b>1</b>La entrega</span><span class="r-ficha" style="--d:2.6"><b>2</b>El error</span><span class="r-ficha" style="--d:2.8"><b>3</b>Render final</span></div>
                 </div>
                 <p class="r-mid e" style="--d:.2">Fargot Studio</p><p class="r-small e" style="--d:.5">Tu guion, tu escaleta y la biblia de tu mundo, en un solo lugar.</p></div>
+            </div>
+            <div class="esc" data-t="5.5">
+              <div><div class="r-libros"><span class="r-libro" style="--d:.1;background:#1446D6">Novela<small>Capítulos, maqueta y ePub</small></span><span class="r-libro" style="--d:.35;background:#E5484D">Cuento<small>Ilustrado, página a página</small></span><span class="r-libro" style="--d:.6;background:#F59E0B">Cómic<small>Viñetas y globos</small></span><span class="r-tel" style="--d:.9"><i></i><i></i><i></i><i style="width:70%"></i><i></i><i style="width:50%"></i></span></div>
+                <p class="r-mid e" style="--d:.3">Escribe <span class="r-grad">libros</span></p><p class="r-small e" style="--d:.6">Novela, libro infantil y cómic, maquetados para imprenta. También en Android.</p></div>
             </div>
             <div class="esc" data-t="5">
               <div><div class="r-flujo" style="justify-content:center"><span class="r-doc" style="--d:.1"><b>EN</b><i></i><i></i><i style="width:60%"></i></span><span class="r-vuelo" style="width:160px"><i style="--d:.5;background:#0B7A6B"></i><i style="--d:.8;background:#0B7A6B"></i></span><span class="r-doc" style="--d:.3"><b>ES</b><i></i><i></i><i style="width:60%"></i></span></div>
